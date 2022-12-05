@@ -1,0 +1,14 @@
+.bar-group {
+    text-anchor: end;
+}
+
+.name-label {
+    font-weight: 300;
+    font-size: 1em;
+    fill: #333;
+}
+
+.value-label {
+    font-weight: 900;
+    font-size: 0.7em;
+}

@@ -1,24 +1,42 @@
-import logo from './logo.svg';
+import React, { Suspense } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import InsertItem from './pages/InsertItem';
+
+const HomePage = React.lazy(() => import('./pages/Home'));
+const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
+
+const routes = [
+  {
+    path: '/',
+    component: <Navigate replace to='/home' />
+  },
+  {
+    path: '/home',
+    component: <HomePage />
+  },
+  {
+    path: '/insert',
+    component: <InsertItem />
+  },
+  {
+    path: '*',
+    component: <NotFoundPage />
+  }
+]
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense>
+      <Routes>
+        {
+          routes.map(route => {
+            const { path, component } = route;
+            return <Route key={path} path={path} element={component} />;
+          })
+        }
+      </Routes>
+    </Suspense>
   );
 }
 
