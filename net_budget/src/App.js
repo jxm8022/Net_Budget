@@ -16,7 +16,7 @@ const routes = [
     component: <HomePage />
   },
   {
-    path: '/insert',
+    path: '/addTransaction',
     component: <InsertItem />
   },
   {

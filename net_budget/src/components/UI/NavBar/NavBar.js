@@ -19,14 +19,14 @@ const NavBar = () => {
                 </li>
                 <li>
                     <NavLink
-                        to={'../insert'}
+                        to={'../addTransaction'}
                         className={
                             ({ isActive }) => {
                                 return isActive ? 'active navbarLink' : 'navbarLink'
                             }
                         }
                     >
-                        Insert Entry
+                        Add Transaction
                     </NavLink>
                 </li>
             </ul>
