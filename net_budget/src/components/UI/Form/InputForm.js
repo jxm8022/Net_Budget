@@ -3,8 +3,8 @@ import './InputForm.css';
 
 const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
-const minDate = `${currentDate.getFullYear()}` + '-01' + '-01';
-const maxDate = `${currentDate.getFullYear() + 1}` + '-01' + '-07';
+const minDate = `${currentDate.getFullYear()}-01-01`;
+const maxDate = `${currentDate.getFullYear() + 1}-01-07`;
 
 const InputForm = () => {
     const transType = useRef();
