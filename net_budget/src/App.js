@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
@@ -18,6 +19,10 @@ const routes = [
   {
     path: '/addTransaction',
     component: <InsertItem />
+  },
+  {
+    path: '/monthOverview',
+    component: <DisplayMonth />
   },
   {
     path: '*',

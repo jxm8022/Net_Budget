@@ -1,0 +1,4 @@
+.month-input-form label select,
+.year-input-form label select {
+    margin: 10px;
+}

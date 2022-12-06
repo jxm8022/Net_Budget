@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import xReducer from '../reducers/xReducer';
+import transactionReducer from '../reducers/transactionReducer';
 
 const store = configureStore(
     {
         reducer: {
-            x: xReducer,
+            transaction: transactionReducer,
         }
     }
 );

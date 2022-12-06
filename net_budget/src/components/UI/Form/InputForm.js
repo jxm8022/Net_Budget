@@ -1,4 +1,8 @@
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTransaction } from '../../../actions/transactionActions';
+import { categories } from '../../../assets/categories';
+import Selector from '../Selector/Selector';
 import './InputForm.css';
 
 const currentDate = new Date();
@@ -12,6 +16,7 @@ const InputForm = () => {
     const transName = useRef();
     const transAmount = useRef();
     const [error, setError] = useState();
+    const dispatch = useDispatch();
 
     const submitForm = (event) => {
         event.preventDefault();
@@ -23,9 +28,15 @@ const InputForm = () => {
         const amount = transAmount.current.value;
 
         if (type && date && name && amount) {
-            const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${type}\nTransaction Date: ${date}\nTransaction Name: ${name}\nTransaction Amount: $${amount}`);
+            const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${categories[type].type}\nTransaction Date: ${date}\nTransaction Name: ${name}\nTransaction Amount: $${amount}`);
             if (response) {
-                transType.current.value = 'Need';
+                dispatch(addTransaction({
+                    type,
+                    date,
+                    name,
+                    amount
+                }));
+                transType.current.value = 0;
                 transDate.current.value = defaultDate;
                 transName.current.value = null;
                 transAmount.current.value = null;
@@ -37,17 +48,9 @@ const InputForm = () => {
 
     return (
         <form className='input-form' onSubmit={submitForm}>
-            <label>Type
-                <select id='type' ref={transType}>
-                    <option value='Need'>Need</option>
-                    <option value='Want'>Want</option>
-                    <option value='Savings'>Savings</option>
-                    <option value='Debt Payment'>Debt Payment</option>
-                    <option value='Income'>Income</option>
-                </select>
-            </label>
+            <Selector ref={transType} type='TYPE' />
             <label>Date
-                <input id='date' ref={transDate} type='date' defaultValue={defaultDate} min={minDate} max={maxDate}></input>
+                <input id='date' ref={transDate} type='date' defaultValue={defaultDate} min={minDate} max={maxDate}></input> {/* change min to previous year */}
             </label>
             <label >Transaction
                 <input id='name' ref={transName} type='text' placeholder='Transaction Name' style={{ width: '50%' }}></input>

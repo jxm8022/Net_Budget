@@ -29,6 +29,18 @@ const NavBar = () => {
                         Add Transaction
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        to={'../monthOverview'}
+                        className={
+                            ({ isActive }) => {
+                                return isActive ? 'active navbarLink' : 'navbarLink'
+                            }
+                        }
+                    >
+                        Month Overview
+                    </NavLink>
+                </li>
             </ul>
         </nav >
     );
