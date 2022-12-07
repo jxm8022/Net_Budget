@@ -1,3 +1,4 @@
+import { categories } from '../../../assets/categories';
 import './Table.css';
 
 const Table = (props) => {
@@ -29,10 +30,10 @@ const Table = (props) => {
             <tbody>
                 {transactions.map((item) => (
                     <tr key={item.id} onClick={selectItem}>
-                        <td>{item.type}</td>
+                        <td>{categories[item.type].type}</td>
                         <td>{item.date}</td>
                         <td>{item.name}</td>
-                        <td>{item.amount}</td>
+                        <td>${item.amount}</td>
                     </tr>
                 ))}
             </tbody>
