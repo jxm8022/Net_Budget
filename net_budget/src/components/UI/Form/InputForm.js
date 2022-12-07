@@ -15,8 +15,13 @@ const InputForm = () => {
     const transDate = useRef();
     const transName = useRef();
     const transAmount = useRef();
+    const [selectedMonth, setSelectedMonth] = useState(defaultDate.split('-')[1] - 1);
     const [error, setError] = useState();
     const dispatch = useDispatch();
+
+    const dateChanged = (event) => {
+        setSelectedMonth(transDate.current.value.split('-')[1] - 1);
+    }
 
     const submitForm = (event) => {
         event.preventDefault();
@@ -50,9 +55,9 @@ const InputForm = () => {
 
     return (
         <form className='input-form' onSubmit={submitForm}>
-            <Selector ref={transType} type='TYPE' />
+            <Selector ref={transType} type='TYPE' selectedMonth={selectedMonth} />
             <label>Date
-                <input id='date' ref={transDate} type='date' defaultValue={defaultDate} min={minDate} max={maxDate}></input> {/* change min to previous year */}
+                <input id='date' ref={transDate} type='date' onChange={dateChanged} defaultValue={defaultDate} min={minDate} max={maxDate}></input> {/* change min to previous year */}
             </label>
             <label >Transaction
                 <input id='name' ref={transName} type='text' placeholder='Transaction Name' style={{ width: '50%' }}></input>
