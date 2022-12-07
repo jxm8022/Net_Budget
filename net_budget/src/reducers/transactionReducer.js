@@ -78,6 +78,20 @@ const transactionReducer = (state = initialState, action) => {
                     };
                     return newState;
                 }
+                if (action.payload.type === 6) { // pIncome
+                    const newProjNet = previousProjNet + action.payload.amount;
+                    const pTransactionsId = monthInfo.transactions.length;
+                    const newPTransactions = [...monthInfo.transactions, { ...action.payload, id: pTransactionsId }];
+                    const updatedMonth = { ...monthInfo, projNet: newProjNet, transactions: newPTransactions };
+                    let newMonthOverview = [...state.monthOverview];
+                    newMonthOverview[monthIndex] = updatedMonth;
+
+                    let newState = {
+                        ...state,
+                        monthOverview: newMonthOverview
+                    };
+                    return newState;
+                }
             }
             return { ...state };
         default:
