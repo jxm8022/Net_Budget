@@ -4,11 +4,21 @@ import { useSelector } from 'react-redux';
 import './Selector.css';
 import { categories } from "../../../assets/categories";
 
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth();
+
 const TypeSelector = React.forwardRef((props, ref) => {
+    const { selectedMonth } = props;
+    let filteredOptions = [...categories];
+
+    if (currentMonth !== selectedMonth) {
+        filteredOptions = categories.filter((category) => category.id < 6);
+    }
+
     return (
         <label>Type
             <select id='type' ref={ref}>
-                {categories.map((category, index) => <option key={category.id} value={index}>{category.type}</option>)}
+                {filteredOptions.map((category, index) => <option key={category.id} value={index}>{category.type}</option>)}
             </select>
         </label>
     );
@@ -23,12 +33,12 @@ const MonthSelector = (props) => {
     return (
         <form className='month-input-form'>
             <label>Month
-                <select id='type' defaultValue={new Date().getMonth()} onChange={props.onMonthChange}>
+                <select id='type' defaultValue={currentMonth} onChange={props.onMonthChange}>
                     {months.map((month, index) => <option key={month.abb} value={index}>{month.abb}</option>)}
                 </select>
             </label>
             <label>Year
-                <select id='type' defaultValue={new Date().getFullYear()} onChange={props.onYearChange}>
+                <select id='type' defaultValue={currentYear} onChange={props.onYearChange}>
                     {activeYears.map((year, index) => <option key={index} value={year}>{year}</option>)}
                 </select>
             </label>
@@ -45,7 +55,7 @@ const YearSelector = (props) => {
     return (
         <form className='year-input-form'>
             <label>Year
-                <select id='type' defaultValue={new Date().getFullYear()} onChange={props.onYearChange}>
+                <select id='type' defaultValue={currentYear} onChange={props.onYearChange}>
                     {activeYears.map((year, index) => <option key={index} value={year}>{year}</option>)}
                 </select>
             </label>
@@ -59,7 +69,7 @@ const Selector = React.forwardRef((props, ref) => {
 
     switch (props.type) {
         case 'TYPE':
-            selector = <TypeSelector ref={ref} />;
+            selector = <TypeSelector ref={ref} selectedMonth={props.selectedMonth} />;
             break;
         case 'MONTH':
             selector = <MonthSelector onMonthChange={props.onMonthChange} onYearChange={props.onYearChange} />;

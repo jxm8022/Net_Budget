@@ -7,7 +7,7 @@ const BarGroup = (props) => {
 
     let barPadding = 10;
 
-    let widthScale = net => net * (630 / props.barWidth);
+    let widthScale = net => net * (595 / props.barWidth);
     let width = widthScale(Math.abs(net));
 
     let yMid = props.barHeight * 0.5;
@@ -23,7 +23,7 @@ const BarGroup = (props) => {
         <g className="bar-group">
             <text className="name-label" x="-25" y={yMid} alignmentBaseline="middle" >{months[index].abb}</text>
             <rect y={barPadding * 0.5} width={width} height={props.barHeight - barPadding} fill={barColour} />
-            <text className="value-label" x={700} y={yMid} alignmentBaseline="middle" fill={textColour} >${net}</text>
+            <text className="value-label" x={700} y={yMid} alignmentBaseline="middle" fill={textColour} >${net.toFixed(0)}</text>
         </g>
     );
 }
