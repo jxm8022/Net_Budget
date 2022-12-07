@@ -1,0 +1,28 @@
+.input-form {
+    border-style: solid;
+    margin: 10px 10px 40px 10px;
+    padding: 20px;
+    width: 500px;
+}
+
+.input-form label {
+    padding: 10px;
+    display: block;
+    height: 60px;
+}
+
+.input-form label select,
+.input-form label input {
+    margin: 10px;
+    height: 40%;
+}
+
+.input-form button {
+    float: right;
+}
+
+.error {
+    color: red;
+    font-size: .75em;
+    margin: 0;
+}

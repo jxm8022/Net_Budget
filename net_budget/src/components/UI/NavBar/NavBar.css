@@ -1,0 +1,32 @@
+.navbar {
+    background-color: rgb(52, 52, 52);
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline-block;
+}
+
+.navbarLink {
+    display: inline-block;
+    color: white;
+    padding: 20px 40px;
+    text-decoration: none;
+
+}
+
+.navbar li:hover {
+    background-color: rgba(159, 141, 120, 0.454);
+}
+
+.active {
+    background-color: rgb(159, 141, 120);
+}
