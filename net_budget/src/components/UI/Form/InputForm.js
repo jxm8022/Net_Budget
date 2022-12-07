@@ -25,17 +25,19 @@ const InputForm = () => {
         const type = transType.current.value;
         const date = transDate.current.value;
         const name = transName.current.value;
-        const amount = transAmount.current.value;
+        const amount = parseFloat(transAmount.current.value);
 
         if (type && date && name && amount) {
             const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${categories[type].type}\nTransaction Date: ${date}\nTransaction Name: ${name}\nTransaction Amount: $${amount}`);
             if (response) {
-                dispatch(addTransaction({
-                    type,
-                    date,
-                    name,
-                    amount
-                }));
+                dispatch(addTransaction(
+                    {
+                        type: parseInt(type),
+                        date,
+                        name: name.charAt(0).toUpperCase() + name.slice(1),
+                        amount
+                    }
+                ));
                 transType.current.value = 0;
                 transDate.current.value = defaultDate;
                 transName.current.value = null;
@@ -56,7 +58,7 @@ const InputForm = () => {
                 <input id='name' ref={transName} type='text' placeholder='Transaction Name' style={{ width: '50%' }}></input>
             </label>
             <label>Amount
-                <input id='amount' ref={transAmount} type='number' placeholder='$0' style={{ width: '25%' }}></input>
+                <input id='amount' ref={transAmount} type='number' step='0.01' placeholder='$0.00' style={{ width: '25%' }}></input>
             </label>
             <button type='submit'>Add Transaction</button>
             {error && <p className='error'>Please input information!</p>}

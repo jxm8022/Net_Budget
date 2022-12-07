@@ -23,10 +23,23 @@ const initialState = {
 const transactionReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.ADD_TRANSACTION:
-            if (action.payload.type <= 4) { // want, need, savings, debt
-                const monthIndex = parseInt(action.payload.date.split('-')[1]) - 1;
-                const previousNet = state.monthOverview[monthIndex].net;
-                const updatedMonth = { ...state.monthOverview[monthIndex], net: previousNet - action.payload.amount, transactions: [...state.monthOverview[monthIndex].transactions, action.payload] };
+            const monthIndex = parseInt(action.payload.date.split('-')[1]) - 1;
+            const previousNet = state.monthOverview[monthIndex].net;
+            const transactionsId = state.monthOverview[monthIndex].transactions.length;
+            const newTransactions = [...state.monthOverview[monthIndex].transactions, { ...action.payload, id: transactionsId }];
+            if (action.payload.type < 4) { // want, need, savings, debt
+                const updatedMonth = { ...state.monthOverview[monthIndex], net: previousNet - action.payload.amount, transactions: newTransactions };
+                let newMonthOverview = [...state.monthOverview];
+                newMonthOverview[monthIndex] = updatedMonth;
+
+                let newState = {
+                    ...state,
+                    monthOverview: newMonthOverview
+                };
+                return newState;
+            }
+            if (action.payload.type === 4) { // income
+                const updatedMonth = { ...state.monthOverview[monthIndex], net: previousNet + action.payload.amount, transactions: newTransactions };
                 let newMonthOverview = [...state.monthOverview];
                 newMonthOverview[monthIndex] = updatedMonth;
 
