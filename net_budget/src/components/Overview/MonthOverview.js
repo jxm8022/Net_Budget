@@ -1,9 +1,13 @@
+import { useSelector } from 'react-redux';
 import './Overview.css';
 
-const MonthOverview = () => {
-    const max = 0;
-    const min = 0;
-    const netTotal = 0;
+const MonthOverview = (props) => {
+    const { monthIndex } = props;
+    const { monthOverview } = useSelector((state) => state.transaction);
+
+    const potNet = monthOverview[monthIndex].potentialNet;
+    const proNet = monthOverview[monthIndex].projectedNet;
+    const netTotal = monthOverview[monthIndex].net;
 
     const textClass = (amount) => amount < 0 ? 'negative' : '';
 
@@ -11,7 +15,7 @@ const MonthOverview = () => {
         <ul className='overview'>
             <li className='tooltip'>
                 <h4>Potential Net</h4>
-                <p className={textClass(max)}>{'$' + max.toFixed(2)}</p>
+                <p className={textClass(potNet)}>{'$' + potNet.toFixed(2)}</p>
                 <span className='tooltiptext tooltip-left arrow-right'>Potential Net is calculated by subtracting potential transactions from your current net. (Net - Potential Transactions)</span>
             </li>
             <li className='middle'>
@@ -20,7 +24,7 @@ const MonthOverview = () => {
             </li>
             <li className='tooltip'>
                 <h4>Projected Net</h4>
-                <p className={textClass(min)}>{'$' + min.toFixed(2)}</p>
+                <p className={textClass(proNet)}>{'$' + proNet.toFixed(2)}</p>
                 <span className='tooltiptext tooltip-right arrow-left'>Projected Net is calculated by adding your projected income to your potential net. (Potential Net + Projected Income)</span>
             </li>
         </ul >

@@ -7,7 +7,7 @@ let barHeight = 50;
 const BarChart = () => {
     const { monthOverview } = useSelector((state) => state.transaction);
 
-    const max = monthOverview.reduce((max, month) => month.net > max ? month.net : max, monthOverview[0].net);
+    const max = monthOverview.reduce((max, month) => Math.abs(month.net) > max ? Math.abs(month.net) : max, Math.abs(monthOverview[0].net));
 
     let barGroups = monthOverview.map((month, index) => <g key={index} transform={`translate(100, ${index * barHeight})`}>
         <BarGroup index={index} month={month} barHeight={barHeight} barWidth={max} />
