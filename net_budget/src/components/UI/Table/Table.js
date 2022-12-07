@@ -28,14 +28,14 @@ const Table = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {transactions.map((item) => (
+                {transactions.length > 0 ? transactions.map((item) => (
                     <tr key={item.id} onClick={selectItem}>
                         <td>{categories[item.type].type}</td>
                         <td>{item.date}</td>
                         <td>{item.name}</td>
                         <td>${item.amount}</td>
                     </tr>
-                ))}
+                )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td><td> </td></tr>}
             </tbody>
         </table>
     );
