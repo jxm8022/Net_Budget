@@ -1,13 +1,16 @@
+.overview {
+    margin: 10px 0px;
+    padding: 0;
+}
+
 .overview ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
 }
 
 .overview li {
     display: inline-block;
-    padding: 0px 35px;
     text-align: center;
+    padding: 0px 40px;
 }
 
 .overview h4 {
@@ -42,15 +45,15 @@
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
-    top: -40px;
+    top: -70px;
 }
 
 .tooltip-left {
-    right: 100%;
+    right: 95%;
 }
 
 .tooltip-right {
-    left: 100%;
+    left: 95%;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */

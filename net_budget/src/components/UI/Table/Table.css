@@ -1,7 +1,7 @@
 .table {
     border-collapse: collapse;
     width: 50%;
-    margin-bottom: 40px;
+    margin: 20px 0px 40px 0px;
 }
 
 .table th,
@@ -17,4 +17,9 @@
 
 .table tr:hover {
     background-color: rgba(159, 141, 120, 0.25);
+}
+
+.table img {
+    width: 25px;
+    float: right;
 }
