@@ -1,8 +1,11 @@
 import * as types from '../actions/actionTypes';
 
+const currentDate = new Date();
+
 const initialState = {
-    startYear: new Date().getFullYear(),
-    currentYear: new Date().getFullYear(),
+    startYear: currentDate.getFullYear(),
+    currentMonth: currentDate.getMonth(),
+    currentYear: currentDate.getFullYear(),
     previousYear: null,
     monthOverview: [
         { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
@@ -15,8 +18,8 @@ const initialState = {
         { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
         { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
         { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] }
+        { potNet: -19.50, pIncome: 0, projNet: -19.50, net: -19.50, transactions: [{ id: 0, type: 0, date: '2022-11-11', name: 'Target', amount: 19.50 }] },
+        { potNet: -12.50, pIncome: 0, projNet: -12.50, net: -12.50, transactions: [{ id: 0, type: 0, date: '2022-12-09', name: 'Walmart', amount: 12.50 }] }
     ]
 }
 

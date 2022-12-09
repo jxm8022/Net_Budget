@@ -26,20 +26,34 @@ const TypeSelector = React.forwardRef((props, ref) => {
 })
 
 const MonthSelector = (props) => {
+    const { prevMonth, prevYear, setSearchParams } = props.setSearchParams;
     const { startYear, currentYear } = useSelector((state) => state.transaction);
 
     let activeYears = [];
     for (let i = startYear; i <= currentYear; i++) { activeYears.push(i) };
 
+    const setParameters = (event) => {
+        switch (event.target.id) {
+            case 'month':
+                setSearchParams(`month=${event.target.value}&year=${prevYear}`);
+                break;
+            case 'year':
+                setSearchParams(`month=${prevMonth}&year=${event.target.value}`);
+                break;
+            default:
+                break;
+        }
+    }
+
     return (
-        <form className='month-input-form'>
+        <form className='month-input-form' onChange={setParameters}>
             <label>Month
-                <select id='type' defaultValue={currentMonth} onChange={props.onMonthChange}>
+                <select id='month' defaultValue={currentMonth}>
                     {months.map((month, index) => <option key={month.abb} value={index}>{month.abb}</option>)}
                 </select>
             </label>
             <label>Year
-                <select id='type' defaultValue={currentYear} onChange={props.onYearChange}>
+                <select id='year' defaultValue={currentYear}>
                     {activeYears.map((year, index) => <option key={index} value={year}>{year}</option>)}
                 </select>
             </label>
@@ -73,7 +87,7 @@ const Selector = React.forwardRef((props, ref) => {
             selector = <TypeSelector ref={ref} selectedMonth={props.selectedMonth} addApply={props.addApply} />;
             break;
         case 'MONTH':
-            selector = <MonthSelector onMonthChange={props.onMonthChange} onYearChange={props.onYearChange} />;
+            selector = <MonthSelector setSearchParams={props.setSearchParams} />;
             break;
         case 'YEAR':
             selector = <YearSelector onYearChange={props.onYearChange} />

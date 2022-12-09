@@ -1,16 +1,29 @@
 import { useSelector } from 'react-redux';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import BarGroup from "./BarGroup";
 import './BarChart.css';
 
 let barHeight = 50;
 
-const BarChart = () => {
+const BarChart = (props) => {
+    const { year } = props;
     const { monthOverview } = useSelector((state) => state.transaction);
+    const navigate = useNavigate();
 
     const max = monthOverview.reduce((max, month) => Math.abs(month.net) > max ? Math.abs(month.net) : max, Math.abs(monthOverview[0].net));
 
+    const navigateToMonthOverview = (index) => {
+        navigate({
+            pathname: '/monthOverview',
+            search: createSearchParams({
+                month: index,
+                year: year
+            }).toString()
+        });
+    }
+
     let barGroups = monthOverview.map((month, index) => <g key={index} transform={`translate(100, ${index * barHeight})`}>
-        <BarGroup index={index} month={month} barHeight={barHeight} barWidth={max} />
+        <BarGroup index={index} month={month} onBarClick={() => { navigateToMonthOverview(index) }} barHeight={barHeight} barWidth={max} />
     </g>);
 
     return (

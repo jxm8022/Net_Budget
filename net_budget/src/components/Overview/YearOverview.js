@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Selector from '../UI/Selector/Selector';
 import './Overview.css';
 
-const YearOverview = () => {
-    const [year, setYear] = useState(new Date().getFullYear());
+const YearOverview = (props) => {
+    const { year, setSearchParams } = props;
     const { monthOverview } = useSelector((state) => state.transaction);
 
     const max = monthOverview.reduce((max, month) => month.net > max ? month.net : max, monthOverview[0].net);
@@ -12,7 +11,7 @@ const YearOverview = () => {
     const netTotal = monthOverview.reduce((total, month) => month.net + total, 0);
 
     const onYearChange = (event) => {
-        setYear(event.target.value);
+        setSearchParams(`year=${event.target.value}`);
     }
 
     const textClass = (amount) => amount < 0 ? 'negative' : '';
