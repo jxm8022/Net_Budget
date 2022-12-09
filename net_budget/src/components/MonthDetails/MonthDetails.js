@@ -1,12 +1,95 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import SortAscending from '../../utilities/SortAscending';
+import SortDescending from '../../utilities/SortDescending';
+import FilterData from '../../utilities/FilterData';
+import Filter from '../UI/Filter/Filter';
 import Table from '../UI/Table/Table';
+
+const headers = ['Type', 'Date', 'Name', 'Amount'];
+
+const selectItem = (item) => {
+    console.log(item);
+}
 
 const MonthDetails = (props) => {
     const { monthIndex } = props;
     const { transactions } = useSelector((state) => state.transaction.monthOverview[monthIndex]);
+    const [isSortAsc, setIsSortAsc] = useState(true);
+    const [sortColumn, setSortColumn] = useState('Date');
+    const [sortedTransactions, setSortedTransactions] = useState(transactions);
+
+    const sortTransactions = (header) => {
+        if (header === sortColumn) {
+            setIsSortAsc((prev) => !prev);
+            if (isSortAsc) {
+                setSortedTransactions((prev) => SortDescending({
+                    type: header,
+                    headers,
+                    transactions: [...prev]
+                }));
+            } else {
+                setSortedTransactions((prev) => SortAscending({
+                    type: sortColumn,
+                    headers,
+                    transactions: [...prev]
+                }));
+            }
+        } else {
+            setSortColumn(header);
+            setIsSortAsc(true);
+            setSortedTransactions((prev) => SortAscending({
+                type: header,
+                headers,
+                transactions: [...prev]
+            }));
+        }
+    }
+
+    const filterTransactions = (data) => {
+        const { type, filters } = data;
+        setSortedTransactions(FilterData({
+            type,
+            filters,
+            sortData: { isSortAsc, headers, sortColumn },
+            transactions
+        }));
+    }
+
+    const removeFilter = (data) => {
+        const { type, filters } = data;
+        setSortedTransactions(FilterData({
+            type: type,
+            filters,
+            sortData: { isSortAsc, headers, sortColumn },
+            transactions
+        }));
+    }
+
+    const clearFilters = (type) => {
+        setSortedTransactions(FilterData({
+            type,
+            transactions
+        }));
+    }
 
     return (
-        <Table transactions={transactions} />
+        <>
+            <Filter
+                nameOptions={transactions.map((transaction) => { return { id: transaction.id, name: transaction.name } })}
+                filterTransactions={filterTransactions}
+                removeFilter={removeFilter}
+                clearFilters={clearFilters}
+                monthIndex={monthIndex} />
+            <Table
+                headers={headers}
+                data={sortedTransactions}
+                selectItem={selectItem}
+                isSortAsc={isSortAsc}
+                sortColumn={sortColumn}
+                sortTable={sortTransactions}
+            />
+        </>
     );
 }
 
