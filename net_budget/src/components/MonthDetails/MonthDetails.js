@@ -47,17 +47,40 @@ const MonthDetails = (props) => {
     }
 
     const filterTransactions = (data) => {
-        const { type, filter } = data;
+        const { type, filters } = data;
         setSortedTransactions(FilterData({
             type,
-            filter,
-            sortedTransactions
+            filters,
+            sortData: { isSortAsc, headers, sortColumn },
+            transactions
+        }));
+    }
+
+    const removeFilter = (data) => {
+        const { type, filters } = data;
+        setSortedTransactions(FilterData({
+            type: type,
+            filters,
+            sortData: { isSortAsc, headers, sortColumn },
+            transactions
+        }));
+    }
+
+    const clearFilters = (type) => {
+        setSortedTransactions(FilterData({
+            type,
+            transactions
         }));
     }
 
     return (
         <>
-            <Filter filterTransactions={filterTransactions} monthIndex={monthIndex} />
+            <Filter
+                nameOptions={transactions.map((transaction) => { return { id: transaction.id, name: transaction.name } })}
+                filterTransactions={filterTransactions}
+                removeFilter={removeFilter}
+                clearFilters={clearFilters}
+                monthIndex={monthIndex} />
             <Table
                 headers={headers}
                 data={sortedTransactions}

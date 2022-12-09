@@ -10,7 +10,7 @@ const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
 
 const Filter = (props) => {
-    const { filterTransactions, monthIndex } = props;
+    const { nameOptions, filterTransactions, removeFilter, clearFilters, monthIndex } = props;
     const transType = useRef();
     const transDate = useRef();
     const transName = useRef();
@@ -30,16 +30,21 @@ const Filter = (props) => {
         }
     }
 
-    const typeFilter = (event) => { // if already exists do nothing
+    const typeFilter = (event) => {
         event.preventDefault();
         const typeIndex = parseInt(transType.current.value);
         setFilterImage(closedFilter);
         setVisibility('hidden');
-        setFilters((prev) => [...prev, { id: prev.length, type: categories[typeIndex].type }]);
-        filterTransactions({
-            type: 'ADD',
-            filter: typeIndex
-        });
+        if (filters.find((filter) => filter.criteria === typeIndex)) {
+            console.log('already in array')
+        } else {
+            const newFilters = [...filters, { id: filters.length, type: 'TYPE', criteria: typeIndex, name: categories[typeIndex].type }]
+            setFilters(newFilters);
+            filterTransactions({
+                type: 'ADD',
+                filters: newFilters
+            });
+        }
     }
 
     const dateFilter = (event) => {
@@ -47,29 +52,75 @@ const Filter = (props) => {
         const date = transDate.current.value;
         setFilterImage(closedFilter);
         setVisibility('hidden');
-        setFilters((prev) => [...prev, { id: prev.length, type: date }]);
+        if (filters.find((filter) => filter.criteria === date)) {
+            console.log('already in array')
+        } else {
+            const newFilters = [...filters, { id: filters.length, type: 'DATE', criteria: date, name: date }]
+            setFilters(newFilters);
+            filterTransactions({
+                type: 'ADD',
+                filters: newFilters
+            });
+        }
     }
 
     const nameFilter = (event) => {
         event.preventDefault();
-        const name = transName.current.value;
+        const name = transName.current.value.charAt(0).toUpperCase() + transName.current.value.slice(1);
         setFilterImage(closedFilter);
         setVisibility('hidden');
-        setFilters((prev) => [...prev, { id: prev.length, type: name.charAt(0).toUpperCase() + name.slice(1) }]);
+        if (filters.find((filter) => filter.criteria === name)) {
+            console.log('already in array')
+        } else {
+            const newFilters = [...filters, { id: filters.length, type: 'NAME', criteria: name, name: name }]
+            setFilters(newFilters);
+            filterTransactions({
+                type: 'ADD',
+                filters: newFilters
+            });
+        }
     }
 
     const amountFilter = (event) => {
         event.preventDefault();
-        const amount = parseInt(transAmount.current.value).toFixed(2);
+        const amount = parseFloat(transAmount.current.value).toFixed(2);
         setFilterImage(closedFilter);
         setVisibility('hidden');
-        setFilters((prev) => [...prev, { id: prev.length, type: amount }]);
+        if (filters.find((filter) => filter.criteria === amount)) {
+            console.log('already in array')
+        } else {
+            const newFilters = [...filters, { id: filters.length, type: 'AMOUNT', criteria: amount, name: `$${amount}` }]
+            setFilters(newFilters);
+            filterTransactions({
+                type: 'ADD',
+                filters: newFilters
+            });
+        }
+    }
+
+    const removeFilterX = (filterToRemove) => {
+        const { id } = filterToRemove;
+        const newFilters = [...filters].filter((filter) => filter.id !== id);
+        setFilters(newFilters);
+        removeFilter({
+            type: 'REMOVE',
+            filters: newFilters
+        });
+    }
+
+    const clearAllFilters = () => {
+        setFilterImage(closedFilter);
+        setVisibility('hidden');
+        setFilters([]);
+        clearFilters({
+            type: 'CLEAR'
+        })
     }
 
     return (
         <>
             <div className="filter">
-                {filters.map((filter) => <FilteredBy key={filter.id} type={filter.type} />)}
+                {filters.map((filter) => <FilteredBy key={filter.id} filter={filter} removeFilterX={removeFilterX} />)}
                 <div className='filtertooltip'>
                     <img src={filterImage} alt='Filter table' onClick={showFilter} />
                     <span className='filtertooltiptext' style={{ visibility: visibility }}>
@@ -84,7 +135,10 @@ const Filter = (props) => {
                         </form>
                         <form onSubmit={nameFilter}>
                             <label>Name
-                                <input id='name' ref={transName} type='text' placeholder='Transaction Name' style={{ width: '50%' }}></input>
+                                <input id='name' list='names' ref={transName} type='text' placeholder='Transaction Name' style={{ width: '50%' }}></input>
+                                <datalist id='names'>
+                                    {nameOptions.map((nameOption) => <option key={nameOption.id}>{nameOption.name}</option>)}
+                                </datalist>
                                 <button type='submit'>Apply</button>
                             </label>
                         </form>
@@ -94,6 +148,7 @@ const Filter = (props) => {
                                 <button type='submit'>Apply</button>
                             </label>
                         </form>
+                        <button onClick={clearAllFilters}>Clear Filters</button>
                     </span>
                 </div>
             </div>

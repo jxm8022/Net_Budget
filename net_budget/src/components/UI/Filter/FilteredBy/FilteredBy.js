@@ -1,10 +1,10 @@
 import './FilteredBy.css';
 
 const FilteredBy = (props) => {
-    const { type } = props;
+    const { filter, removeFilterX } = props;
     return (
         <>
-            <p className="filtered-by">{type}</p>
+            <p onClick={() => { removeFilterX(filter) }} className="filtered-by">{filter.name}</p>
         </>
     );
 }

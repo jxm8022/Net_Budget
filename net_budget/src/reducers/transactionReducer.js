@@ -18,12 +18,12 @@ const initialState = {
         { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
         {
             potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [
-                { id: 0, type: 0, date: '2022-12-06', name: 'one', amount: 12 },
-                { id: 1, type: 1, date: '2022-12-07', name: 'two', amount: 14 },
-                { id: 2, type: 2, date: '2022-12-08', name: 'three', amount: 16 },
-                { id: 3, type: 3, date: '2022-12-09', name: 'four', amount: 14 },
-                { id: 4, type: 4, date: '2022-12-09', name: 'five', amount: 11 },
-                { id: 5, type: 5, date: '2022-12-06', name: 'six', amount: 13 },
+                { id: 0, type: 0, date: '2022-12-06', name: 'One', amount: 12 },
+                { id: 1, type: 1, date: '2022-12-07', name: 'Two', amount: 14 },
+                { id: 2, type: 2, date: '2022-12-08', name: 'Three', amount: 16 },
+                { id: 3, type: 3, date: '2022-12-09', name: 'Four', amount: 14 },
+                { id: 4, type: 4, date: '2022-12-09', name: 'Five', amount: 11 },
+                { id: 5, type: 5, date: '2022-12-06', name: 'Six', amount: 13 },
             ]
         }
     ]

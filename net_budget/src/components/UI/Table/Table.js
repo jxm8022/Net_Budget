@@ -24,7 +24,7 @@ const Table = (props) => {
                         <td>{categories[item.type].type}</td>
                         <td>{item.date}</td>
                         <td>{item.name}</td>
-                        <td>${item.amount.toFixed(2)}</td>
+                        <td>${item.amount}</td>
                     </tr>
                 )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td><td> </td></tr>}
             </tbody>

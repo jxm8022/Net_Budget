@@ -6,6 +6,7 @@
 .filter img {
     height: 25px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 /* Tooltip container */

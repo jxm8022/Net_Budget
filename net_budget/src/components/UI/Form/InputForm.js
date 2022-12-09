@@ -30,7 +30,7 @@ const InputForm = () => {
         const type = transType.current.value;
         const date = transDate.current.value;
         const name = transName.current.value;
-        const amount = parseFloat(transAmount.current.value);
+        const amount = parseFloat(transAmount.current.value).toFixed(2);
 
         if (type && date && name && amount) {
             const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${categories[type].type}\nTransaction Date: ${date}\nTransaction Name: ${name}\nTransaction Amount: $${amount}`);
