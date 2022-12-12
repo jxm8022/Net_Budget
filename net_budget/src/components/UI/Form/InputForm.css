@@ -22,3 +22,18 @@
     font-size: .75em;
     margin: 10px;
 }
+
+/* The Close Button */
+.delete {
+    color: #ff0000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.delete:hover,
+.delete:focus {
+    text-decoration: none;
+    transform: scale(1.5);
+    cursor: pointer;
+}

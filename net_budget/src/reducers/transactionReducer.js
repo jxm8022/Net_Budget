@@ -215,6 +215,28 @@ const transactionReducer = (state = initialState, action) => {
 
                 return newState;
             }
+        case types.DELETE_TRANSACTION:
+            const monthIndex_DELETE = parseInt(action.payload.prev.date.split('-')[1]) - 1;
+            const indexOfTransaction_DELETE = state.monthOverview[monthIndex_DELETE].transactions.findIndex((transaction) => transaction.id === action.payload.prev.id);
+            let newTransactions_DELETE = [...state.monthOverview[monthIndex_DELETE].transactions];
+            newTransactions_DELETE.splice(indexOfTransaction_DELETE, 1);
+            let newDeleteMonth = { ...state.monthOverview[monthIndex_DELETE] };
+            const newDeleteOverview = getOverview(newTransactions_DELETE);
+            newDeleteMonth = {
+                ...newDeleteMonth,
+                potNet: newDeleteOverview.potNet,
+                projNet: newDeleteOverview.projNet,
+                net: newDeleteOverview.net,
+                transactions: newTransactions_DELETE
+            }
+            let newMonthOverview = [...state.monthOverview];
+            newMonthOverview[monthIndex_DELETE] = newDeleteMonth;
+            let newState = {
+                ...state,
+                monthOverview: newMonthOverview
+            };
+
+            return newState;
         default:
             return state;
     }

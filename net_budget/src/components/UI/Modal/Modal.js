@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { updateTransaction } from '../../../actions/transactionActions';
+import { updateTransaction, deleteTransaction } from '../../../actions/transactionActions';
 import InputForm from '../Form/InputForm';
 import './Modal.css';
 
@@ -7,11 +7,23 @@ const Modal = (props) => {
     const { data, closeModal } = props;
     const dispatch = useDispatch();
 
-    const submitTransaction = (transaction) => {
-        dispatch(updateTransaction({
-            new: transaction,
-            prev: data
-        }));
+    const submitTransaction = (info) => {
+        const { submitType, transaction } = info;
+        switch (submitType) {
+            case 'Update':
+                dispatch(updateTransaction({
+                    new: transaction,
+                    prev: data
+                }));
+                break;
+            case 'Delete':
+                dispatch(deleteTransaction({
+                    prev: data
+                }));
+                break;
+            default:
+                break;
+        }
     }
 
     return (
@@ -21,7 +33,7 @@ const Modal = (props) => {
                 <h2>Update Transaction</h2>
             </div>
             <div className='modal-body'>
-                <InputForm type='Update' transactionAction={submitTransaction} defaults={data} />
+                <InputForm submitType='Update' deleteTransaction={true} closeModal={closeModal} transactionAction={submitTransaction} defaults={data} />
             </div>
         </div>
     );

@@ -9,7 +9,7 @@ const minDate = `${currentDate.getFullYear()}-01-01`;
 const maxDate = `${currentDate.getFullYear() + 1}-01-07`;
 
 const InputForm = (props) => {
-    const { type, transactionAction, defaults } = props;
+    const { submitType, deleteTransaction, closeModal, transactionAction, defaults } = props;
     const transType = useRef();
     const transDate = useRef();
     const transName = useRef();
@@ -25,35 +25,51 @@ const InputForm = (props) => {
         event.preventDefault();
         setError(false);
 
-        const type = transType.current.value;
-        const date = transDate.current.value;
-        const name = transName.current.value;
-        const amount = +parseFloat(transAmount.current.value).toFixed(2);
-
-        if (type && date && name && amount) {
-            const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${categories[type].type}\nTransaction Date: ${date}\nTransaction Name: ${name}\nTransaction Amount: $${amount}`);
+        if (event.target.id === 'delete') {
+            const response = window.confirm(`Are you sure you want to delete this transaction?`);
             if (response) {
-                transactionAction(
-                    {
-                        id: defaults.id,
-                        type: parseInt(type),
-                        date,
-                        name: name.charAt(0).toUpperCase() + name.slice(1),
-                        amount
-                    }
-                );
-                transType.current.value = 0;
-                transDate.current.value = defaultDate;
-                transName.current.value = null;
-                transAmount.current.value = null;
+                transactionAction({
+                    submitType: 'Delete'
+                });
+                closeModal();
             }
         } else {
-            setError(true);
+            const type = transType.current.value;
+            const date = transDate.current.value;
+            const name = transName.current.value;
+            const amount = +parseFloat(transAmount.current.value).toFixed(2);
+
+            if (type && date && name && amount) {
+                const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${categories[type].type}\nTransaction Date: ${date}\nTransaction Name: ${name}\nTransaction Amount: $${amount}`);
+                if (response) {
+                    transactionAction(
+                        {
+                            submitType,
+                            transaction: {
+                                id: defaults.id,
+                                type: parseInt(type),
+                                date,
+                                name: name.charAt(0).toUpperCase() + name.slice(1),
+                                amount
+                            }
+                        }
+                    );
+                    transType.current.value = 0;
+                    transDate.current.value = defaultDate;
+                    transName.current.value = null;
+                    transAmount.current.value = null;
+                    if (submitType === 'Update')
+                        closeModal();
+                }
+            } else {
+                setError(true);
+            }
         }
     }
 
     return (
         <form className='input-form' onSubmit={submitForm}>
+            {deleteTransaction && <span id='delete' className='delete' onClick={submitForm}>&times;</span>}
             <Selector ref={transType} type='TYPE' defaultValue={defaults.type} selectedMonth={selectedMonth} />
             <label>Date
                 <input id='date' ref={transDate} type='date' onChange={dateChanged} defaultValue={defaults.date} min={minDate} max={maxDate}></input> {/* change min to previous year */}
@@ -64,7 +80,7 @@ const InputForm = (props) => {
             <label>Amount
                 <input id='amount' ref={transAmount} type='number' defaultValue={defaults.amount} step='0.01' placeholder='$0.00' style={{ width: '25%' }}></input>
             </label>
-            <button type='submit'>{type} Transaction</button>
+            <button type='submit'>{submitType} Transaction</button>
             {error && <p className='error'>Please input information!</p>}
         </form >
     );

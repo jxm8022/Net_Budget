@@ -15,3 +15,11 @@ export const updateTransaction = (payload) => {
         payload
     }
 }
+
+export const deleteTransaction = (payload) => {
+    return {
+        type: types.DELETE_TRANSACTION,
+        info: 'Delete transaction information.',
+        payload
+    }
+}
