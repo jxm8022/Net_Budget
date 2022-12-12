@@ -3,11 +3,7 @@ import './Overview.css';
 
 const MonthOverview = (props) => {
     const { monthIndex } = props;
-    const { monthOverview } = useSelector((state) => state.transaction);
-
-    const potNet = monthOverview[monthIndex].potNet;
-    const projNet = monthOverview[monthIndex].projNet;
-    const netTotal = monthOverview[monthIndex].net;
+    const { potNet, projNet, net } = useSelector((state) => state.transaction.monthOverview[monthIndex]);
 
     const textClass = (amount) => amount < 0 ? 'negative' : '';
 
@@ -20,7 +16,7 @@ const MonthOverview = (props) => {
             </li>
             <li className='middle'>
                 <h4>Net</h4>
-                <p className={textClass(netTotal)}>{'$' + netTotal.toFixed(2)}</p>
+                <p className={textClass(net)}>{'$' + net.toFixed(2)}</p>
             </li>
             <li className='tooltip'>
                 <h4>Projected Net</h4>

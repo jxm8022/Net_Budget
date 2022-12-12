@@ -7,13 +7,15 @@ import InsertItem from './pages/InsertItem';
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 
+const currentYear = new Date().getFullYear();
+
 const routes = [
   {
     path: '/',
-    component: <Navigate replace to='/home' />
+    component: <Navigate replace to={`yearOverview?year=${currentYear}`} />
   },
   {
-    path: '/home',
+    path: '/yearOverview',
     component: <HomePage />
   },
   {

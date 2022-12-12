@@ -1,13 +1,15 @@
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 
 const NavBar = () => {
+    const { currentMonth, currentYear } = useSelector((state) => state.transaction);
     return (
         <nav className='navbar'>
             <ul>
                 <li>
                     <NavLink
-                        to={'../home'}
+                        to={`../yearOverview?year=${currentYear}`}
                         className={
                             ({ isActive }) => {
                                 return isActive ? 'active navbarLink' : 'navbarLink'
@@ -31,7 +33,7 @@ const NavBar = () => {
                 </li>
                 <li>
                     <NavLink
-                        to={'../monthOverview'}
+                        to={`../monthOverview?month=${currentMonth}&year=${currentYear}`}
                         className={
                             ({ isActive }) => {
                                 return isActive ? 'active navbarLink' : 'navbarLink'

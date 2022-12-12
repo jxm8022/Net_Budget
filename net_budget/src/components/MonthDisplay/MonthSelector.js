@@ -3,11 +3,11 @@ import Selector from "../UI/Selector/Selector";
 import './MonthSelector.css';
 
 const MonthSelector = (props) => {
-    const { monthIndex, year, onMonthChange, onYearChange } = props;
+    const { monthIndex, year, setSearchParams } = props;
     return (
         <>
             <h2>{months[monthIndex].month} {year}</h2>
-            <Selector type='MONTH' onMonthChange={onMonthChange} onYearChange={onYearChange} />
+            <Selector type='MONTH' setSearchParams={setSearchParams} />
         </>
     );
 }
