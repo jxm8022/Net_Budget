@@ -48,12 +48,12 @@ const MonthSelector = (props) => {
     return (
         <form className='month-input-form' onChange={setParameters}>
             <label>Month
-                <select id='month' defaultValue={currentMonth}>
+                <select id='month' defaultValue={prevMonth}>
                     {months.map((month, index) => <option key={month.abb} value={index}>{month.abb}</option>)}
                 </select>
             </label>
             <label>Year
-                <select id='year' defaultValue={currentYear}>
+                <select id='year' defaultValue={prevYear}>
                     {activeYears.map((year, index) => <option key={index} value={year}>{year}</option>)}
                 </select>
             </label>

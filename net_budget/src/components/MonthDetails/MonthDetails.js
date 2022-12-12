@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SortAscending from '../../utilities/SortAscending';
 import SortDescending from '../../utilities/SortDescending';
@@ -18,6 +18,10 @@ const MonthDetails = (props) => {
     const [isSortAsc, setIsSortAsc] = useState(true);
     const [sortColumn, setSortColumn] = useState('Date');
     const [sortedTransactions, setSortedTransactions] = useState(transactions);
+
+    useEffect(() => {
+        setSortedTransactions(transactions);
+    }, [transactions]);
 
     const sortTransactions = (header) => {
         if (header === sortColumn) {
