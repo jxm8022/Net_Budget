@@ -9,12 +9,12 @@ const AddTransaction = () => {
     const dispatch = useDispatch();
     const defaultData = { type: 0, date: defaultDate, name: '', amount: null };
 
-    const submitTransaction = (transaction) => {
-        dispatch(addTransaction(transaction));
+    const submitTransaction = (info) => {
+        dispatch(addTransaction(info.transaction));
     }
 
     return (
-        <InputForm type='Add' transactionAction={submitTransaction} defaults={defaultData} />
+        <InputForm submitType='Add' transactionAction={submitTransaction} defaults={defaultData} />
     );
 }
 
