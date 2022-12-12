@@ -17,12 +17,8 @@
     height: 40%;
 }
 
-.input-form button {
-    float: right;
-}
-
 .error {
     color: red;
     font-size: .75em;
-    margin: 0;
+    margin: 10px;
 }

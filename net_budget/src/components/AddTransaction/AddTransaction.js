@@ -1,8 +1,20 @@
+import { useDispatch } from "react-redux";
+import { addTransaction } from "../../actions/transactionActions";
 import InputForm from "../UI/Form/InputForm";
 
+const currentDate = new Date();
+const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
+
 const AddTransaction = () => {
+    const dispatch = useDispatch();
+    const defaultData = { type: 0, date: defaultDate, name: '', amount: null };
+
+    const submitTransaction = (transaction) => {
+        dispatch(addTransaction(transaction));
+    }
+
     return (
-        <InputForm />
+        <InputForm type='Add' transactionAction={submitTransaction} defaults={defaultData} />
     );
 }
 

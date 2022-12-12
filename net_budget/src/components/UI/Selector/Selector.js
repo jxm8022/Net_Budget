@@ -8,7 +8,7 @@ const currentDate = new Date();
 const currentMonth = currentDate.getMonth();
 
 const TypeSelector = React.forwardRef((props, ref) => {
-    const { selectedMonth, addApply } = props;
+    const { defaultValue, selectedMonth, addApply } = props;
     let filteredOptions = [...categories];
 
     if (currentMonth !== selectedMonth) {
@@ -17,7 +17,7 @@ const TypeSelector = React.forwardRef((props, ref) => {
 
     return (
         <label>Type
-            <select id='type' ref={ref}>
+            <select id='type' defaultValue={defaultValue} ref={ref}>
                 {filteredOptions.map((category, index) => <option key={category.id} value={index}>{category.type}</option>)}
             </select>
             {addApply && <button type='submit'>Apply</button>}
@@ -84,7 +84,7 @@ const Selector = React.forwardRef((props, ref) => {
 
     switch (props.type) {
         case 'TYPE':
-            selector = <TypeSelector ref={ref} selectedMonth={props.selectedMonth} addApply={props.addApply} />;
+            selector = <TypeSelector ref={ref} defaultValue={props.defaultValue} selectedMonth={props.selectedMonth} addApply={props.addApply} />;
             break;
         case 'MONTH':
             selector = <MonthSelector setSearchParams={props.setSearchParams} />;
