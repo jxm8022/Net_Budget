@@ -7,3 +7,11 @@ export const addTransaction = (payload) => {
         payload
     }
 }
+
+export const updateTransaction = (payload) => {
+    return {
+        type: types.UPDATE_TRANSACTION,
+        info: 'Update transaction information.',
+        payload
+    }
+}

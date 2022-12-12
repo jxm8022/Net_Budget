@@ -8,10 +8,6 @@ import Table from '../UI/Table/Table';
 
 const headers = ['Type', 'Date', 'Name', 'Amount'];
 
-const selectItem = (item) => {
-    console.log(item);
-}
-
 const MonthDetails = (props) => {
     const { monthIndex } = props;
     const { transactions } = useSelector((state) => state.transaction.monthOverview[monthIndex]);
@@ -88,7 +84,6 @@ const MonthDetails = (props) => {
             <Table
                 headers={headers}
                 data={sortedTransactions}
-                selectItem={selectItem}
                 isSortAsc={isSortAsc}
                 sortColumn={sortColumn}
                 sortTable={sortTransactions}

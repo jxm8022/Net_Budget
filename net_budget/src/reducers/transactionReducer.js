@@ -8,18 +8,18 @@ const initialState = {
     currentYear: currentDate.getFullYear(),
     previousYear: null,
     monthOverview: [
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: 0, pIncome: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: -19.50, pIncome: 0, projNet: -19.50, net: -19.50, transactions: [{ id: 0, type: 0, date: '2022-11-11', name: 'Target', amount: 19.50 }] },
-        { potNet: -12.50, pIncome: 0, projNet: -12.50, net: -12.50, transactions: [{ id: 0, type: 0, date: '2022-12-09', name: 'Walmart', amount: 12.50 }] }
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: -19.50, projNet: -19.50, net: -19.50, transactions: [{ id: 0, type: 0, date: '2022-11-11', name: 'Target', amount: 19.50 }] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [{ id: 0, type: 0, date: '2022-12-09', name: 'Walmart', amount: 12.50 }, { id: 1, type: 4, date: '2022-12-10', name: 'Barnes and Noble', amount: 12.50 }] }
     ]
 }
 
@@ -31,6 +31,42 @@ const sortTransactionsByDate = (a, b) => {
         return 1;
     }
     return 0;
+}
+
+const getOverview = (transactions) => {
+    let pTransactionTotal = 0;
+    let pIncomeTotal = 0;
+    let incomeTotal = 0;
+    let transactionsTotal = 0;
+    for (let transaction of transactions) {
+        switch (transaction.type) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                transactionsTotal += transaction.amount;
+                break;
+            case 4:
+                incomeTotal += transaction.amount;
+                break;
+            case 5:
+                pTransactionTotal += transaction.amount;
+                break;
+            case 6:
+                pIncomeTotal += transaction.amount;
+                break;
+            default:
+                break;
+        }
+    }
+    const net = incomeTotal - transactionsTotal;
+    const potNet = net - pTransactionTotal;
+    const projNet = potNet + pIncomeTotal;
+    return {
+        potNet,
+        projNet,
+        net
+    };
 }
 
 const transactionReducer = (state = initialState, action) => {
@@ -103,6 +139,82 @@ const transactionReducer = (state = initialState, action) => {
                 }
             }
             return { ...state };
+        case types.UPDATE_TRANSACTION:
+            const prevMonthIndex = parseInt(action.payload.prev.date.split('-')[1]) - 1;
+            const newMonthIndex = parseInt(action.payload.new.date.split('-')[1]) - 1;
+            const indexOfTransaction = state.monthOverview[prevMonthIndex].transactions.findIndex((transaction) => transaction.id === action.payload.new.id);
+
+            if (prevMonthIndex === newMonthIndex) {
+                let newTransactions = [...state.monthOverview[prevMonthIndex].transactions];
+                newTransactions[indexOfTransaction] = {
+                    id: action.payload.new.id,
+                    type: action.payload.new.type,
+                    date: action.payload.new.date,
+                    name: action.payload.new.name,
+                    amount: action.payload.new.amount,
+                }
+                let newMonth = { ...state.monthOverview[prevMonthIndex] };
+                const { potNet, projNet, net } = getOverview(newTransactions);
+                newMonth = {
+                    ...newMonth,
+                    potNet,
+                    projNet,
+                    net,
+                    transactions: newTransactions
+                }
+                let newMonthOverview = [...state.monthOverview];
+                newMonthOverview[prevMonthIndex] = newMonth;
+                let newState = {
+                    ...state,
+                    monthOverview: newMonthOverview
+                };
+
+                return newState;
+            } else {
+                // add to new month
+                let newTransactions = [...state.monthOverview[newMonthIndex].transactions];
+                newTransactions = [
+                    ...newTransactions,
+                    {
+                        id: newTransactions.length,
+                        type: action.payload.new.type,
+                        date: action.payload.new.date,
+                        name: action.payload.new.name,
+                        amount: action.payload.new.amount
+                    }
+                ]
+                let newMonth = { ...state.monthOverview[newMonthIndex] };
+                const newOverview = getOverview(newTransactions);
+                newMonth = {
+                    ...newMonth,
+                    potNet: newOverview.potNet,
+                    projNet: newOverview.projNet,
+                    net: newOverview.net,
+                    transactions: newTransactions
+                }
+                // remove from old month
+                let oldTransactions = [...state.monthOverview[prevMonthIndex].transactions];
+                oldTransactions.splice(indexOfTransaction, 1);
+                let oldMonth = { ...state.monthOverview[prevMonthIndex] };
+                const oldOverview = getOverview(oldTransactions);
+                oldMonth = {
+                    ...oldMonth,
+                    potNet: oldOverview.potNet,
+                    projNet: oldOverview.projNet,
+                    net: oldOverview.net,
+                    transactions: oldTransactions
+                }
+                // new overview
+                let newMonthOverview = [...state.monthOverview];
+                newMonthOverview[prevMonthIndex] = oldMonth;
+                newMonthOverview[newMonthIndex] = newMonth;
+                let newState = {
+                    ...state,
+                    monthOverview: newMonthOverview
+                };
+
+                return newState;
+            }
         default:
             return state;
     }
