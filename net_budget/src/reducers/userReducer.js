@@ -18,7 +18,8 @@ const userReducer = (state = initialState, action) => {
 
             if (loadedUser) {
                 newLoadState = {
-                    ...loadedUser
+                    ...loadedUser,
+                    currentYear: new Date().getFullYear()
                 }
             }
 
