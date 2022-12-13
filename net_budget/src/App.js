@@ -2,6 +2,7 @@ import React, { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { loadTransactions } from './actions/transactionActions';
+import { loadUser, saveUser } from './actions/userActions';
 import './App.css';
 import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
@@ -39,6 +40,8 @@ function App() {
 
   useEffect(() => {
     dispatch(loadTransactions());
+    dispatch(loadUser());
+    dispatch(saveUser());
   }, [dispatch]);
 
   return (

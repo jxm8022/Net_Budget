@@ -27,7 +27,8 @@ const TypeSelector = React.forwardRef((props, ref) => {
 
 const MonthSelector = (props) => {
     const { prevMonth, prevYear, setSearchParams } = props.setSearchParams;
-    const { startYear, currentYear } = useSelector((state) => state.transaction);
+    const { startYear } = useSelector((state) => state.user);
+    const { currentYear } = useSelector((state) => state.transaction);
 
     let activeYears = [];
     for (let i = startYear; i <= currentYear; i++) { activeYears.push(i) };
@@ -62,7 +63,8 @@ const MonthSelector = (props) => {
 }
 
 const YearSelector = (props) => {
-    const { startYear, currentYear } = useSelector((state) => state.transaction);
+    const { startYear } = useSelector((state) => state.user);
+    const { currentYear } = useSelector((state) => state.transaction);
 
     let activeYears = [];
     for (let i = startYear; i <= currentYear; i++) { activeYears.push(i) };
