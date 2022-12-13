@@ -1,12 +1,9 @@
 import * as types from '../actions/actionTypes';
-
-const currentDate = new Date();
+import { LoadTransactionData, SaveTransactionData } from '../api/TransactionAPI';
 
 const initialState = {
-    startYear: currentDate.getFullYear(),
-    currentMonth: currentDate.getMonth(),
-    currentYear: currentDate.getFullYear(),
-    previousYear: null,
+    currentMonth: new Date().getMonth(),
+    currentYear: new Date().getFullYear(),
     monthOverview: [
         { potNet: 0, projNet: 0, net: 0, transactions: [] },
         { potNet: 0, projNet: 0, net: 0, transactions: [] },
@@ -18,8 +15,8 @@ const initialState = {
         { potNet: 0, projNet: 0, net: 0, transactions: [] },
         { potNet: 0, projNet: 0, net: 0, transactions: [] },
         { potNet: 0, projNet: 0, net: 0, transactions: [] },
-        { potNet: -19.50, projNet: -19.50, net: -19.50, transactions: [{ id: 0, type: 0, date: '2022-11-11', name: 'Target', amount: 19.50 }] },
-        { potNet: 0, projNet: 0, net: 0, transactions: [{ id: 0, type: 0, date: '2022-12-09', name: 'Walmart', amount: 12.50 }, { id: 1, type: 4, date: '2022-12-10', name: 'Barnes and Noble', amount: 12.50 }] }
+        { potNet: 0, projNet: 0, net: 0, transactions: [] },
+        { potNet: 0, projNet: 0, net: 0, transactions: [] }
     ]
 }
 
@@ -93,6 +90,7 @@ const transactionReducer = (state = initialState, action) => {
                         ...state,
                         monthOverview: newMonthOverview
                     };
+
                     return newState;
                 }
                 if (action.payload.type === 4) { // income
@@ -107,6 +105,7 @@ const transactionReducer = (state = initialState, action) => {
                         ...state,
                         monthOverview: newMonthOverview
                     };
+
                     return newState;
                 }
             }
@@ -123,6 +122,7 @@ const transactionReducer = (state = initialState, action) => {
                         ...state,
                         monthOverview: newMonthOverview
                     };
+
                     return newState;
                 }
                 if (action.payload.type === 6) { // pIncome
@@ -135,6 +135,7 @@ const transactionReducer = (state = initialState, action) => {
                         ...state,
                         monthOverview: newMonthOverview
                     };
+
                     return newState;
                 }
             }
@@ -237,6 +238,39 @@ const transactionReducer = (state = initialState, action) => {
             };
 
             return newState;
+        case types.SAVE_TRANSACTIONS:
+            SaveTransactionData(state);
+
+            return state;
+        case types.LOAD_TRANSACTIONS:
+            const loadedOverview = LoadTransactionData(action.payload);
+            let newLoadState = {
+                ...state
+            }
+
+            if (loadedOverview) {
+                newLoadState = {
+                    ...state,
+                    monthOverview: loadedOverview
+                }
+            }
+
+            return newLoadState;
+        case types.SET_DATE:
+            const { month, year } = action.payload;
+            let newDate = { ...state };
+            if (month) {
+                newDate = {
+                    ...state,
+                    currentMonth: month
+                }
+            } else {
+                newDate = {
+                    ...state,
+                    currentYear: year
+                }
+            }
+            return newDate;
         default:
             return state;
     }

@@ -1,16 +1,19 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDate } from '../../actions/transactionActions';
 import Selector from '../UI/Selector/Selector';
 import './Overview.css';
 
 const YearOverview = (props) => {
     const { year, setSearchParams } = props;
     const { monthOverview } = useSelector((state) => state.transaction);
+    const dispatch = useDispatch();
 
     const max = monthOverview.reduce((max, month) => month.net > max ? month.net : max, monthOverview[0].net);
     const min = monthOverview.reduce((min, month) => month.net < min ? month.net : min, monthOverview[0].net);
     const netTotal = monthOverview.reduce((total, month) => month.net + total, 0);
 
     const onYearChange = (event) => {
+        dispatch(setDate({ year: parseInt(event.target.value) }));
         setSearchParams(`year=${event.target.value}`);
     }
 
