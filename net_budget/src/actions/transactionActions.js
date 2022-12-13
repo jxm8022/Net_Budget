@@ -38,3 +38,11 @@ export const saveTransactions = () => {
         info: 'Saving transactions for specified year.'
     }
 }
+
+export const setDate = (payload) => {
+    return {
+        type: types.SET_DATE,
+        info: 'Setting date to specified date',
+        payload
+    }
+}

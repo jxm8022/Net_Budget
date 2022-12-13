@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { loadTransactions } from './actions/transactionActions';
 import { loadUser, saveUser } from './actions/userActions';
@@ -36,13 +36,14 @@ const routes = [
 ]
 
 function App() {
+  const { currentYear } = useSelector((state) => state.transaction)
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadTransactions());
+    dispatch(loadTransactions(currentYear));
     dispatch(loadUser());
     dispatch(saveUser());
-  }, [dispatch]);
+  }, [dispatch, currentYear]);
 
   return (
     <Suspense>

@@ -1,8 +1,9 @@
 import React from "react";
 import { months } from '../../../assets/months';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './Selector.css';
 import { categories } from "../../../assets/categories";
+import { setDate } from "../../../actions/transactionActions";
 
 const currentDate = new Date();
 const currentMonth = currentDate.getMonth();
@@ -27,8 +28,8 @@ const TypeSelector = React.forwardRef((props, ref) => {
 
 const MonthSelector = (props) => {
     const { prevMonth, prevYear, setSearchParams } = props.setSearchParams;
-    const { startYear } = useSelector((state) => state.user);
-    const { currentYear } = useSelector((state) => state.transaction);
+    const { startYear, currentYear } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     let activeYears = [];
     for (let i = startYear; i <= currentYear; i++) { activeYears.push(i) };
@@ -37,9 +38,11 @@ const MonthSelector = (props) => {
         switch (event.target.id) {
             case 'month':
                 setSearchParams(`month=${event.target.value}&year=${prevYear}`);
+                dispatch(setDate({ month: parseInt(event.target.value) }));
                 break;
             case 'year':
                 setSearchParams(`month=${prevMonth}&year=${event.target.value}`);
+                dispatch(setDate({ year: parseInt(event.target.value) }));
                 break;
             default:
                 break;
@@ -63,8 +66,8 @@ const MonthSelector = (props) => {
 }
 
 const YearSelector = (props) => {
-    const { startYear } = useSelector((state) => state.user);
-    const { currentYear } = useSelector((state) => state.transaction);
+    const dataYear = useSelector((state) => state.transaction.currentYear)
+    const { startYear, currentYear } = useSelector((state) => state.user);
 
     let activeYears = [];
     for (let i = startYear; i <= currentYear; i++) { activeYears.push(i) };
@@ -72,7 +75,7 @@ const YearSelector = (props) => {
     return (
         <form className='year-input-form'>
             <label>Year
-                <select id='type' defaultValue={currentYear} onChange={props.onYearChange}>
+                <select id='type' defaultValue={dataYear} onChange={props.onYearChange}>
                     {activeYears.map((year, index) => <option key={index} value={year}>{year}</option>)}
                 </select>
             </label>

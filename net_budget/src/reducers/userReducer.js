@@ -4,6 +4,7 @@ import { LoadUserData, SaveUserData } from '../api/userAPI';
 const initialState = {
     name: '',
     startYear: new Date().getFullYear(),
+    currentYear: new Date().getFullYear(),
     totalSaved: 0
 }
 

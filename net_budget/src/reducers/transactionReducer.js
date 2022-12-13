@@ -243,7 +243,7 @@ const transactionReducer = (state = initialState, action) => {
 
             return state;
         case types.LOAD_TRANSACTIONS:
-            const loadedOverview = LoadTransactionData(state.currentYear);
+            const loadedOverview = LoadTransactionData(action.payload);
             let newLoadState = {
                 ...state
             }
@@ -256,6 +256,21 @@ const transactionReducer = (state = initialState, action) => {
             }
 
             return newLoadState;
+        case types.SET_DATE:
+            const { month, year } = action.payload;
+            let newDate = { ...state };
+            if (month) {
+                newDate = {
+                    ...state,
+                    currentMonth: month
+                }
+            } else {
+                newDate = {
+                    ...state,
+                    currentYear: year
+                }
+            }
+            return newDate;
         default:
             return state;
     }
