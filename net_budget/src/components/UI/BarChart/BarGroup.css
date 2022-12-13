@@ -1,3 +1,4 @@
+/* mobile */
 .bar-group {
     text-anchor: end;
 }
@@ -6,9 +7,40 @@
     font-weight: 300;
     font-size: 1em;
     fill: #333;
+    translate: -25px;
 }
 
 .value-label {
     font-weight: 900;
     font-size: 0.7em;
+    translate: -470px;
+}
+
+.bar-group rect {
+    translate: -40px;
+    transform: scale(.35);
+}
+
+/* tablets */
+@media only screen and (min-width: 600px) {
+    .value-label {
+        translate: -100px;
+    }
+
+    .bar-group rect {
+        translate: -30px;
+        transform: scale(.90);
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .value-label {
+        translate: 0px;
+    }
+
+    .bar-group rect {
+        translate: 0px;
+        transform: scale(1);
+    }
 }
