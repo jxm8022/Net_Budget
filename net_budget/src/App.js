@@ -1,5 +1,7 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { loadTransactions } from './actions/transactionActions';
 import './App.css';
 import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
@@ -33,6 +35,12 @@ const routes = [
 ]
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadTransactions());
+  }, [dispatch]);
+
   return (
     <Suspense>
       <Routes>

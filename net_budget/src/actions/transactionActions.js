@@ -23,3 +23,18 @@ export const deleteTransaction = (payload) => {
         payload
     }
 }
+
+export const loadTransactions = (payload) => {
+    return {
+        type: types.LOAD_TRANSACTIONS,
+        info: 'Loading transactions for specified year.',
+        payload
+    }
+}
+
+export const saveTransactions = () => {
+    return {
+        type: types.SAVE_TRANSACTIONS,
+        info: 'Saving transactions for specified year.'
+    }
+}
