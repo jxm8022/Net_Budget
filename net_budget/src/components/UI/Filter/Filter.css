@@ -1,5 +1,6 @@
+/* mobile */
 .filter {
-    width: 50%;
+    width: 90%;
     text-align: right;
 }
 
@@ -20,21 +21,41 @@
 
 .filtertooltip .filtertooltiptext {
     width: 350px;
-    background-color: rgba(0, 0, 0, 0.50);
-    color: #fff;
+    color: #000;
     text-align: center;
     padding: 10px 10px 20px 10px;
     border-radius: 0px 50px 50px 50px;
     font-size: .75em;
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    z-index: 1;
-    top: 0px;
-    left: 150%;
 }
 
 .filtertooltiptext form label {
     display: block;
     text-align: left;
     padding: 10px;
+}
+
+/* tablets */
+@media only screen and (min-width: 600px) {
+    .filter {
+        width: 80%;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .filter {
+        width: 50%;
+    }
+
+    /* Tooltip text */
+
+    .filtertooltip .filtertooltiptext {
+        background-color: rgba(0, 0, 0, 0.50);
+        color: #fff;
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        left: 150%;
+    }
 }

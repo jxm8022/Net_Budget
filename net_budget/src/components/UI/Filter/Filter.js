@@ -15,18 +15,18 @@ const Filter = (props) => {
     const transDate = useRef();
     const transName = useRef();
     const transAmount = useRef();
-    const [visibility, setVisibility] = useState('hidden');
+    const [visibility, setVisibility] = useState(false);
     const [filterImage, setFilterImage] = useState(closedFilter);
     const [filters, setFilters] = useState([]);
 
     const showFilter = () => {
-        if (visibility === 'hidden') {
+        if (visibility === false) {
             setFilterImage(openedFilter);
-            setVisibility('visible');
+            setVisibility(true);
         }
-        if (visibility === 'visible') {
+        if (visibility === true) {
             setFilterImage(closedFilter);
-            setVisibility('hidden');
+            setVisibility(false);
         }
     }
 
@@ -34,7 +34,7 @@ const Filter = (props) => {
         event.preventDefault();
         const typeIndex = parseInt(transType.current.value);
         setFilterImage(closedFilter);
-        setVisibility('hidden');
+        setVisibility(false);
         if (filters.find((filter) => filter.criteria === typeIndex)) {
             console.log('already in array')
         } else {
@@ -51,7 +51,7 @@ const Filter = (props) => {
         event.preventDefault();
         const date = transDate.current.value;
         setFilterImage(closedFilter);
-        setVisibility('hidden');
+        setVisibility(false);
         if (filters.find((filter) => filter.criteria === date)) {
             console.log('already in array')
         } else {
@@ -68,7 +68,7 @@ const Filter = (props) => {
         event.preventDefault();
         const name = transName.current.value.charAt(0).toUpperCase() + transName.current.value.slice(1);
         setFilterImage(closedFilter);
-        setVisibility('hidden');
+        setVisibility(false);
         if (filters.find((filter) => filter.criteria === name)) {
             console.log('already in array')
         } else {
@@ -85,7 +85,7 @@ const Filter = (props) => {
         event.preventDefault();
         const amount = parseFloat(transAmount.current.value).toFixed(2);
         setFilterImage(closedFilter);
-        setVisibility('hidden');
+        setVisibility(false);
         if (filters.find((filter) => filter.criteria === amount)) {
             console.log('already in array')
         } else {
@@ -110,7 +110,7 @@ const Filter = (props) => {
 
     const clearAllFilters = () => {
         setFilterImage(closedFilter);
-        setVisibility('hidden');
+        setVisibility(false);
         setFilters([]);
         clearFilters({
             type: 'CLEAR'
@@ -123,7 +123,7 @@ const Filter = (props) => {
                 {filters.map((filter) => <FilteredBy key={filter.id} filter={filter} removeFilterX={removeFilterX} />)}
                 <div className='filtertooltip'>
                     <img src={filterImage} alt='Filter table' onClick={showFilter} />
-                    <span className='filtertooltiptext' style={{ visibility: visibility }}>
+                    {visibility && <span className='filtertooltiptext' style={{ visibility: visibility }}>
                         <form onSubmit={typeFilter}>
                             <Selector ref={transType} type='TYPE' selectedMonth={monthIndex} addApply={true} />
                         </form>
@@ -149,7 +149,7 @@ const Filter = (props) => {
                             </label>
                         </form>
                         <button onClick={clearAllFilters}>Clear Filters</button>
-                    </span>
+                    </span>}
                 </div>
             </div>
         </>

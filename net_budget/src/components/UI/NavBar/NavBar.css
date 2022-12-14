@@ -1,7 +1,6 @@
+/* mobile */
 .navbar {
     background-color: rgb(52, 52, 52);
-    position: fixed;
-    top: 0;
     width: 100%;
 }
 
@@ -18,15 +17,41 @@
 .navbarLink {
     display: inline-block;
     color: white;
-    padding: 20px 40px;
+    padding: 20px 10px;
     text-decoration: none;
-
-}
-
-.navbar li:hover {
-    background-color: rgba(159, 141, 120, 0.454);
 }
 
 .active {
     background-color: rgb(159, 141, 120);
+}
+
+/* tablets */
+@media only screen and (min-width: 600px) {
+    .navbar {
+        width: 100%;
+    }
+
+    .navbarLink {
+        padding: 20px 30px;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+    }
+
+    .navbar li {
+        display: inline-block;
+    }
+
+    .navbarLink {
+        padding: 20px 40px;
+    }
+
+    .navbar li:hover {
+        background-color: rgba(159, 141, 120, 0.454);
+    }
 }

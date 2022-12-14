@@ -27,7 +27,7 @@ const BarChart = (props) => {
     </g>);
 
     return (
-        <svg width='800' height='600' className="chart">
+        <svg className="chart">
             {max ? <g className='container'>{barGroups}</g> : <text id="noData" x={400 - (387.5 / 2)} y='300' fontSize={50} fill='#ff0000'>No data to display.</text>}
         </svg >
     );

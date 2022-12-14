@@ -1,6 +1,7 @@
+/* mobile */
 .table {
     border-collapse: collapse;
-    width: 50%;
+    width: 90%;
     margin: 20px 0px 40px 0px;
 }
 
@@ -8,7 +9,8 @@
 .table tr,
 .table td {
     border: 1px solid black;
-    padding: 10px;
+    padding: 5px;
+    font-size: .75em;
 }
 
 .table th {
@@ -22,4 +24,32 @@
 .table img {
     width: 25px;
     float: right;
+}
+
+/* tablets */
+@media only screen and (min-width: 600px) {
+    .table {
+        width: 80%;
+    }
+
+    .table th,
+    .table tr,
+    .table td {
+        padding: 10px;
+        font-size: .85em;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .table {
+        width: 50%;
+    }
+
+    .table th,
+    .table tr,
+    .table td {
+        padding: 10px;
+        font-size: 1em;
+    }
 }

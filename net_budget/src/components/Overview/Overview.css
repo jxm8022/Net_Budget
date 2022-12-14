@@ -1,6 +1,9 @@
+/* mobile */
 .overview {
     margin: 10px 0px;
+    width: 100%;
     padding: 0;
+    text-align: center;
 }
 
 .overview ul {
@@ -8,18 +11,21 @@
 }
 
 .overview li {
+    vertical-align: top;
     display: inline-block;
     text-align: center;
-    padding: 0px 40px;
+    width: 30%;
+    padding: 0px 5px;
 }
 
 .overview h4 {
     margin: 0;
+    font-size: .9em;
 }
 
 .overview p {
     margin: 10px 0px;
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
 .middle {
@@ -34,51 +40,92 @@
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: rgba(0, 0, 0, 0.50);
-    color: #fff;
+    color: #000;
     text-align: center;
     padding: 5px;
-    border-radius: 6px;
-    font-size: .75em;
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    z-index: 1;
-    top: -70px;
+    font-size: .55em;
 }
 
-.tooltip-left {
-    right: 95%;
+/* tablets */
+@media only screen and (min-width: 600px) {
+    .overview h4 {
+        font-size: 1em;
+    }
+
+    .overview p {
+        font-size: 1.5em;
+    }
+
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        color: #000;
+        text-align: center;
+        padding: 5px;
+        font-size: .75em;
+    }
 }
 
-.tooltip-right {
-    left: 95%;
-}
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .overview li {
+        display: inline-block;
+        text-align: center;
+        padding: 0px 40px;
+        width: 10%;
+    }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: rgba(0, 0, 0, 0.50);
+        color: #fff;
+        border-radius: 6px;
+        font-size: .75em;
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+        top: -70px;
+    }
 
-/* Show the arrow on tool tip box. Position left. */
-.tooltip .tooltiptext::after {
-    content: " ";
-    position: absolute;
-    top: 50%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-}
+    .tooltip-left {
+        right: 95%;
+    }
 
-/* To the left of the tooltip */
-.arrow-left::after {
-    right: 100%;
-    border-color: transparent rgba(0, 0, 0, 0.50) transparent transparent;
-}
+    .tooltip-right {
+        left: 95%;
+    }
 
-/* Show the arrow on tool tip box. Position right. */
-.arrow-right::after {
-    left: 100%;
-    border-color: transparent transparent transparent rgba(0, 0, 0, 0.50);
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    /* Show the arrow on tool tip box. Position left. */
+    .tooltip .tooltiptext::after {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+    }
+
+    /* To the left of the tooltip */
+    .arrow-left::after {
+        right: 100%;
+        border-color: transparent rgba(0, 0, 0, 0.50) transparent transparent;
+    }
+
+    /* Show the arrow on tool tip box. Position right. */
+    .arrow-right::after {
+        left: 100%;
+        border-color: transparent transparent transparent rgba(0, 0, 0, 0.50);
+    }
 }

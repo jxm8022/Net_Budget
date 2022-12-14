@@ -1,3 +1,4 @@
+/* mobile */
 .children {
     background-color: #f6ebcb;
     min-height: 100vh;
@@ -7,5 +8,14 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: black;
-    padding-top: 58px;
+}
+
+/* tablets */
+@media only screen and (min-width: 600px) {}
+
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .children {
+        padding-top: 58px;
+    }
 }
