@@ -35,6 +35,10 @@
 
 /* desktop */
 @media only screen and (min-width: 900px) {
+    .name-label {
+        translate: -10px;
+    }
+
     .value-label {
         translate: 0px;
     }
