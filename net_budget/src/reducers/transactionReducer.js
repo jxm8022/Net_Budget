@@ -168,7 +168,7 @@ const transactionReducer = (state = initialState, action) => {
                     potNet,
                     projNet,
                     net,
-                    transactions: newTransactions
+                    transactions: newTransactions.sort(sortTransactionsByDate)
                 }
                 let newMonthOverview = [...state.monthOverview];
                 newMonthOverview[prevMonthIndex] = newMonth;
@@ -198,7 +198,7 @@ const transactionReducer = (state = initialState, action) => {
                     potNet: newOverview.potNet,
                     projNet: newOverview.projNet,
                     net: newOverview.net,
-                    transactions: newTransactions
+                    transactions: newTransactions.sort(sortTransactionsByDate)
                 }
                 // remove from old month
                 let oldTransactions = [...state.monthOverview[prevMonthIndex].transactions];
@@ -210,7 +210,7 @@ const transactionReducer = (state = initialState, action) => {
                     potNet: oldOverview.potNet,
                     projNet: oldOverview.projNet,
                     net: oldOverview.net,
-                    transactions: oldTransactions
+                    transactions: oldTransactions.sort(sortTransactionsByDate)
                 }
                 // new overview
                 let newMonthOverview = [...state.monthOverview];
