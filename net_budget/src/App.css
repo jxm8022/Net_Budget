@@ -1,3 +1,15 @@
 .negative {
   color: rgb(91, 0, 0);
 }
+
+.scroll-top {
+  padding: 2px 7px;
+  font-size: .75em;
+  border-radius: 10px 0px 0px 0px;
+  text-decoration: none;
+  color: white;
+  background-color: grey;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}

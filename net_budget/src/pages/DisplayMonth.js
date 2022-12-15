@@ -22,6 +22,7 @@ const DisplayMonth = () => {
             <MonthSelector monthIndex={month} year={year} setSearchParams={{ prevMonth: month, prevYear: year, setSearchParams }} />
             <MonthOverview monthIndex={month} />
             <MonthDetails monthIndex={month} />
+            <a href='#top' className="scroll-top">Top</a>
         </Template>
     );
 }
