@@ -76,7 +76,7 @@ const transactionReducer = (state = initialState, action) => {
             if (monthInfo.transactions.length === 0) {
                 transactionsId = monthInfo.transactions.length;
             } else {
-                transactionsId = monthInfo.transactions[monthInfo.transactions.length - 1].id + 1;
+                transactionsId = monthInfo.transactions.reduce((max, transaction) => transaction.id > max ? transaction.id : max, monthInfo.transactions[0].id) + 1;
             }
 
             const newTransactions = [...monthInfo.transactions, { ...action.payload, id: transactionsId }].sort(sortTransactionsByDate);
