@@ -71,7 +71,14 @@ const transactionReducer = (state = initialState, action) => {
         case types.ADD_TRANSACTION:
             const monthIndex = parseInt(action.payload.date.split('-')[1]) - 1;
             const monthInfo = state.monthOverview[monthIndex];
-            const transactionsId = monthInfo.transactions.length;
+
+            let transactionsId;
+            if (monthInfo.transactions.length === 0) {
+                transactionsId = monthInfo.transactions.length;
+            } else {
+                transactionsId = monthInfo.transactions[monthInfo.transactions.length - 1].id + 1;
+            }
+
             const newTransactions = [...monthInfo.transactions, { ...action.payload, id: transactionsId }].sort(sortTransactionsByDate);
             const previousPotNet = monthInfo.potNet;
             const previousProjNet = monthInfo.projNet;
