@@ -71,7 +71,14 @@ const transactionReducer = (state = initialState, action) => {
         case types.ADD_TRANSACTION:
             const monthIndex = parseInt(action.payload.date.split('-')[1]) - 1;
             const monthInfo = state.monthOverview[monthIndex];
-            const transactionsId = monthInfo.transactions.length;
+
+            let transactionsId;
+            if (monthInfo.transactions.length === 0) {
+                transactionsId = monthInfo.transactions.length;
+            } else {
+                transactionsId = monthInfo.transactions.reduce((max, transaction) => transaction.id > max ? transaction.id : max, monthInfo.transactions[0].id) + 1;
+            }
+
             const newTransactions = [...monthInfo.transactions, { ...action.payload, id: transactionsId }].sort(sortTransactionsByDate);
             const previousPotNet = monthInfo.potNet;
             const previousProjNet = monthInfo.projNet;
@@ -161,7 +168,7 @@ const transactionReducer = (state = initialState, action) => {
                     potNet,
                     projNet,
                     net,
-                    transactions: newTransactions
+                    transactions: newTransactions.sort(sortTransactionsByDate)
                 }
                 let newMonthOverview = [...state.monthOverview];
                 newMonthOverview[prevMonthIndex] = newMonth;
@@ -191,7 +198,7 @@ const transactionReducer = (state = initialState, action) => {
                     potNet: newOverview.potNet,
                     projNet: newOverview.projNet,
                     net: newOverview.net,
-                    transactions: newTransactions
+                    transactions: newTransactions.sort(sortTransactionsByDate)
                 }
                 // remove from old month
                 let oldTransactions = [...state.monthOverview[prevMonthIndex].transactions];
@@ -203,7 +210,7 @@ const transactionReducer = (state = initialState, action) => {
                     potNet: oldOverview.potNet,
                     projNet: oldOverview.projNet,
                     net: oldOverview.net,
-                    transactions: oldTransactions
+                    transactions: oldTransactions.sort(sortTransactionsByDate)
                 }
                 // new overview
                 let newMonthOverview = [...state.monthOverview];
