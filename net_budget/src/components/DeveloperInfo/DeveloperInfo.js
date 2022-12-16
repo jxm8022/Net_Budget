@@ -9,12 +9,11 @@ const DeveloperInfo = () => {
             <hr id='developer' className='about-separator' color='black'></hr>
             <img src={me} alt='Developer Avatar' style={{ 'border-radius': '50%' }} />
             <h2>Jose Mendoza</h2>
-            <p className='bio'><b>Bio:</b>
-                <p>Hobbies: programming, gaming, stargazing, 3D printing</p>
-                <p>Interests: astronomy, mathematics, science</p>
-            </p>
-            <p className='background'><b>Background:</b>
-                <p>Education: The University of Texas at Arlington</p>
+            <p className='bio'>
+                I graduated from the University of Texas at Arlington in 2021 with a bachelor's degree in software engineering.
+                Since then, I've been trying to get experience by creating my own little projects, like this one.
+                I'm interested in creating things, whether that's by coding, 3D printing, or tinkering with tools.
+                Besides coding, my hobbies include gaming, stargazing, and fishing.
             </p>
             <ul className='social-media'>
                 <li><a rel='noreferrer noopener' target='_blank' href='https://github.com/jxm8022'><img src={github} alt='GitHub logo.' /></a></li>
