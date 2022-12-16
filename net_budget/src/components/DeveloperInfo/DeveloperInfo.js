@@ -7,7 +7,7 @@ const DeveloperInfo = () => {
     return (
         <>
             <hr id='developer' className='about-separator' color='black'></hr>
-            <img src={me} alt='Developer Avatar' style={{ 'border-radius': '50%' }} />
+            <img src={me} alt='Developer Avatar' style={{ 'borderRadius': '50%' }} />
             <h2>Jose Mendoza</h2>
             <p className='bio'>
                 I graduated from the University of Texas at Arlington in 2021 with a bachelor's degree in software engineering.
