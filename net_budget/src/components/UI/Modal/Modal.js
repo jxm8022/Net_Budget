@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { updateTransaction, deleteTransaction, saveTransactions } from '../../../actions/transactionActions';
+import { updateTransaction, deleteTransaction } from '../../../actions/transactionActions';
 import InputForm from '../Form/InputForm';
 import './Modal.css';
 
@@ -15,13 +15,11 @@ const Modal = (props) => {
                     new: transaction,
                     prev: data
                 }));
-                dispatch(saveTransactions());
                 break;
             case 'Delete':
                 dispatch(deleteTransaction({
                     prev: data
                 }));
-                dispatch(saveTransactions());
                 break;
             default:
                 break;

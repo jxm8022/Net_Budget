@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { addTransaction, saveTransactions } from "../../actions/transactionActions";
+import { addTransaction } from "../../actions/transactionActions";
 import InputForm from "../UI/Form/InputForm";
 
 const currentDate = new Date();
@@ -11,7 +11,6 @@ const AddTransaction = () => {
 
     const submitTransaction = (info) => {
         dispatch(addTransaction(info.transaction));
-        dispatch(saveTransactions());
     }
 
     return (

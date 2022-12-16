@@ -32,13 +32,6 @@ export const loadTransactions = (payload) => {
     }
 }
 
-export const saveTransactions = () => {
-    return {
-        type: types.SAVE_TRANSACTIONS,
-        info: 'Saving transactions for specified year.'
-    }
-}
-
 export const setDate = (payload) => {
     return {
         type: types.SET_DATE,
