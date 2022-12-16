@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { loadTransactions } from './actions/transactionActions';
 import { loadUser, saveUser } from './actions/userActions';
 import './App.css';
+import About from './pages/About';
 import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
 
@@ -28,6 +29,10 @@ const routes = [
   {
     path: '/monthOverview',
     component: <DisplayMonth />
+  },
+  {
+    path: '/about',
+    component: <About />
   },
   {
     path: '*',

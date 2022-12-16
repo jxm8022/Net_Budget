@@ -43,6 +43,18 @@ const NavBar = () => {
                         Month Overview
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        to={`../about`}
+                        className={
+                            ({ isActive }) => {
+                                return isActive ? 'active navbarLink' : 'navbarLink'
+                            }
+                        }
+                    >
+                        About
+                    </NavLink>
+                </li>
             </ul>
         </nav >
     );
