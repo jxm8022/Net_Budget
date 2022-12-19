@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import pieChartSymbol from '../../../assets/images/charts/pie-chart-40.png';
 import './PieChart.css';
 
 const LegendPart = (props) => {
@@ -13,6 +15,7 @@ const LegendPart = (props) => {
 
 const PieChart = (props) => {
     const { monthIndex } = props;
+    const [visibility, setVisibility] = useState('none');
     const { transactions } = useSelector((state) => state.transaction.monthOverview[monthIndex]);
 
     let pieData = transactions.reduce((previous, current) => {
@@ -32,7 +35,7 @@ const PieChart = (props) => {
         }
     }, [
         { id: 0, type: 'Want', amount: 0, color: 'pink' },
-        { id: 1, type: 'Need', amount: 0, color: 'yellow' },
+        { id: 1, type: 'Need', amount: 0, color: 'lightgoldenrodyellow' },
         { id: 2, type: 'Savings/Debt', amount: 0, color: 'lightblue' }
     ]);
 
@@ -53,15 +56,31 @@ const PieChart = (props) => {
 
     let pies = { 'backgroundImage': `conic-gradient(${pieData[0].color} 0% ${pie1}%, ${pieData[1].color} ${pie1}% ${pie2}%, ${pieData[2].color} ${pie2}% 100%)` };
 
+    const pieVisibility = () => {
+        if (visibility === 'none') setVisibility('block')
+        else setVisibility('none')
+    }
+
+    const buttonVisibility = visibility === 'none' ? 'block' : 'none';
+
     return (
-        <div className='basePiechart'>
-            <div className="pie-chart" style={pies}></div>
-            <div className='legend'>
-                {pieData.map((pie) =>
-                    <LegendPart key={pie.id} pie={pie} />
-                )}
+        <>
+            <img
+                onClick={pieVisibility}
+                src={pieChartSymbol}
+                alt='Toggle pie chart.'
+                className='pie-chart-toggle'
+                style={{ display: buttonVisibility }}
+            />
+            <div onClick={pieVisibility} className='basePiechart' style={{ display: visibility }}>
+                <div className="pie-chart" style={pies}></div>
+                <div className='legend'>
+                    {pieData.map((pie) =>
+                        <LegendPart key={pie.id} pie={pie} />
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
