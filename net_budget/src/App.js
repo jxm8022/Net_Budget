@@ -41,7 +41,7 @@ const routes = [
 ]
 
 function App() {
-  const { currentYear } = useSelector((state) => state.transaction)
+  const { currentYear } = useSelector((state) => state.transaction);
   const dispatch = useDispatch();
 
   useEffect(() => {
