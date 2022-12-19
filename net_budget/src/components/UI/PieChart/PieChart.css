@@ -1,5 +1,5 @@
 /* mobile */
-.chart {
+.basePiechart {
     width: 100%;
     margin: 30px 0;
     display: flex;
@@ -43,8 +43,8 @@
 
 /* desktop */
 @media only screen and (min-width: 900px) {
-    .chart {
+    .basePiechart {
         background-color: grey;
-        width: 100%
+        width: 40%
     }
 }

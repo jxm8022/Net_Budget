@@ -54,7 +54,7 @@ const PieChart = (props) => {
     let pies = { 'backgroundImage': `conic-gradient(${pieData[0].color} 0% ${pie1}%, ${pieData[1].color} ${pie1}% ${pie2}%, ${pieData[2].color} ${pie2}% 100%)` };
 
     return (
-        <div className='chart'>
+        <div className='basePiechart'>
             <div className="pie-chart" style={pies}></div>
             <div className='legend'>
                 {pieData.map((pie) =>
