@@ -12,6 +12,7 @@ const MonthSelector = (props) => {
     const { transactions } = useSelector((state) => state.transaction.monthOverview[monthIndex]);
     const [visibility, setVisibility] = useState('none');
 
+    /* Ratio data */
     const data = [
         { id: 0, type: 'Need', available: 0, remaining: 0 },
         { id: 1, type: 'Want', available: 0, remaining: 0 },
