@@ -7,6 +7,7 @@ import './App.css';
 import About from './pages/About';
 import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
+import Version from './pages/Version';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
@@ -33,6 +34,10 @@ const routes = [
   {
     path: '/about',
     component: <About />
+  },
+  {
+    path: '/version',
+    component: <Version />
   },
   {
     path: '*',
