@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import pieChartSymbol from '../../../assets/images/charts/pie-chart-40.png';
 import './PieChart.css';
 
 const LegendPart = (props) => {
@@ -67,7 +66,6 @@ const PieChart = (props) => {
         <>
             <img
                 onClick={pieVisibility}
-                src={pieChartSymbol}
                 alt='Toggle pie chart.'
                 className='pie-chart-toggle'
                 style={{ display: buttonVisibility }}
