@@ -1,0 +1,31 @@
+/* mobile */
+.table-toggle {
+    content: url('../../assets/images/charts/table-96-dark.png');
+    width: 45px;
+    position: absolute;
+    top: 105px;
+    right: 0;
+    z-index: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+    .table-toggle {
+        content: url('../../assets/images/charts/table-96-light.png');
+    }
+}
+
+/* tablets */
+@media only screen and (min-width: 600px) {}
+
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .table-toggle {
+        content: url('../../assets/images/charts/table-48-dark.png');
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .table-toggle {
+            content: url('../../assets/images/charts/table-48-light.png');
+        }
+    }
+}

@@ -83,6 +83,7 @@ const MonthDetails = (props) => {
                 monthIndex={monthIndex} />
             <Table
                 headers={headers}
+                dataType={'TRANSACTIONS'}
                 data={sortedTransactions}
                 isSortAsc={isSortAsc}
                 sortColumn={sortColumn}
