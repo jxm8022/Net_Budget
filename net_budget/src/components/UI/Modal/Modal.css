@@ -3,7 +3,7 @@
 .modal {
     position: fixed;
     /* Stay in place */
-    z-index: 1;
+    z-index: 3;
     /* Sit on top */
     left: 0;
     top: 0;
@@ -25,7 +25,7 @@
     width: 85%;
     margin: auto;
     padding: 2px 16px;
-    background-color: rgb(159, 141, 120);
+    background-color: rgb(45, 45, 45);
     color: white;
 }
 
@@ -34,7 +34,7 @@
     width: 85%;
     margin: auto;
     padding: 2px 16px;
-    background-color: #f6ebcb;
+    background-color: white;
     text-align: left;
 }
 
@@ -43,7 +43,7 @@
     width: 85%;
     margin: auto;
     padding: 16px;
-    background-color: #f6ebcb;
+    background-color: white;
     text-align: right;
 }
 
@@ -97,5 +97,28 @@
     /* Modal Footer */
     .modal-footer {
         width: 40%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+
+    /* Modal Body */
+    .modal-body {
+        background-color: rgb(69, 69, 69);
+    }
+
+    /* Modal Footer */
+    .modal-footer {
+        background-color: rgb(69, 69, 69);
+    }
+
+    /* The Close Button */
+    .close {
+        color: #fff;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
     }
 }
