@@ -40,6 +40,13 @@ const versionHistory = [
         title: 'Added feature: QoL updates',
         info: 'Added new updates to improve the overall feel of the website. Added dark and light mode styling, added page to hold versions of this application, and updated icons to match light and dark mode.',
         link: 'https://github.com/jxm8022/Net_Budget/issues/27'
+    },
+    {
+        id: 6,
+        version: 2.3,
+        title: 'Add optional ratios',
+        info: 'Added new table in month overview. The table displays the 50/30/20 rule being applied to income and potential income.',
+        link: 'https://github.com/jxm8022/Net_Budget/issues/34'
     }
 
 ]
