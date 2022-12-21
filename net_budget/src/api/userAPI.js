@@ -1,5 +1,5 @@
-const signInUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[]';
-const signUpUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[]';
+const signInUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API}';
+const signUpUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API}';
 
 export const SaveUserData = (state) => {
     localStorage.setItem('user', JSON.stringify(state));
