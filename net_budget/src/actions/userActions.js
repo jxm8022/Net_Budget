@@ -13,3 +13,18 @@ export const saveUser = () => {
         info: 'Saving user information.'
     }
 }
+
+export const login = (payload) => {
+    return {
+        type: types.LOGIN,
+        info: 'Logging in user.',
+        payload
+    }
+}
+
+export const logout = () => {
+    return {
+        type: types.LOGOUT,
+        info: 'Logging out user.'
+    }
+}

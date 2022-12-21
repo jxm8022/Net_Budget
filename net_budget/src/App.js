@@ -7,17 +7,16 @@ import './App.css';
 import About from './pages/About';
 import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
+import Auth from './pages/Auth';
 import Version from './pages/Version';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 
-const currentYear = new Date().getFullYear();
-
 const routes = [
   {
     path: '/',
-    component: <Navigate replace to={`yearOverview?year=${currentYear}`} />
+    component: <Navigate replace to={'auth'} />
   },
   {
     path: '/yearOverview',
@@ -34,6 +33,10 @@ const routes = [
   {
     path: '/about',
     component: <About />
+  },
+  {
+    path: '/auth',
+    component: <Auth />
   },
   {
     path: '/version',

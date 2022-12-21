@@ -1,11 +1,12 @@
 import * as types from '../actions/actionTypes';
-import { LoadUserData, SaveUserData } from '../api/userAPI';
+import { LoadUserData, SaveUserData, signIn } from '../api/userAPI';
 
 const initialState = {
     name: '',
     startYear: new Date().getFullYear(),
     currentYear: new Date().getFullYear(),
-    totalSaved: 0
+    totalSaved: 0,
+    token: null
 }
 
 const userReducer = (state = initialState, action) => {
@@ -28,6 +29,26 @@ const userReducer = (state = initialState, action) => {
             SaveUserData(state);
 
             return state;
+        case types.LOGIN:
+            const loginResponse = signIn(action.payload.email, action.payload.password);
+
+            console.log(loginResponse);
+
+            let newLoginState = {
+                ...state,
+            }
+
+            return newLoginState;
+        case types.LOGOUT:
+            const logoutResponse = null;
+
+            console.log(logoutResponse);
+
+            let newLogoutState = {
+                ...state,
+            }
+
+            return newLogoutState;
         default:
             return state;
     }

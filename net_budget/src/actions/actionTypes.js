@@ -9,3 +9,5 @@ export const SET_DATE = 'SET_DATE';
 // USER ACTIONS
 export const LOAD_USER = 'LOAD_USER';
 export const SAVE_USER = 'SAVE_USER';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
