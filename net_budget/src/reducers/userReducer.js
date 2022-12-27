@@ -1,12 +1,13 @@
 import * as types from '../actions/actionTypes';
-import { LoadUserData, SaveUserData, signIn } from '../api/userAPI';
+import { LoadUserData, SaveUserData } from '../api/userAPI';
 
 const initialState = {
     name: '',
     startYear: new Date().getFullYear(),
     currentYear: new Date().getFullYear(),
     totalSaved: 0,
-    token: null
+    token: null,
+    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true' ? true : false
 }
 
 const userReducer = (state = initialState, action) => {
@@ -24,30 +25,29 @@ const userReducer = (state = initialState, action) => {
                 }
             }
 
+            SaveUserData(newLoadState);
             return newLoadState;
-        case types.SAVE_USER:
-            SaveUserData(state);
-
-            return state;
         case types.LOGIN:
-            const loginResponse = signIn(action.payload.email, action.payload.password);
-
-            console.log(loginResponse);
-
             let newLoginState = {
                 ...state,
+                token: action.payload.idToken,
+                isLoggedIn: true
             }
 
+            localStorage.setItem('isLoggedIn', true);
+            SaveUserData(newLoginState);
             return newLoginState;
         case types.LOGOUT:
-            const logoutResponse = null;
-
-            console.log(logoutResponse);
+            const newToken = null;
 
             let newLogoutState = {
                 ...state,
+                token: newToken,
+                isLoggedIn: false
             }
 
+            localStorage.setItem('isLoggedIn', false);
+            SaveUserData(newLogoutState);
             return newLogoutState;
         default:
             return state;

@@ -1,5 +1,5 @@
-const signInUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API}';
-const signUpUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API}';
+const signInUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API}`;
+const signUpUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API}`;
 
 export const SaveUserData = (state) => {
     localStorage.setItem('user', JSON.stringify(state));
@@ -11,11 +11,9 @@ export const LoadUserData = () => {
 }
 
 export const signIn = (newUser, email, password) => {
-    let response = { data: null, error: null };
-
     const url = newUser ? signUpUrl : signInUrl;
 
-    fetch(
+    return fetch(
         url,
         {
             method: 'POST',
@@ -33,17 +31,11 @@ export const signIn = (newUser, email, password) => {
                 return res.json();
             } else {
                 return res.json().then((data) => {
-                    response = { ...response, error: data.error.message };
-                    throw new Error(response);
+                    throw new Error(data.error.message);
                 });
             }
-        })
-        .then((data) => {
-            response = { ...response, data };
         })
         .catch((err) => {
             alert(err.message);
         });
-
-    return response;
 }

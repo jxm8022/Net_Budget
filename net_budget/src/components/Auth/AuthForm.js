@@ -1,5 +1,8 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../actions/userActions';
+import { signIn } from '../../api/userAPI';
 
 import './AuthForm.css';
 
@@ -7,7 +10,7 @@ const AuthForm = () => {
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
 
     const switchAuthModeHandler = () => {
@@ -20,11 +23,24 @@ const AuthForm = () => {
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
 
-        // loading
         if (isLogin) {
-            console.log('already created', enteredEmail, enteredPassword)
+            signIn(!isLogin, enteredEmail, enteredPassword).then((res) => {
+                if (res) {
+                    dispatch(login(res));
+                    navigate({
+                        pathname: '/yearOverview',
+                    });
+                }
+            })
         } else {
-            console.log('create', enteredEmail, enteredPassword)
+            signIn(isLogin, enteredEmail, enteredPassword).then((res) => {
+                if (res) {
+                    dispatch(login(res));
+                    navigate({
+                        pathname: '/yearOverview',
+                    });
+                }
+            })
         }
     };
 
