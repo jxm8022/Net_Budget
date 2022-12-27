@@ -7,13 +7,6 @@ export const loadUser = () => {
     }
 }
 
-export const saveUser = () => {
-    return {
-        type: types.SAVE_USER,
-        info: 'Saving user information.'
-    }
-}
-
 export const login = (payload) => {
     return {
         type: types.LOGIN,
