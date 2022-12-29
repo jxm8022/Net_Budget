@@ -1,5 +1,6 @@
 import * as types from '../actions/actionTypes';
 import { LoadUserData, SaveUserData } from '../api/userAPI';
+import CalculateRemainingTime from '../utilities/CalculateRemainingTime';
 
 const initialState = {
     name: '',
@@ -7,7 +8,8 @@ const initialState = {
     currentYear: new Date().getFullYear(),
     totalSaved: 0,
     token: null,
-    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true' ? true : false
+    expirationTime: null,
+    isLoggedIn: false
 }
 
 const userReducer = (state = initialState, action) => {
@@ -19,34 +21,44 @@ const userReducer = (state = initialState, action) => {
             }
 
             if (loadedUser) {
-                newLoadState = {
-                    ...loadedUser,
-                    currentYear: new Date().getFullYear()
+                const remainingDuration = CalculateRemainingTime(loadedUser.expirationTime);
+                if (remainingDuration <= 3600) {
+                    newLoadState = {
+                        ...loadedUser,
+                        token: null,
+                        expirationTime: null,
+                        isLoggedIn: false,
+                        currentYear: new Date().getFullYear()
+                    }
+                } else {
+                    newLoadState = {
+                        ...loadedUser,
+                        currentYear: new Date().getFullYear()
+                    }
                 }
             }
 
             SaveUserData(newLoadState);
             return newLoadState;
         case types.LOGIN:
+            const loginExpirationTime = new Date(new Date().getTime() + +action.payload.expiresIn * 1000);
             let newLoginState = {
                 ...state,
                 token: action.payload.idToken,
+                expirationTime: loginExpirationTime.toISOString(),
                 isLoggedIn: true
             }
 
-            localStorage.setItem('isLoggedIn', true);
             SaveUserData(newLoginState);
             return newLoginState;
         case types.LOGOUT:
-            const newToken = null;
-
             let newLogoutState = {
                 ...state,
-                token: newToken,
+                token: null,
+                expirationTime: null,
                 isLoggedIn: false
             }
 
-            localStorage.setItem('isLoggedIn', false);
             SaveUserData(newLogoutState);
             return newLogoutState;
         default:
