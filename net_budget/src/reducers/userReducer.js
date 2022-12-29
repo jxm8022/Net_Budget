@@ -6,7 +6,6 @@ const initialState = {
     name: '',
     startYear: new Date().getFullYear(),
     currentYear: new Date().getFullYear(),
-    totalSaved: 0,
     userId: null,
     token: null,
     expirationTime: null,
@@ -17,15 +16,14 @@ const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.LOAD_USER:
             const loadedUser = LoadUserData();
-            let newLoadState = {
-                ...state
-            }
+
+            let newLoadState;
 
             if (loadedUser) {
                 const remainingDuration = CalculateRemainingTime(loadedUser.expirationTime);
                 if (remainingDuration <= 3600) {
                     newLoadState = {
-                        ...loadedUser,
+                        ...state,
                         userId: null,
                         token: null,
                         expirationTime: null,
@@ -34,7 +32,7 @@ const userReducer = (state = initialState, action) => {
                     }
                 } else {
                     newLoadState = {
-                        ...loadedUser,
+                        ...state,
                         currentYear: new Date().getFullYear()
                     }
                 }
