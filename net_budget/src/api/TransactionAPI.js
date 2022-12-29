@@ -1,4 +1,4 @@
-export const addTransactionAPI = (userId, transaction) => {
+export const addTransactionAPI = (userId, transaction) => { // date format yyyy-mm-dd
     const year = transaction.date.substring(0, 4);
     const month = transaction.date.substring(5, 7);
     const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${year}/${month}.json`;
