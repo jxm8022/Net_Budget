@@ -193,16 +193,30 @@ const transactionReducer = (state = initialState, action) => {
 
             return newState;
         case types.LOAD_TRANSACTIONS:
-            const loadedOverview = LoadTransactionData(action.payload);
-            let newLoadState = {
-                ...state
+            let newMonthOverview_load = [...state.monthOverview];
+
+            /* ITERATE THROUGH YEAR DATA */
+            for (const key in action.payload) { // pssst keys are months
+                let newTransactions_load = [];
+                for (const transactions in action.payload[key]) {
+                    newTransactions_load.push(action.payload[key][transactions]);
+                }
+
+                const newMonthInOverviewInfo = getOverview(newTransactions_load);
+
+                let monthInOverview = {
+                    ...state.monthOverview[key - 1],
+                    potNet: newMonthInOverviewInfo.potNet,
+                    projNet: newMonthInOverviewInfo.projNet,
+                    net: newMonthInOverviewInfo.net,
+                    transactions: newTransactions_load.sort(sortTransactionsByDate)
+                };
+                newMonthOverview_load[key - 1] = monthInOverview;
             }
 
-            if (loadedOverview) {
-                newLoadState = {
-                    ...state,
-                    monthOverview: loadedOverview
-                }
+            let newLoadState = {
+                ...state,
+                monthOverview: newMonthOverview_load
             }
 
             return newLoadState;

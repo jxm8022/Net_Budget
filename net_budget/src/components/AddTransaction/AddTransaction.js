@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addTransaction } from "../../actions/transactionActions";
-import { addTransactionAPI } from "../../api/userAPI";
+import { addTransactionAPI } from "../../api/TransactionAPI";
 import InputForm from "../UI/Form/InputForm";
 
 const currentDate = new Date();

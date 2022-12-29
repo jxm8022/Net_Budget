@@ -9,13 +9,14 @@ import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
 import Auth from './pages/Auth';
 import Version from './pages/Version';
+import { loadTransactionsAPI } from './api/TransactionAPI';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
   const { currentYear } = useSelector((state) => state.transaction);
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const { isLoggedIn, userId } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   let routes = [];
@@ -68,9 +69,30 @@ function App() {
   ]
 
   useEffect(() => {
-    dispatch(loadTransactions(currentYear));
+    if (userId) {
+      loadTransactionsAPI(userId, currentYear).then((res) => {
+        let yearTransactions = {};
+
+        for (const month in res) {
+          const monthTransactions = [];
+          for (const key in res[month]) {
+            monthTransactions.push({
+              id: key,
+              type: res[month][key].type,
+              date: res[month][key].date,
+              name: res[month][key].name,
+              amount: res[month][key].amount
+            })
+          }
+
+          yearTransactions[month] = monthTransactions;
+        }
+
+        dispatch(loadTransactions(yearTransactions));
+      })
+    }
     dispatch(loadUser());
-  }, [dispatch, currentYear]);
+  }, [dispatch, currentYear, userId]);
 
   return (
     <Suspense>

@@ -39,28 +39,3 @@ export const signIn = (newUser, email, password) => {
             alert(err.message);
         });
 }
-
-export const addTransactionAPI = (userId, transaction) => {
-    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${transaction.date.substring(0, 4)}.json`;
-    return fetch(
-        addURL,
-        {
-            method: 'POST',
-            body: JSON.stringify(transaction),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return res.json().then((data) => {
-                    throw new Error(data.error.message);
-                })
-            }
-        })
-        .catch((err) => {
-            alert(err.message);
-        })
-}
