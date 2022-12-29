@@ -1,5 +1,4 @@
 import * as types from '../actions/actionTypes';
-import { LoadTransactionData, SaveTransactionData } from '../api/TransactionAPI';
 
 const initialState = {
     currentMonth: new Date().getMonth(),
@@ -118,8 +117,6 @@ const transactionReducer = (state = initialState, action) => {
                     monthOverview: newMonthOverview
                 };
 
-                SaveTransactionData(newState);
-
                 return newState;
             } else {
                 // add to new month
@@ -164,8 +161,6 @@ const transactionReducer = (state = initialState, action) => {
                     monthOverview: newMonthOverview
                 };
 
-                SaveTransactionData(newState);
-
                 return newState;
             }
         case types.DELETE_TRANSACTION:
@@ -188,8 +183,6 @@ const transactionReducer = (state = initialState, action) => {
                 ...state,
                 monthOverview: newMonthOverview
             };
-
-            SaveTransactionData(newState);
 
             return newState;
         case types.LOAD_TRANSACTIONS:

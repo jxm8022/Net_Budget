@@ -1,13 +1,3 @@
-export const SaveTransactionData = (state) => {
-    const { currentYear, monthOverview } = state;
-    localStorage.setItem(currentYear, JSON.stringify(monthOverview));
-}
-
-export const LoadTransactionData = (year) => {
-    const yearOverview = localStorage.getItem(year);
-    return JSON.parse(yearOverview);
-}
-
 export const addTransactionAPI = (userId, transaction) => {
     const year = transaction.date.substring(0, 4);
     const month = transaction.date.substring(5, 7);
