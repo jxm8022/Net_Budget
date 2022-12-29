@@ -7,9 +7,17 @@ export const loadUser = () => {
     }
 }
 
-export const saveUser = () => {
+export const login = (payload) => {
     return {
-        type: types.SAVE_USER,
-        info: 'Saving user information.'
+        type: types.LOGIN,
+        info: 'Logging in user.',
+        payload
+    }
+}
+
+export const logout = () => {
+    return {
+        type: types.LOGOUT,
+        info: 'Logging out user.'
     }
 }

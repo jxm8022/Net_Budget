@@ -4,7 +4,7 @@ import menu from '../../../../assets/images/menu/menu-rounded-100.png';
 import './CollapseSideBar.css';
 
 const CollapseSideBar = (props) => {
-    const { currentMonth, currentYear } = props;
+    const { links } = props;
     const [displayStyle, setDisplayStyle] = useState('0px');
 
     function openNav() {
@@ -14,56 +14,18 @@ const CollapseSideBar = (props) => {
     return (
         <>
             <div style={{ width: displayStyle }} className="sidebar">
-                <NavLink
-                    to={`../yearOverview?year=${currentYear}`}
+                {links.map((link) => <NavLink
+                    key={link.id}
+                    to={link.where}
+                    onClick={link.do}
                     className={
                         ({ isActive }) => {
                             return isActive ? 'side-active side-navbarLink' : 'side-navbarLink'
                         }
                     }
                 >
-                    Home
-                </NavLink>
-                <NavLink
-                    to={'../addTransaction'}
-                    className={
-                        ({ isActive }) => {
-                            return isActive ? 'side-active side-navbarLink' : 'side-navbarLink'
-                        }
-                    }
-                >
-                    Add Transaction
-                </NavLink>
-                <NavLink
-                    to={`../monthOverview?month=${currentMonth}&year=${currentYear}`}
-                    className={
-                        ({ isActive }) => {
-                            return isActive ? 'side-active side-navbarLink' : 'side-navbarLink'
-                        }
-                    }
-                >
-                    Month Overview
-                </NavLink>
-                <NavLink
-                    to={`../about`}
-                    className={
-                        ({ isActive }) => {
-                            return isActive ? 'side-active side-navbarLink' : 'side-navbarLink'
-                        }
-                    }
-                >
-                    About
-                </NavLink>
-                <NavLink
-                    to={`../auth`}
-                    className={
-                        ({ isActive }) => {
-                            return isActive ? 'side-active side-navbarLink' : 'side-navbarLink'
-                        }
-                    }
-                >
-                    Logout
-                </NavLink>
+                    {link.name}
+                </NavLink>)}
             </div>
             <img onClick={openNav} className='openSideBar' src={menu} alt='Menu button.' />
         </>

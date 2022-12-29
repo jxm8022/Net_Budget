@@ -2,35 +2,57 @@ import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { loadTransactions } from './actions/transactionActions';
-import { loadUser, saveUser } from './actions/userActions';
+import { loadUser } from './actions/userActions';
 import './App.css';
 import About from './pages/About';
 import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
+import Auth from './pages/Auth';
 import Version from './pages/Version';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 
-const currentYear = new Date().getFullYear();
+function App() {
+  const { currentYear } = useSelector((state) => state.transaction);
+  const { isLoggedIn } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-const routes = [
-  {
-    path: '/',
-    component: <Navigate replace to={`yearOverview?year=${currentYear}`} />
-  },
-  {
-    path: '/yearOverview',
-    component: <HomePage />
-  },
-  {
-    path: '/addTransaction',
-    component: <InsertItem />
-  },
-  {
-    path: '/monthOverview',
-    component: <DisplayMonth />
-  },
+  let routes = [];
+
+  if (isLoggedIn) {
+    routes = [
+      {
+        path: '/',
+        component: <Navigate replace to={'yearOverview'} />
+      },
+      {
+        path: '/yearOverview',
+        component: <HomePage />
+      },
+      {
+        path: '/addTransaction',
+        component: <InsertItem />
+      },
+      {
+        path: '/monthOverview',
+        component: <DisplayMonth />
+      },
+    ]
+  } else {
+    routes = [
+      {
+        path: '/',
+        component: <Navigate replace to={'auth'} />
+      },
+      {
+        path: '/auth',
+        component: <Auth />
+      },
+    ]
+  }
+
+  routes = [...routes,
   {
     path: '/about',
     component: <About />
@@ -43,16 +65,11 @@ const routes = [
     path: '*',
     component: <NotFoundPage />
   }
-]
-
-function App() {
-  const { currentYear } = useSelector((state) => state.transaction);
-  const dispatch = useDispatch();
+  ]
 
   useEffect(() => {
     dispatch(loadTransactions(currentYear));
     dispatch(loadUser());
-    dispatch(saveUser());
   }, [dispatch, currentYear]);
 
   return (

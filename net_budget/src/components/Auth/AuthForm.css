@@ -1,0 +1,85 @@
+/* tablets */
+.auth {
+    width: 75%;
+    border-radius: 40px;
+    background-color: rgb(69, 69, 69);
+    box-shadow: 0 1px 4px rgb(0, 0, 0);
+    padding: 25px;
+}
+
+.auth h1 {
+    text-align: center;
+    color: white;
+}
+
+.control {
+    margin-bottom: 30px;
+}
+
+.control label {
+    display: block;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.control input {
+    font: inherit;
+    background-color: #e3e3e3;
+    border-radius: 4px;
+    border: 1px solid white;
+    width: 98%;
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.actions {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.actions button {
+    cursor: pointer;
+    font: inherit;
+    color: white;
+    background-color: rgb(45, 45, 45);
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 2.5rem;
+}
+
+.actions .toggle {
+    margin-top: 1rem;
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 0.15rem 1.5rem;
+}
+
+/* tablets */
+@media only screen and (min-width: 600px) {}
+
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .auth {
+        width: 30%;
+    }
+
+    .actions button:hover {
+        background-color: rgb(35, 35, 35);
+    }
+
+    .actions .toggle:hover {
+        background-color: transparent;
+        color: black;
+        transition: .5s;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .auth {
+        background-color: rgb(45, 45, 45);
+    }
+}
