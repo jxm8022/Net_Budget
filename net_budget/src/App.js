@@ -70,18 +70,19 @@ function App() {
 
   useEffect(() => {
     if (userId) {
-      loadTransactionsAPI(userId, currentYear).then((res) => {
+      loadTransactionsAPI(userId).then((res) => {
+        localStorage.setItem('startYear', JSON.stringify(Object.keys(res)[0]));
+        // SAVE OTHER YEARS IN STATE SO WHEN VIEW DATE IS CHANGED, IT GETS THAT TRANSACTION DATA
         let yearTransactions = {};
-
-        for (const month in res) {
+        for (const month in res[currentYear]) {
           const monthTransactions = [];
-          for (const key in res[month]) {
+          for (const key in res[currentYear][month]) {
             monthTransactions.push({
               id: key,
-              type: res[month][key].type,
-              date: res[month][key].date,
-              name: res[month][key].name,
-              amount: res[month][key].amount
+              type: res[currentYear][month][key].type,
+              date: res[currentYear][month][key].date,
+              name: res[currentYear][month][key].name,
+              amount: res[currentYear][month][key].amount
             })
           }
 

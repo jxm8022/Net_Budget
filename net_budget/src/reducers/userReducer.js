@@ -17,7 +17,7 @@ const userReducer = (state = initialState, action) => {
         case types.LOAD_USER:
             const loadedUser = LoadUserData();
 
-            let newLoadState;
+            let newLoadState = { ...state };
 
             if (loadedUser) {
                 const remainingDuration = CalculateRemainingTime(loadedUser.expirationTime);
@@ -33,12 +33,15 @@ const userReducer = (state = initialState, action) => {
                 } else {
                     newLoadState = {
                         ...state,
+                        userId: loadedUser.userId,
+                        token: loadedUser.token,
+                        expirationTime: loadedUser.expirationTime,
+                        isLoggedIn: loadedUser.isLoggedIn,
                         currentYear: new Date().getFullYear()
                     }
                 }
             }
 
-            SaveUserData(newLoadState);
             return newLoadState;
         case types.LOGIN:
             const loginExpirationTime = new Date(new Date().getTime() + +action.payload.expiresIn * 1000);

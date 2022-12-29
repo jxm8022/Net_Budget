@@ -25,8 +25,8 @@ export const addTransactionAPI = (userId, transaction) => { // date format yyyy-
         })
 }
 
-export const loadTransactionsAPI = (userId, year) => {
-    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${year}.json`;
+export const loadTransactionsAPI = (userId) => {
+    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions.json`;
     return fetch(loadURL)
         .then((res) => {
             if (res.ok) {
