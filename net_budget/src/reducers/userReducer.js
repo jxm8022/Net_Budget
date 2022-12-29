@@ -7,6 +7,7 @@ const initialState = {
     startYear: new Date().getFullYear(),
     currentYear: new Date().getFullYear(),
     totalSaved: 0,
+    userId: null,
     token: null,
     expirationTime: null,
     isLoggedIn: false
@@ -25,6 +26,7 @@ const userReducer = (state = initialState, action) => {
                 if (remainingDuration <= 3600) {
                     newLoadState = {
                         ...loadedUser,
+                        userId: null,
                         token: null,
                         expirationTime: null,
                         isLoggedIn: false,
@@ -44,6 +46,7 @@ const userReducer = (state = initialState, action) => {
             const loginExpirationTime = new Date(new Date().getTime() + +action.payload.expiresIn * 1000);
             let newLoginState = {
                 ...state,
+                userId: action.payload.localId,
                 token: action.payload.idToken,
                 expirationTime: loginExpirationTime.toISOString(),
                 isLoggedIn: true
@@ -54,6 +57,7 @@ const userReducer = (state = initialState, action) => {
         case types.LOGOUT:
             let newLogoutState = {
                 ...state,
+                userId: null,
                 token: null,
                 expirationTime: null,
                 isLoggedIn: false

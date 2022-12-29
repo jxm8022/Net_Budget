@@ -73,16 +73,8 @@ const transactionReducer = (state = initialState, action) => {
             const monthIndex = parseInt(action.payload.date.split('-')[1]) - 1;
             const monthInfo = state.monthOverview[monthIndex];
 
-            /* GET NET TRANSACTION ID */
-            let transactionsId;
-            if (monthInfo.transactions.length === 0) {
-                transactionsId = monthInfo.transactions.length;
-            } else {
-                transactionsId = monthInfo.transactions.reduce((max, transaction) => transaction.id > max ? transaction.id : max, monthInfo.transactions[0].id) + 1;
-            }
-
             /* ADD TRANSACTION TO MONTH OVERVIEW FOR MONTH INDEX */
-            const newTransactions = [...monthInfo.transactions, { ...action.payload, id: transactionsId }].sort(sortTransactionsByDate);
+            const newTransactions = [...monthInfo.transactions, { ...action.payload }].sort(sortTransactionsByDate);
 
             /* CALCULATE NEW MONTH OVERVIEW INFORMATION FROM INCOMING TRANSACTION */
             let addTransaction_State = {};
@@ -94,8 +86,6 @@ const transactionReducer = (state = initialState, action) => {
                 ...state,
                 monthOverview: addTransaction_MonthOverview
             }
-
-            SaveTransactionData(addTransaction_State);
 
             return addTransaction_State;
         case types.UPDATE_TRANSACTION:

@@ -46,7 +46,6 @@ const InputForm = (props) => {
                         {
                             submitType,
                             transaction: {
-                                id: defaults.id,
                                 type: parseInt(type),
                                 date,
                                 name: name.charAt(0).toUpperCase() + name.slice(1),
