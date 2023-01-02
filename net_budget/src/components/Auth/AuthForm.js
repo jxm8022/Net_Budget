@@ -33,7 +33,7 @@ const AuthForm = () => {
                 }
             })
         } else {
-            signIn(isLogin, enteredEmail, enteredPassword).then((res) => {
+            signIn(!isLogin, enteredEmail, enteredPassword).then((res) => {
                 if (res) {
                     dispatch(login(res));
                     navigate({
