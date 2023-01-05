@@ -4,7 +4,7 @@ import { addTransactionAPI } from "../../api/TransactionAPI";
 import InputForm from "../UI/Form/InputForm";
 
 const currentDate = new Date();
-const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
+const defaultDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
 
 const AddTransaction = () => {
     const { userId } = useSelector((state) => state.user);
