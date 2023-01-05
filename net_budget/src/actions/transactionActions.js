@@ -39,3 +39,10 @@ export const setDate = (payload) => {
         payload
     }
 }
+
+export const logout = () => {
+    return {
+        type: types.LOGOUT,
+        info: 'Logging out user.'
+    }
+}

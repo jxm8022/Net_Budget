@@ -9,4 +9,6 @@ export const SET_DATE = 'SET_DATE';
 // USER ACTIONS
 export const LOAD_USER = 'LOAD_USER';
 export const LOGIN = 'LOGIN';
+
+// TRANSACTION/USER ACTIONS
 export const LOGOUT = 'LOGOUT';
