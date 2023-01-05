@@ -1,5 +1,4 @@
 import * as types from '../actions/actionTypes';
-import { LoadTransactionData, SaveTransactionData } from '../api/TransactionAPI';
 
 const initialState = {
     currentMonth: new Date().getMonth(),
@@ -73,16 +72,8 @@ const transactionReducer = (state = initialState, action) => {
             const monthIndex = parseInt(action.payload.date.split('-')[1]) - 1;
             const monthInfo = state.monthOverview[monthIndex];
 
-            /* GET NET TRANSACTION ID */
-            let transactionsId;
-            if (monthInfo.transactions.length === 0) {
-                transactionsId = monthInfo.transactions.length;
-            } else {
-                transactionsId = monthInfo.transactions.reduce((max, transaction) => transaction.id > max ? transaction.id : max, monthInfo.transactions[0].id) + 1;
-            }
-
             /* ADD TRANSACTION TO MONTH OVERVIEW FOR MONTH INDEX */
-            const newTransactions = [...monthInfo.transactions, { ...action.payload, id: transactionsId }].sort(sortTransactionsByDate);
+            const newTransactions = [...monthInfo.transactions, { ...action.payload }].sort(sortTransactionsByDate);
 
             /* CALCULATE NEW MONTH OVERVIEW INFORMATION FROM INCOMING TRANSACTION */
             let addTransaction_State = {};
@@ -94,8 +85,6 @@ const transactionReducer = (state = initialState, action) => {
                 ...state,
                 monthOverview: addTransaction_MonthOverview
             }
-
-            SaveTransactionData(addTransaction_State);
 
             return addTransaction_State;
         case types.UPDATE_TRANSACTION:
@@ -127,8 +116,6 @@ const transactionReducer = (state = initialState, action) => {
                     ...state,
                     monthOverview: newMonthOverview
                 };
-
-                SaveTransactionData(newState);
 
                 return newState;
             } else {
@@ -174,8 +161,6 @@ const transactionReducer = (state = initialState, action) => {
                     monthOverview: newMonthOverview
                 };
 
-                SaveTransactionData(newState);
-
                 return newState;
             }
         case types.DELETE_TRANSACTION:
@@ -199,27 +184,46 @@ const transactionReducer = (state = initialState, action) => {
                 monthOverview: newMonthOverview
             };
 
-            SaveTransactionData(newState);
-
             return newState;
         case types.LOAD_TRANSACTIONS:
-            const loadedOverview = LoadTransactionData(action.payload);
-            let newLoadState = {
-                ...state
+            let newMonthOverview_load = [...initialState.monthOverview];
+
+            if (Object.keys(action.payload).length === 0) {
+                return {
+                    ...state,
+                    monthOverview: initialState.monthOverview
+                };
             }
 
-            if (loadedOverview) {
-                newLoadState = {
-                    ...state,
-                    monthOverview: loadedOverview
+            /* ITERATE THROUGH YEAR DATA */
+            for (const key in action.payload) { // pssst keys are months
+                let newTransactions_load = [];
+                for (const transactions in action.payload[key]) {
+                    newTransactions_load.push(action.payload[key][transactions]);
                 }
+
+                const newMonthInOverviewInfo = getOverview(newTransactions_load);
+
+                let monthInOverview = {
+                    ...state.monthOverview[key - 1],
+                    potNet: newMonthInOverviewInfo.potNet,
+                    projNet: newMonthInOverviewInfo.projNet,
+                    net: newMonthInOverviewInfo.net,
+                    transactions: newTransactions_load.sort(sortTransactionsByDate)
+                };
+                newMonthOverview_load[key - 1] = monthInOverview;
+            }
+
+            let newLoadState = {
+                ...state,
+                monthOverview: newMonthOverview_load
             }
 
             return newLoadState;
         case types.SET_DATE:
             const { month, year } = action.payload;
             let newDate = { ...state };
-            if (month) {
+            if (!isNaN(month)) {
                 newDate = {
                     ...state,
                     currentMonth: month
@@ -231,6 +235,8 @@ const transactionReducer = (state = initialState, action) => {
                 }
             }
             return newDate;
+        case types.LOGOUT:
+            return initialState;
         default:
             return state;
     }

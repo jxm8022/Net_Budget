@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login, logout } from '../../actions/userActions';
+import { login } from '../../actions/userActions';
 import { signIn } from '../../api/userAPI';
 
 import './AuthForm.css';
@@ -33,7 +33,7 @@ const AuthForm = () => {
                 }
             })
         } else {
-            signIn(isLogin, enteredEmail, enteredPassword).then((res) => {
+            signIn(!isLogin, enteredEmail, enteredPassword).then((res) => {
                 if (res) {
                     dispatch(login(res));
                     navigate({

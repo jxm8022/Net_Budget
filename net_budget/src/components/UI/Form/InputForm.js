@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { categories } from '../../../assets/categories';
 import Selector from '../Selector/Selector';
 import './InputForm.css';
 
 const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
-const minDate = `${currentDate.getFullYear()}-01-01`;
 const maxDate = `${currentDate.getFullYear() + 1}-01-07`;
 
 const InputForm = (props) => {
@@ -16,6 +16,7 @@ const InputForm = (props) => {
     const transAmount = useRef();
     const [selectedMonth, setSelectedMonth] = useState(defaultDate.split('-')[1] - 1);
     const [error, setError] = useState();
+    const { startYear } = useSelector((state) => state.user);
 
     const dateChanged = (event) => {
         setSelectedMonth(transDate.current.value.split('-')[1] - 1);
@@ -46,7 +47,6 @@ const InputForm = (props) => {
                         {
                             submitType,
                             transaction: {
-                                id: defaults.id,
                                 type: parseInt(type),
                                 date,
                                 name: name.charAt(0).toUpperCase() + name.slice(1),
@@ -70,17 +70,46 @@ const InputForm = (props) => {
     return (
         <form className='input-form' onSubmit={submitForm}>
             {deleteTransaction && <span id='delete' className='delete' onClick={submitForm}>&times;</span>}
-            <Selector ref={transType} type='TYPE' defaultValue={defaults.type} selectedMonth={selectedMonth} />
+            <Selector
+                ref={transType}
+                type='TYPE'
+                defaultValue={defaults.type}
+                selectedMonth={selectedMonth}
+            />
             <label>Date
-                <input id='date' ref={transDate} type='date' onChange={dateChanged} defaultValue={defaults.date} min={minDate} max={maxDate}></input> {/* change min to previous year */}
+                <input
+                    id='date'
+                    ref={transDate}
+                    type='date'
+                    onChange={dateChanged}
+                    defaultValue={defaults.date}
+                    min={`${startYear}-01-01`}
+                    max={maxDate}></input>
             </label>
             <label >Transaction
-                <input id='name' ref={transName} type='text' defaultValue={defaults.name} placeholder='Transaction Name' style={{ width: '50%' }}></input>
+                <input
+                    id='name'
+                    ref={transName}
+                    type='text'
+                    defaultValue={defaults.name}
+                    placeholder='Transaction Name'
+                    style={{ width: '50%' }}
+                ></input>
             </label>
             <label>Amount
-                <input id='amount' ref={transAmount} type='number' defaultValue={defaults.amount} step='0.01' placeholder='$0.00' style={{ width: '25%' }}></input>
+                <input
+                    id='amount'
+                    ref={transAmount}
+                    type='number'
+                    defaultValue={defaults.amount}
+                    step='0.01'
+                    placeholder='$0.00'
+                    style={{ width: '25%' }}
+                ></input>
             </label>
-            <button type='submit'>{submitType} Transaction</button>
+            <button type='submit'>
+                {submitType} Transaction
+            </button>
             {error && <p className='error'>Please input information!</p>}
         </form >
     );

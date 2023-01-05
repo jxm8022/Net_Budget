@@ -2,12 +2,20 @@ const signInUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWith
 const signUpUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API}`;
 
 export const SaveUserData = (state) => {
-    localStorage.setItem('user', JSON.stringify(state));
+    localStorage.setItem('isLoggedIn', JSON.stringify(state.isLoggedIn));
+    localStorage.setItem('userId', JSON.stringify(state.userId));
+    localStorage.setItem('token', JSON.stringify(state.token));
+    localStorage.setItem('expirationTime', JSON.stringify(state.expirationTime));
 }
 
 export const LoadUserData = () => {
-    const userData = localStorage.getItem('user');
-    return JSON.parse(userData);
+    return {
+        startYear: JSON.parse(localStorage.getItem('startYear')),
+        isLoggedIn: JSON.parse(localStorage.getItem('isLoggedIn')),
+        userId: JSON.parse(localStorage.getItem('userId')),
+        token: JSON.parse(localStorage.getItem('token')),
+        expirationTime: JSON.parse(localStorage.getItem('expirationTime')),
+    };
 }
 
 export const signIn = (newUser, email, password) => {

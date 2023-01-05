@@ -9,13 +9,14 @@ import DisplayMonth from './pages/DisplayMonth';
 import InsertItem from './pages/InsertItem';
 import Auth from './pages/Auth';
 import Version from './pages/Version';
+import { loadTransactionsAPI } from './api/TransactionAPI';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
   const { currentYear } = useSelector((state) => state.transaction);
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const { isLoggedIn, userId } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   let routes = [];
@@ -68,9 +69,34 @@ function App() {
   ]
 
   useEffect(() => {
-    dispatch(loadTransactions(currentYear));
+    if (userId) {
+      loadTransactionsAPI(userId).then((res) => {
+        if (res) {
+          localStorage.setItem('startYear', JSON.stringify(Object.keys(res)[0]));
+          // SAVE OTHER YEARS IN STATE SO WHEN VIEW DATE IS CHANGED, IT GETS THAT TRANSACTION DATA
+          let yearTransactions = {};
+          for (const month in res[currentYear]) {
+            const monthTransactions = [];
+            for (const key in res[currentYear][month]) {
+              monthTransactions.push({
+                id: key,
+                type: res[currentYear][month][key].type,
+                date: res[currentYear][month][key].date,
+                name: res[currentYear][month][key].name,
+                amount: res[currentYear][month][key].amount
+              })
+            }
+
+            yearTransactions[month] = monthTransactions;
+          }
+          dispatch(loadTransactions(yearTransactions));
+        } else {
+          localStorage.setItem('startYear', new Date().getFullYear().toString());
+        }
+      })
+    }
     dispatch(loadUser());
-  }, [dispatch, currentYear]);
+  }, [dispatch, currentYear, userId]);
 
   return (
     <Suspense>
