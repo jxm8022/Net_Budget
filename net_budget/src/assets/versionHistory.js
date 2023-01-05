@@ -47,8 +47,21 @@ const versionHistory = [
         title: 'Add optional ratios',
         info: 'Added new table in month overview. The table displays the 50/30/20 rule being applied to income and potential income.',
         link: 'https://github.com/jxm8022/Net_Budget/issues/34'
-    }
-
+    },
+    {
+        id: 7,
+        version: 2.4,
+        title: 'Add user sign in',
+        info: 'Added login and sign up page. Users can now login to their account and are logged out when their token expires. Aso, the user can sign up and create an account for the website.',
+        link: 'https://github.com/jxm8022/Net_Budget/issues/13'
+    },
+    {
+        id: 8,
+        version: 2.5,
+        title: 'Move from local storage to database',
+        info: 'Added database persistence. The user can now add, update, and delete data per usual but the data is now persistent through multiple devices.',
+        link: 'https://github.com/jxm8022/Net_Budget/issues/12'
+    },
 ]
 
 export default versionHistory;
