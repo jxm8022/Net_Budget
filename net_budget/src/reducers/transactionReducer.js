@@ -186,7 +186,7 @@ const transactionReducer = (state = initialState, action) => {
 
             return newState;
         case types.LOAD_TRANSACTIONS:
-            let newMonthOverview_load = [...state.monthOverview];
+            let newMonthOverview_load = [...initialState.monthOverview];
 
             if (Object.keys(action.payload).length === 0) {
                 return {
