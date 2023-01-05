@@ -1,25 +1,31 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateTransaction, deleteTransaction } from '../../../actions/transactionActions';
+import { deleteTransactionAPI, updateTransactionAPI } from '../../../api/TransactionAPI';
 import InputForm from '../Form/InputForm';
 import './Modal.css';
 
 const Modal = (props) => {
     const { data, closeModal } = props;
+    const { userId } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const submitTransaction = (info) => {
         const { submitType, transaction } = info;
         switch (submitType) {
             case 'Update':
-                dispatch(updateTransaction({
-                    new: transaction,
-                    prev: data
-                }));
+                updateTransactionAPI(userId, transaction, data).then((res) => {
+                    dispatch(updateTransaction({
+                        new: transaction,
+                        prev: data
+                    }));
+                });
                 break;
             case 'Delete':
-                dispatch(deleteTransaction({
-                    prev: data
-                }));
+                deleteTransactionAPI(userId, data).then((res) => {
+                    dispatch(deleteTransaction({
+                        prev: data
+                    }));
+                });
                 break;
             default:
                 break;
