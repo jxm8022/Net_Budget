@@ -93,7 +93,6 @@ function App() {
         } else {
           localStorage.setItem('startYear', new Date().getFullYear().toString());
         }
-
       })
     }
     dispatch(loadUser());

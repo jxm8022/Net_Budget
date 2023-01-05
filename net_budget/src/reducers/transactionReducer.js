@@ -188,6 +188,13 @@ const transactionReducer = (state = initialState, action) => {
         case types.LOAD_TRANSACTIONS:
             let newMonthOverview_load = [...state.monthOverview];
 
+            if (Object.keys(action.payload).length === 0) {
+                return {
+                    ...state,
+                    monthOverview: initialState.monthOverview
+                };
+            }
+
             /* ITERATE THROUGH YEAR DATA */
             for (const key in action.payload) { // pssst keys are months
                 let newTransactions_load = [];
@@ -216,7 +223,7 @@ const transactionReducer = (state = initialState, action) => {
         case types.SET_DATE:
             const { month, year } = action.payload;
             let newDate = { ...state };
-            if (month) {
+            if (!isNaN(month)) {
                 newDate = {
                     ...state,
                     currentMonth: month

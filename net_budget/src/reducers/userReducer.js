@@ -33,6 +33,7 @@ const userReducer = (state = initialState, action) => {
                 } else {
                     newLoadState = {
                         ...state,
+                        startYear: loadedUser.startYear,
                         userId: loadedUser.userId,
                         token: loadedUser.token,
                         expirationTime: loadedUser.expirationTime,
