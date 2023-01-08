@@ -16,7 +16,7 @@ const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
   const { currentYear } = useSelector((state) => state.transaction);
-  const { isLoggedIn, userId } = useSelector((state) => state.user);
+  const { isLoggedIn, userId, token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   let routes = [];
@@ -70,7 +70,7 @@ function App() {
 
   useEffect(() => {
     if (userId) {
-      loadTransactionsAPI(userId).then((res) => {
+      loadTransactionsAPI(userId, token).then((res) => {
         if (res) {
           localStorage.setItem('startYear', JSON.stringify(Object.keys(res)[0]));
           // SAVE OTHER YEARS IN STATE SO WHEN VIEW DATE IS CHANGED, IT GETS THAT TRANSACTION DATA
@@ -96,7 +96,7 @@ function App() {
       })
     }
     dispatch(loadUser());
-  }, [dispatch, currentYear, userId]);
+  }, [dispatch, currentYear, userId, token]);
 
   return (
     <Suspense>

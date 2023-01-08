@@ -62,6 +62,13 @@ const versionHistory = [
         info: 'Added database persistence. The user can now add, update, and delete data per usual but the data is now persistent through multiple devices.',
         link: 'https://github.com/jxm8022/Net_Budget/issues/12'
     },
+    {
+        id: 9,
+        version: 2.6,
+        title: 'Updated rules for database authentication',
+        info: 'Added rules to firebase database read and write access. Updated the APIs to pass authentication token to allow read and write.',
+        link: 'https://github.com/jxm8022/Net_Budget/issues/41'
+    },
 ]
 
 export default versionHistory;

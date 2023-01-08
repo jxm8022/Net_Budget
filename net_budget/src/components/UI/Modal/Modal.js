@@ -6,14 +6,14 @@ import './Modal.css';
 
 const Modal = (props) => {
     const { data, closeModal } = props;
-    const { userId } = useSelector((state) => state.user);
+    const { userId, token } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const submitTransaction = (info) => {
         const { submitType, transaction } = info;
         switch (submitType) {
             case 'Update':
-                updateTransactionAPI(userId, transaction, data).then((res) => {
+                updateTransactionAPI(userId, transaction, data, token).then((res) => {
                     dispatch(updateTransaction({
                         new: transaction,
                         prev: data
@@ -21,7 +21,7 @@ const Modal = (props) => {
                 });
                 break;
             case 'Delete':
-                deleteTransactionAPI(userId, data).then((res) => {
+                deleteTransactionAPI(userId, data, token).then((res) => {
                     dispatch(deleteTransaction({
                         prev: data
                     }));

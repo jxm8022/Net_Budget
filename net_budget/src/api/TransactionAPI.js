@@ -1,7 +1,7 @@
-export const addTransactionAPI = (userId, transaction) => { // date format yyyy-mm-dd
+export const addTransactionAPI = (userId, transaction, token) => { // date format yyyy-mm-dd
     const year = transaction.date.substring(0, 4);
     const month = transaction.date.substring(5, 7);
-    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${year}/${month}.json`;
+    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${year}/${month}.json?auth=${token}`;
     return fetch(
         addURL,
         {
@@ -16,7 +16,7 @@ export const addTransactionAPI = (userId, transaction) => { // date format yyyy-
                 return res.json();
             } else {
                 return res.json().then((data) => {
-                    throw new Error(data.error.message);
+                    throw new Error(data.error);
                 })
             }
         })
@@ -25,15 +25,15 @@ export const addTransactionAPI = (userId, transaction) => { // date format yyyy-
         })
 }
 
-export const loadTransactionsAPI = (userId) => {
-    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions.json`;
+export const loadTransactionsAPI = (userId, token) => {
+    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions.json?auth=${token}`;
     return fetch(loadURL)
         .then((res) => {
             if (res.ok) {
                 return res.json();
             } else {
                 return res.json().then((data) => {
-                    throw new Error(data.error.message);
+                    throw new Error(data.error);
                 });
             }
         })
@@ -42,9 +42,9 @@ export const loadTransactionsAPI = (userId) => {
         });
 }
 
-export const deleteTransactionAPI = (userId, transaction) => {
+export const deleteTransactionAPI = (userId, transaction, token) => {
     const transactionDate = transaction.date.split('-');
-    const deleteURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${transactionDate[0]}/${transactionDate[1]}/${transaction.id}.json`;
+    const deleteURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${transactionDate[0]}/${transactionDate[1]}/${transaction.id}.json?auth=${token}`;
     return fetch(
         deleteURL,
         {
@@ -67,17 +67,17 @@ export const deleteTransactionAPI = (userId, transaction) => {
         })
 }
 
-export const updateTransactionAPI = (userId, updatedTransaction, previousTransaction) => {
+export const updateTransactionAPI = (userId, updatedTransaction, previousTransaction, token) => {
     const updatedDate = updatedTransaction.date.split('-');
     const previousDate = previousTransaction.date.split('-');
     if (updatedDate[0] !== previousDate[0] || updatedDate[1] !== previousDate[1]) {
-        return addTransactionAPI(userId, updatedTransaction).then((res) => {
+        return addTransactionAPI(userId, updatedTransaction, token).then((res) => {
             if (res) {
-                return deleteTransactionAPI(userId, previousTransaction);
+                return deleteTransactionAPI(userId, previousTransaction, token);
             }
         });
     } else {
-        const updateURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${updatedDate[0]}/${updatedDate[1]}/${previousTransaction.id}.json`;
+        const updateURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${updatedDate[0]}/${updatedDate[1]}/${previousTransaction.id}.json?auth=${token}`;
         return fetch(
             updateURL,
             {
