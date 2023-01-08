@@ -7,12 +7,12 @@ const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
 
 const AddTransaction = () => {
-    const { userId } = useSelector((state) => state.user);
+    const { userId, token } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const defaultData = { type: 0, date: defaultDate, name: '', amount: null };
 
     const submitTransaction = (info) => {
-        addTransactionAPI(userId, info.transaction).then((res) => {
+        addTransactionAPI(userId, info.transaction, token).then((res) => {
             if (res) {
                 dispatch(addTransaction({
                     ...info.transaction,
