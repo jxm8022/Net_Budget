@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../../actions/userActions';
 import { signIn } from '../../api/userAPI';
 
+import showHidePassword from '../../assets/images/auth/icons8-eye-90.png';
 import './AuthForm.css';
 
 const AuthForm = () => {
@@ -44,6 +45,15 @@ const AuthForm = () => {
         }
     };
 
+    const showPassword = () => {
+        var type = document.getElementById('password');
+        if (type.getAttribute('type') === 'password') {
+            type.setAttribute('type', 'text');
+        } else {
+            type.setAttribute('type', 'password');
+        }
+    }
+
     return (
         <section className='auth'>
             <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
@@ -54,12 +64,15 @@ const AuthForm = () => {
                 </div>
                 <div className='control'>
                     <label htmlFor='password'>Password</label>
-                    <input
-                        type='password'
-                        id='password'
-                        required
-                        ref={passwordInputRef}
-                    />
+                    <div className='passwordContainer'>
+                        <input
+                            type='password'
+                            id='password'
+                            required
+                            ref={passwordInputRef}
+                        />
+                        <img onClick={showPassword} src={showHidePassword} alt='Hide or show password' className='showPassword' />
+                    </div>
                 </div>
                 <div className='actions'>
                     <button>{isLogin ? 'Login' : 'Create Account'}</button>

@@ -58,6 +58,17 @@
     padding: 0.15rem 1.5rem;
 }
 
+    .passwordContainer {
+        position: relative;
+    }
+
+    .showPassword {
+        position: absolute;
+        top: 25%;
+        right: 10px;
+        height: 50%;
+    }
+
 /* tablets */
 @media only screen and (min-width: 600px) {}
 
