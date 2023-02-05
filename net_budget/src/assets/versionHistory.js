@@ -69,6 +69,13 @@ const versionHistory = [
         info: 'Added rules to firebase database read and write access. Updated the APIs to pass authentication token to allow read and write.',
         link: 'https://github.com/jxm8022/Net_Budget/issues/41'
     },
+    {
+        id: 10,
+        version: 2.7,
+        title: 'Authentication/Authorization enhancements',
+        info: 'Added link to login in to allow users to reset their password if forgotten. Added new page for user to access account information. In said page, the user is able to update their password after logging in.',
+        link: 'https://github.com/jxm8022/Net_Budget/issues/45'
+    },
 ]
 
 export default versionHistory;
