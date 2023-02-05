@@ -76,6 +76,13 @@ const versionHistory = [
         info: 'Added link to login in to allow users to reset their password if forgotten. Added new page for user to access account information. In said page, the user is able to update their password after logging in.',
         link: 'https://github.com/jxm8022/Net_Budget/issues/45'
     },
+    {
+        id: 11,
+        version: 2.8,
+        title: 'Mobile enchancements',
+        info: 'Updated the mobile application to fix changes with the following: bar chart, pie chart, modal on iPad, table.',
+        link: 'https://github.com/jxm8022/Net_Budget/issues/44'
+    },
 ]
 
 export default versionHistory;
