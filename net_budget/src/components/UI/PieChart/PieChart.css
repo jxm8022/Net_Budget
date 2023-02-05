@@ -15,8 +15,8 @@
 }
 
 .pie-chart {
-    width: 400px;
-    height: 400px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     border: 1px solid black;
     display: inline-block;
@@ -54,7 +54,16 @@
 }
 
 /* tablets */
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 600px) {
+    .basePiechart {
+        width: 50%;
+    }
+
+    .pie-chart {
+        width: 400px;
+        height: 400px;
+    }
+}
 
 /* desktop */
 @media only screen and (min-width: 900px) {

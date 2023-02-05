@@ -6,7 +6,7 @@
     top: 60px;
     right: 0;
     background-color: rgb(69, 69, 69);
-    transition: 1s;
+    transition: .75s;
 }
 
 .side-navbarLink {
