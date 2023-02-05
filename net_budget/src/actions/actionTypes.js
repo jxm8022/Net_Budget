@@ -12,3 +12,6 @@ export const LOGIN = 'LOGIN';
 
 // TRANSACTION/USER ACTIONS
 export const LOGOUT = 'LOGOUT';
+
+// PAGE ACTIONS
+export const SET_MESSAGE = 'SET_MESSAGE';

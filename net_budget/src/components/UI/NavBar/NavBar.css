@@ -1,8 +1,11 @@
 /* mobile */
 .navbar {
+    position: fixed;
+    top: 0;
     background-color: rgb(69, 69, 69);
     height: 60px;
     width: 100%;
+    z-index: 9999;
 }
 
 .logo {
@@ -66,12 +69,6 @@
 
 /* desktop */
 @media only screen and (min-width: 900px) {
-    .navbar {
-        position: fixed;
-        top: 0;
-        z-index: 2;
-    }
-
     .logout {
         display: block;
         position: absolute;

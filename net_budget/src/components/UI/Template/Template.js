@@ -1,5 +1,6 @@
 import versionHistory from "../../../assets/versionHistory";
 import NavBar from "../NavBar/NavBar";
+import Notification from "../Notification/Notification";
 import './Template.css';
 
 const Template = (props) => {
@@ -8,6 +9,7 @@ const Template = (props) => {
     return (
         <>
             <NavBar />
+            <Notification />
             <div className='children'>
                 {props.children}
                 <a href='version' className='version'>v{latestVersion}</a>
