@@ -10,6 +10,7 @@ import InsertItem from './pages/InsertItem';
 import Auth from './pages/Auth';
 import Version from './pages/Version';
 import { loadTransactionsAPI } from './api/TransactionAPI';
+import Account from './pages/Account';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
@@ -39,6 +40,10 @@ function App() {
         path: '/monthOverview',
         component: <DisplayMonth />
       },
+      {
+        path: '/account',
+        component: <Account />
+      }
     ]
   } else {
     routes = [

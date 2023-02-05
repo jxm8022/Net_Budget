@@ -1,4 +1,4 @@
-/* tablets */
+/* mobile */
 .auth {
     width: 75%;
     border-radius: 40px;
@@ -40,7 +40,7 @@
     align-items: center;
 }
 
-.actions button {
+.actions button, .toggle, .forgotPassword {
     cursor: pointer;
     font: inherit;
     color: white;
@@ -51,11 +51,24 @@
 }
 
 .actions .toggle {
-    margin-top: 1rem;
-    background-color: transparent;
-    color: white;
-    border: none;
-    padding: 0.15rem 1.5rem;
+    margin: 15px 0 0 0;
+}
+
+.forgotPassword {
+    display: block;
+    font-size: 1rem;
+    margin: 15px auto 5px auto;
+}
+
+.passwordContainer {
+    position: relative;
+}
+
+.showPassword {
+    position: absolute;
+    top: 25%;
+    right: 10px;
+    height: 50%;
 }
 
 /* tablets */
@@ -67,13 +80,8 @@
         width: 30%;
     }
 
-    .actions button:hover {
+    .actions button:hover, .toggle:hover, .forgotPassword:hover {
         background-color: rgb(35, 35, 35);
-    }
-
-    .actions .toggle:hover {
-        background-color: transparent;
-        color: black;
         transition: .5s;
     }
 }
