@@ -50,6 +50,11 @@ const NavBar = () => {
             },
             {
                 id: 4,
+                where: '../account',
+                name: 'Account'
+            },
+            {
+                id: 5,
                 where: `../auth`,
                 name: 'Logout',
                 do: handleLogout
