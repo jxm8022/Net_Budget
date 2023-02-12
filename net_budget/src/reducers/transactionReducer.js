@@ -90,7 +90,7 @@ const transactionReducer = (state = initialState, action) => {
         case types.UPDATE_TRANSACTION:
             const prevMonthIndex = parseInt(action.payload.prev.date.split('-')[1]) - 1;
             const newMonthIndex = parseInt(action.payload.new.date.split('-')[1]) - 1;
-            const indexOfTransaction = state.monthOverview[prevMonthIndex].transactions.findIndex((transaction) => transaction.id === action.payload.new.id);
+            const indexOfTransaction = state.monthOverview[prevMonthIndex].transactions.findIndex((transaction) => transaction.id === action.payload.prev.id);
 
             if (prevMonthIndex === newMonthIndex) {
                 let newTransactions = [...state.monthOverview[prevMonthIndex].transactions];
@@ -124,7 +124,7 @@ const transactionReducer = (state = initialState, action) => {
                 newTransactions = [
                     ...newTransactions,
                     {
-                        id: newTransactions.length,
+                        id: action.payload.new.id,
                         type: action.payload.new.type,
                         date: action.payload.new.date,
                         name: action.payload.new.name,

@@ -73,7 +73,8 @@ export const updateTransactionAPI = (userId, updatedTransaction, previousTransac
     if (updatedDate[0] !== previousDate[0] || updatedDate[1] !== previousDate[1]) {
         return addTransactionAPI(userId, updatedTransaction, token).then((res) => {
             if (res) {
-                return deleteTransactionAPI(userId, previousTransaction, token);
+                deleteTransactionAPI(userId, previousTransaction, token);
+                return res;
             }
         });
     } else {
