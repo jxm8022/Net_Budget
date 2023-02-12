@@ -83,6 +83,13 @@ const versionHistory = [
         info: 'Updated the mobile application to fix changes with the following: bar chart, pie chart, modal on iPad, table.',
         link: 'https://github.com/jxm8022/Net_Budget/issues/44'
     },
+    {
+        id: 12,
+        version: 2.9,
+        title: 'NaN on pie chart',
+        info: 'Updated pie chart to display correct numbers. Updated pie chart to correctly switch between months.',
+        link: 'https://github.com/jxm8022/Net_Budget/issues/39'
+    },
 ]
 
 export default versionHistory;

@@ -7,7 +7,7 @@ const LegendPart = (props) => {
     return (
         <div className='legend-part'>
             <div className='legend-color' style={{ 'backgroundColor': color }} />
-            <p>{size}% - {type}</p>
+            <p>{isNaN(size) ? 0 : size}% - {type}</p>
         </div>
     );
 }
@@ -50,8 +50,8 @@ const PieChart = (props) => {
     pieData[1] = { ...pieData[1], size: Math.round(pieData[1].amount / total * 100) };
     pieData[2] = { ...pieData[2], size: Math.round(pieData[2].amount / total * 100) };
 
-    const pie1 = pieData[0].size.toString();
-    const pie2 = (pieData[0].size + pieData[1].size).toString();
+    const pie1 = isNaN(pieData[0].size) ? '0' : pieData[0].size.toString();
+    const pie2 = isNaN(pieData[0].size + pieData[1].size) ? '0' : (pieData[0].size + pieData[1].size).toString();
 
     let pies = { 'backgroundImage': `conic-gradient(${pieData[0].color} 0% ${pie1}%, ${pieData[1].color} ${pie1}% ${pie2}%, ${pieData[2].color} ${pie2}% 100%)` };
 
