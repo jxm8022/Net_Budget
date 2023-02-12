@@ -15,7 +15,7 @@ const Modal = (props) => {
             case 'Update':
                 updateTransactionAPI(userId, transaction, data, token).then((res) => {
                     dispatch(updateTransaction({
-                        new: transaction,
+                        new: {...transaction, id: res.name},
                         prev: data
                     }));
                 });

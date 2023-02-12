@@ -90,6 +90,13 @@ const versionHistory = [
         info: 'Updated pie chart to display correct numbers. Updated pie chart to correctly switch between months.',
         link: 'https://github.com/jxm8022/Net_Budget/issues/39'
     },
+    {
+        id: 13,
+        version: 3.0,
+        title: 'Updating transactions does not update table',
+        info: 'Fixed when user updates a transaction, the table is not updated.',
+        link: 'https://github.com/jxm8022/Net_Budget/issues/43'
+    },
 ]
 
 export default versionHistory;
