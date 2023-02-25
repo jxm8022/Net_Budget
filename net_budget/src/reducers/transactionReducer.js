@@ -1,6 +1,8 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
+    mostVisited: '',
+    lifetimeEarnings: 0,
     currentMonth: new Date().getMonth(),
     currentYear: new Date().getFullYear(),
     monthOverview: [
@@ -237,6 +239,30 @@ const transactionReducer = (state = initialState, action) => {
             return newDate;
         case types.LOGOUT:
             return initialState;
+        case types.SAVE_ALL_TRANSACTIONS:
+            let transactions = [];
+            let transactionDictionary = {};
+            for (const year in action.payload) {
+                for (const month in action.payload[year]) {
+                    for (const key in action.payload[year][month]) {
+                        transactions.push(action.payload[year][month][key])
+                        let name = action.payload[year][month][key].name;
+                        if (name in transactionDictionary){
+                            transactionDictionary[name] += 1;
+                        } else {
+                            transactionDictionary = {...transactionDictionary, [name]: 1};
+                        }
+                    }
+                }
+            }
+            let sortedDictionary = Object.keys(transactionDictionary).map((key) => [key, transactionDictionary[key]]);
+            sortedDictionary.sort((a,b) => b[1] - a[1]);
+            let info = getOverview(transactions);
+            return {
+                ...state,
+                mostVisited: sortedDictionary[0][0],
+                lifetimeEarnings: info.net
+            };
         default:
             return state;
     }
