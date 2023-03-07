@@ -45,8 +45,8 @@ const Account = () => {
             <Analytics />
             <hr style={{ width: "50%" }} />
             <form onSubmit={submitHandler}>
-                <div className='control changePassword'>
-                    <label htmlFor='password' style={{ color: 'black' }}>Change Password</label>
+                <div className='control'>
+                    <label htmlFor='password'>Change Password</label>
                     <div className='passwordContainer'>
                         <input
                             type='password'

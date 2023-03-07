@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 import './Table.css';
 
 const Table = (props) => {
-    const { headers, dataType, data, isSortAsc, sortColumn, sortTable, hideTable } = props;
+    const { headers, dataType, data, isSortAsc, sortColumn, sortTable, hideTable, tableTitle } = props;
     const [showModal, setShowModal] = useState();
 
     let sortImage = <img src={sortAsc} alt='Sorting Ascending' />;
@@ -64,9 +64,29 @@ const Table = (props) => {
         </table>;
     }
 
+    if (dataType === 'TOPTRANSACTIONS') {
+        table = <table className="table">
+            <thead>
+                <tr>
+                    {headers.map((header) => <th key={header}>{header}</th>)}
+                </tr>
+            </thead>
+            <tbody>
+                {data.length > 0 ? data.map((item) => (
+                    <tr key={item.id}>
+                        <td>{item.place}</td>
+                        <td>{item.name}</td>
+                        <td>{headers[headers.length - 1] === 'Times Visited' ? `${item.amount}` : `$${item.amount.toFixed(2)}`}</td>
+                    </tr>
+                )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td></tr>}
+            </tbody>
+        </table>;
+    }
+
     return (
         <>
             {showModal && <Modal data={showModal} closeModal={closeModal} />}
+            {tableTitle && <h3>{tableTitle}</h3>}
             {table}
         </>
     );

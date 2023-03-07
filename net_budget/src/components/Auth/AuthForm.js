@@ -76,12 +76,12 @@ const AuthForm = () => {
             <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
             <form onSubmit={submitHandler}>
                 <div className='control'>
-                    <label htmlFor='email'>Email</label>
+                    <label style={{ color: 'white' }} htmlFor='email'>Email</label>
                     <input type='email' id='email' required ref={emailInputRef} />
                     {!isEmailValid ? <p className='error'>Enter an email</p> : <></>}
                 </div>
                 <div className='control'>
-                    <label htmlFor='password'>Password</label>
+                    <label style={{ color: 'white' }} htmlFor='password'>Password</label>
                     <div className='passwordContainer'>
                         <input
                             type='password'
@@ -98,7 +98,7 @@ const AuthForm = () => {
                         type='button'
                         className='toggle'
                         onClick={switchAuthModeHandler}
-                        >
+                    >
                         {isLogin ? 'Sign Up' : 'Login'}
                     </button>
                 </div>

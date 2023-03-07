@@ -252,27 +252,27 @@ const transactionReducer = (state = initialState, action) => {
                         transactions.push(action.payload[year][month][key])
                         let type = action.payload[year][month][key].type;
                         let name = action.payload[year][month][key].name;
+                        let amount = action.payload[year][month][key].amount;
                         if (categories[type].type in typeDictionary) {
                             typeDictionary[categories[type].type] += 1;
                         } else {
                             typeDictionary = { ...typeDictionary, [categories[type].type]: 1 }
                         }
-                        if (name in transactionDictionary) {
-                            transactionDictionary[name] += 1;
-                        } else {
-                            transactionDictionary = { ...transactionDictionary, [name]: 1 };
+                        if (name in transactionDictionary && categories[type].type === 'Want') {
+                            transactionDictionary[name].times += 1;
+                            transactionDictionary[name].amount += amount;
+                        } else if (categories[type].type === 'Want') {
+                            transactionDictionary = { ...transactionDictionary, [name]: { times: 1, amount: amount } };
                         }
                     }
                 }
             }
-            let sortedDictionary = Object.keys(transactionDictionary).map((key) => [key, transactionDictionary[key]]);
             let transactionNames = Object.keys(transactionDictionary).map((key) => key);
             let transactionTypes = Object.keys(typeDictionary).map((key) => [key, typeDictionary[key]]);
-            sortedDictionary.sort((a, b) => b[1] - a[1]);
             let info = getOverview(transactions);
             return {
                 ...state,
-                mostVisited: sortedDictionary[0][0],
+                mostVisited: transactionDictionary,
                 lifetimeEarnings: info.net,
                 lifetimeTransactions: transactionNames,
                 lifetimeTypes: transactionTypes
