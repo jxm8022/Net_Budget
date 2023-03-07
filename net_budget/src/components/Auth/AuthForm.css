@@ -40,7 +40,9 @@
     align-items: center;
 }
 
-.actions button, .toggle, .forgotPassword {
+.actions button,
+.toggle,
+.forgotPassword {
     cursor: pointer;
     font: inherit;
     color: white;
@@ -80,7 +82,9 @@
         width: 30%;
     }
 
-    .actions button:hover, .toggle:hover, .forgotPassword:hover {
+    .actions button:hover,
+    .toggle:hover,
+    .forgotPassword:hover {
         background-color: rgb(35, 35, 35);
         transition: .5s;
     }
