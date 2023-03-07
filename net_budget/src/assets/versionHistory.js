@@ -121,7 +121,7 @@ const versionHistory = [
     {
         id: 5,
         version: 1.5,
-        title: 'Updates in version 1.5',
+        title: 'Release v1.5',
         info: [
             {
                 id: 0,
