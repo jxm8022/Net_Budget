@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { loadTransactions } from './actions/transactionActions';
+import { loadTransactions, saveAllTransactions } from './actions/transactionActions';
 import { loadUser } from './actions/userActions';
 import './App.css';
 import About from './pages/About';
@@ -77,6 +77,7 @@ function App() {
     if (userId) {
       loadTransactionsAPI(userId, token).then((res) => {
         if (res) {
+          dispatch(saveAllTransactions(res));
           localStorage.setItem('startYear', JSON.stringify(Object.keys(res)[0]));
           // SAVE OTHER YEARS IN STATE SO WHEN VIEW DATE IS CHANGED, IT GETS THAT TRANSACTION DATA
           let yearTransactions = {};

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import './PieChart.css';
 
 const LegendPart = (props) => {
@@ -13,71 +12,45 @@ const LegendPart = (props) => {
 }
 
 const PieChart = (props) => {
-    const { monthIndex } = props;
-    const [visibility, setVisibility] = useState('none');
-    const { transactions } = useSelector((state) => state.transaction.monthOverview[monthIndex]);
+    const [styleData, setStyleData] = useState([]);
+    const [legendData, setLegendData] = useState([]);
+    const [pieStyle, setPieStyle] = useState({ 'backgroundImage': 'conic-gradient(white 0% 100%)' });
 
-    let pieData = transactions.reduce((previous, current) => {
-        switch (current.type) {
-            case 0:
-                previous[0] = { ...previous[0], amount: previous[0].amount + current.amount };
-                return previous;
-            case 1:
-                previous[1] = { ...previous[1], amount: previous[1].amount + current.amount };
-                return previous;
-            case 2:
-            case 3:
-                previous[2] = { ...previous[2], amount: previous[2].amount + current.amount };
-                return previous;
-            default:
-                return previous
+    useEffect(() => {
+        if (props && props.styleData && props.legendData) {
+            setStyleData(props.styleData);
+            setLegendData(props.legendData);
+        } else {
+            setStyleData(false);
+            setLegendData(false);
+            setPieStyle({ 'backgroundImage': 'conic-gradient(white 0% 100%)' });
         }
-    }, [
-        { id: 0, type: 'Want', amount: 0, color: 'pink' },
-        { id: 1, type: 'Need', amount: 0, color: 'lightgoldenrodyellow' },
-        { id: 2, type: 'Savings/Debt', amount: 0, color: 'lightblue' }
-    ]);
+    }, [props])
 
-    pieData.sort((a, b) => {
-        if (a.amount < b.amount) return -1;
-        if (a.amount > b.amount) return 1;
-        return 0;
-    });
-
-    const total = pieData[0].amount + pieData[1].amount + pieData[2].amount;
-
-    pieData[0] = { ...pieData[0], size: Math.round(pieData[0].amount / total * 100) };
-    pieData[1] = { ...pieData[1], size: Math.round(pieData[1].amount / total * 100) };
-    pieData[2] = { ...pieData[2], size: Math.round(pieData[2].amount / total * 100) };
-
-    const pie1 = isNaN(pieData[0].size) ? '0' : pieData[0].size.toString();
-    const pie2 = isNaN(pieData[0].size + pieData[1].size) ? '0' : (pieData[0].size + pieData[1].size).toString();
-
-    let pies = { 'backgroundImage': `conic-gradient(${pieData[0].color} 0% ${pie1}%, ${pieData[1].color} ${pie1}% ${pie2}%, ${pieData[2].color} ${pie2}% 100%)` };
-
-    const pieVisibility = () => {
-        if (visibility === 'none') setVisibility('block')
-        else setVisibility('none')
-    }
-
-    const buttonVisibility = visibility === 'none' ? 'block' : 'none';
+    useEffect(() => {
+        let gradientString = 'conic-gradient(';
+        if (styleData) {
+            for (let i = 0; i < styleData.length; i++) {
+                if (i === styleData.length - 1) {
+                    gradientString += `${styleData[i].color} ${styleData[i].start}% ${styleData[i].end}%)`;
+                } else {
+                    gradientString += `${styleData[i].color} ${styleData[i].start}% ${styleData[i].end}%,`;
+                }
+            }
+            setPieStyle({ 'backgroundImage': `${gradientString}` });
+        }
+    }, [styleData])
 
     return (
         <>
-            <img
-                onClick={pieVisibility}
-                alt='Toggle pie chart.'
-                className='pie-chart-toggle'
-                style={{ display: buttonVisibility }}
-            />
-            <div onClick={pieVisibility} className='basePiechart' style={{ display: visibility }}>
-                <div className="pie-chart" style={pies}></div>
+            {styleData && legendData ? (<div className='basePiechart'>
+                <div className="pie-chart" style={pieStyle}></div>
                 <div className='legend'>
-                    {pieData.map((pie) =>
+                    {legendData.map((pie) =>
                         <LegendPart key={pie.id} pie={pie} />
                     )}
                 </div>
-            </div>
+            </div>) : <></>}
         </>
     );
 }

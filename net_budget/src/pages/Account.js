@@ -6,6 +6,7 @@ import showHidePassword from '../assets/images/auth/icons8-eye-90.png';
 import { setMessage } from "../actions/pageActions";
 import { changePassword } from "../api/userAPI";
 import { login } from "../actions/userActions";
+import Analytics from "../components/Analytics/AnalyticsBase";
 
 const Account = () => {
     const dispatch = useDispatch();
@@ -41,6 +42,9 @@ const Account = () => {
     return (
         <Template>
             <h1>Account</h1>
+            <hr style={{ width: "50%" }} />
+            <Analytics />
+            <hr style={{ width: "50%" }} />
             <form onSubmit={submitHandler}>
                 <div className='control'>
                     <label htmlFor='password'>Change Password</label>

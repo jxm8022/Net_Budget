@@ -1,6 +1,11 @@
 import * as types from '../actions/actionTypes';
+import { categories } from '../assets/categories';
 
 const initialState = {
+    mostVisited: '',
+    lifetimeEarnings: 0,
+    lifetimeTransactions: [],
+    lifetimeTypes: [],
     currentMonth: new Date().getMonth(),
     currentYear: new Date().getFullYear(),
     monthOverview: [
@@ -237,6 +242,41 @@ const transactionReducer = (state = initialState, action) => {
             return newDate;
         case types.LOGOUT:
             return initialState;
+        case types.SAVE_ALL_TRANSACTIONS:
+            let transactions = [];
+            let transactionDictionary = {};
+            let typeDictionary = {};
+            for (const year in action.payload) {
+                for (const month in action.payload[year]) {
+                    for (const key in action.payload[year][month]) {
+                        transactions.push(action.payload[year][month][key])
+                        let type = action.payload[year][month][key].type;
+                        let name = action.payload[year][month][key].name;
+                        let amount = action.payload[year][month][key].amount;
+                        if (categories[type].type in typeDictionary) {
+                            typeDictionary[categories[type].type] += 1;
+                        } else {
+                            typeDictionary = { ...typeDictionary, [categories[type].type]: 1 }
+                        }
+                        if (name in transactionDictionary && categories[type].type === 'Want') {
+                            transactionDictionary[name].times += 1;
+                            transactionDictionary[name].amount += amount;
+                        } else if (categories[type].type === 'Want') {
+                            transactionDictionary = { ...transactionDictionary, [name]: { times: 1, amount: amount } };
+                        }
+                    }
+                }
+            }
+            let transactionNames = Object.keys(transactionDictionary).map((key) => key);
+            let transactionTypes = Object.keys(typeDictionary).map((key) => [key, typeDictionary[key]]);
+            let info = getOverview(transactions);
+            return {
+                ...state,
+                mostVisited: transactionDictionary,
+                lifetimeEarnings: info.net,
+                lifetimeTransactions: transactionNames,
+                lifetimeTypes: transactionTypes
+            };
         default:
             return state;
     }

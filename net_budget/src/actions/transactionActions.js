@@ -46,3 +46,11 @@ export const logout = () => {
         info: 'Logging out user.'
     }
 }
+
+export const saveAllTransactions = (payload) => {
+    return {
+        type: types.SAVE_ALL_TRANSACTIONS,
+        info: 'Saving all transactions',
+        payload
+    }
+}
