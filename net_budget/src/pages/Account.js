@@ -42,6 +42,7 @@ const Account = () => {
     return (
         <Template>
             <h1>Account</h1>
+            <hr style={{ width: "50%" }} />
             <Analytics />
             <hr style={{ width: "50%" }} />
             <form onSubmit={submitHandler}>
