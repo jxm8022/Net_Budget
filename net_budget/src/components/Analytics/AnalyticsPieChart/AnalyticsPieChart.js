@@ -13,8 +13,8 @@ const AnalyticsPieChart = () => {
                 { id: 0, type: 'Want', amount: 0, color: 'pink' },
                 { id: 1, type: 'Need', amount: 0, color: 'lightgoldenrodyellow' },
                 { id: 2, type: 'Savings', amount: 0, color: 'lightblue' },
-                { id: 3, type: 'Debt', amount: 0, color: 'lightgreen' },
-                { id: 4, type: 'Income', amount: 0, color: 'orange' }
+                { id: 3, type: 'Debt', amount: 0, color: 'lightsalmon' },
+                { id: 4, type: 'Income', amount: 0, color: 'lightgreen' }
             ];
 
             lifetimeTypes.forEach(type => {

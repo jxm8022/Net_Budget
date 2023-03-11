@@ -17,6 +17,7 @@ const InputForm = (props) => {
     const [selectedMonth, setSelectedMonth] = useState(defaultDate.split('-')[1] - 1);
     const [error, setError] = useState();
     const { startYear } = useSelector((state) => state.user);
+    const { lifetimeTransactions } = useSelector((state) => state.transaction);
 
     const dateChanged = (event) => {
         setSelectedMonth(transDate.current.value.split('-')[1] - 1);
@@ -54,8 +55,6 @@ const InputForm = (props) => {
                             }
                         }
                     );
-                    transType.current.value = 0;
-                    transDate.current.value = defaultDate;
                     transName.current.value = null;
                     transAmount.current.value = null;
                     if (submitType === 'Update')
@@ -94,7 +93,12 @@ const InputForm = (props) => {
                     defaultValue={defaults.name}
                     placeholder='Transaction Name'
                     style={{ width: '50%' }}
+                    list='transactions'
+                    name='transaction'
                 ></input>
+                <datalist id='transactions'>
+                    {lifetimeTransactions.map((trans, index) => <option key={index} value={trans} />)}
+                </datalist>
             </label>
             <label>Amount
                 <input

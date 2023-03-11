@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { categories } from '../../../assets/categories';
-import sortAsc from '../../../assets/images/sorting/sortAscending.png';
-import sortDesc from '../../../assets/images/sorting/sortDescending.png';
 import Modal from '../Modal/Modal';
 import './Table.css';
 
@@ -9,9 +7,23 @@ const Table = (props) => {
     const { headers, dataType, data, isSortAsc, sortColumn, sortTable, hideTable, tableTitle } = props;
     const [showModal, setShowModal] = useState();
 
-    let sortImage = <img src={sortAsc} alt='Sorting Ascending' />;
-    if (!isSortAsc) {
-        sortImage = <img src={sortDesc} alt='Sorting Descending' />;
+    const getImage = (sortColumn) => {
+        let sortType = '';
+        let sortOrder = 'asc';
+        switch(sortColumn) {
+            case 'Type':
+            case 'Name':
+                sortType = 'alpha';
+                break;
+            case 'Amount':
+            default:
+                sortType = 'numeric';
+                break;
+        }
+        if (!isSortAsc) {
+            sortOrder = 'desc';
+        }
+        return <img className={sortType + '-' + sortOrder} alt={`Sorting ${sortOrder}`} />;;
     }
 
     const updateRow = (rowData) => {
@@ -28,7 +40,7 @@ const Table = (props) => {
         table = <table className="table">
             <thead>
                 <tr>
-                    {headers.map((header) => <th key={header} onClick={() => sortTable(header)}>{header}</th>)}
+                    {headers.map((header) => <th key={header} onClick={() => sortTable(header)}>{header}{sortColumn === header && getImage(sortColumn)}</th>)}
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +61,7 @@ const Table = (props) => {
         table = <table className="table" onClick={hideTable}>
             <thead>
                 <tr>
-                    {headers.map((header) => <th key={header}>{header}{sortColumn === header && sortImage}</th>)}
+                    {headers.map((header) => <th key={header}>{header}</th>)}
                 </tr>
             </thead>
             <tbody>
