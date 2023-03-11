@@ -127,6 +127,12 @@ const versionHistory = [
                 id: 0,
                 title: 'Add analytics to account page',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/47'
+            },
+            {
+                id: 1,
+                title: 'Updating transaction does not remove filters',
+                info: 'Fixed when user sets filters and updates transactions, the filters do not get reset',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/37'
             }
         ]
     }

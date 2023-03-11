@@ -14,9 +14,11 @@ const MonthDetails = (props) => {
     const [isSortAsc, setIsSortAsc] = useState(true);
     const [sortColumn, setSortColumn] = useState('Date');
     const [sortedTransactions, setSortedTransactions] = useState(transactions);
+    const [filters, setFilters] = useState([]);
 
     useEffect(() => {
         setSortedTransactions(transactions);
+        setFilters([]);
     }, [transactions]);
 
     const sortTransactions = (header) => {
@@ -78,6 +80,8 @@ const MonthDetails = (props) => {
             <Filter
                 nameOptions={transactions.map((transaction) => { return { id: transaction.id, name: transaction.name } })}
                 filterTransactions={filterTransactions}
+                setFilters={setFilters}
+                filters={filters}
                 removeFilter={removeFilter}
                 clearFilters={clearFilters}
                 monthIndex={monthIndex} />
