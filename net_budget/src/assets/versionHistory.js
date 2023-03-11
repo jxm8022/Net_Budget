@@ -133,6 +133,12 @@ const versionHistory = [
                 title: 'Updating transaction does not remove filters',
                 info: 'Fixed when user sets filters and updates transactions, the filters do not get reset',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/37'
+            },
+            {
+                id: 2,
+                title: 'QOL updates',
+                info: 'Updated small bugs',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/46'
             }
         ]
     }
