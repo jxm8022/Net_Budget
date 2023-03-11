@@ -10,14 +10,13 @@ const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
 
 const Filter = (props) => {
-    const { nameOptions, filterTransactions, removeFilter, clearFilters, monthIndex } = props;
+    const { nameOptions, filterTransactions, filters, setFilters, removeFilter, clearFilters, monthIndex } = props;
     const transType = useRef();
     const transDate = useRef();
     const transName = useRef();
     const transAmount = useRef();
     const [visibility, setVisibility] = useState(false);
     const [filterImage, setFilterImage] = useState(closedFilter);
-    const [filters, setFilters] = useState([]);
 
     const showFilter = () => {
         if (visibility === false) {
@@ -36,7 +35,6 @@ const Filter = (props) => {
         setFilterImage(closedFilter);
         setVisibility(false);
         if (filters.find((filter) => filter.criteria === typeIndex)) {
-            console.log('already in array')
         } else {
             const newFilters = [...filters, { id: filters.length, type: 'TYPE', criteria: typeIndex, name: categories[typeIndex].type }]
             setFilters(newFilters);
@@ -53,7 +51,6 @@ const Filter = (props) => {
         setFilterImage(closedFilter);
         setVisibility(false);
         if (filters.find((filter) => filter.criteria === date)) {
-            console.log('already in array')
         } else {
             const newFilters = [...filters, { id: filters.length, type: 'DATE', criteria: date, name: date }]
             setFilters(newFilters);
@@ -70,7 +67,6 @@ const Filter = (props) => {
         setFilterImage(closedFilter);
         setVisibility(false);
         if (filters.find((filter) => filter.criteria === name)) {
-            console.log('already in array')
         } else {
             const newFilters = [...filters, { id: filters.length, type: 'NAME', criteria: name, name: name }]
             setFilters(newFilters);
@@ -87,7 +83,6 @@ const Filter = (props) => {
         setFilterImage(closedFilter);
         setVisibility(false);
         if (filters.find((filter) => filter.criteria === amount)) {
-            console.log('already in array')
         } else {
             const newFilters = [...filters, { id: filters.length, type: 'AMOUNT', criteria: amount, name: `$${amount}` }]
             setFilters(newFilters);
