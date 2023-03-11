@@ -13,16 +13,14 @@ const Home = () => {
         setSearchParams(`year=${currentYear}`)
     }, [currentYear, setSearchParams]);
 
-    const year = searchParams.get('year');
-
     return (
         <Template>
             <YearOverview
-                year={year}
+                year={currentYear}
                 setSearchParams={setSearchParams}
             />
             <BarChart
-                year={year}
+                year={currentYear}
             />
         </Template>
     );

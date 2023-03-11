@@ -23,7 +23,15 @@ const BarChart = (props) => {
     }
 
     let barGroups = monthOverview.map((month, index) => <g key={index} transform={`translate(100, ${index * barHeight})`}>
-        <BarGroup index={index} month={month} onBarClick={() => { navigateToMonthOverview(index) }} barHeight={barHeight} barWidth={max} />
+        <BarGroup
+            index={index}
+            month={month}
+            onBarClick={() => { navigateToMonthOverview(index) }}
+            barHeight={barHeight}
+            barWidth={max}
+            barColour={month.net < 0 ? 'rgb(191, 0, 0)': 'rgb(0, 191, 0)'}
+            textColour={month.net < 0 ? 'rgb(191, 0, 0)': 'rgb(0, 191, 0)'}
+        />
     </g>);
 
     return (

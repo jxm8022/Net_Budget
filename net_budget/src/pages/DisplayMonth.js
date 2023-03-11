@@ -10,8 +10,8 @@ import Template from "../components/UI/Template/Template";
 const DisplayMonth = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const { currentMonth, currentYear, monthOverview } = useSelector((state) => state.transaction);
-    const [styleData, setStyleData] = useState([]);
-    const [legendData, setLegendData] = useState([]);
+    const [styleData, setStyleData] = useState();
+    const [legendData, setLegendData] = useState();
 
     const month = searchParams.get('month');
     const year = searchParams.get('year');
@@ -51,22 +51,23 @@ const DisplayMonth = () => {
             pieData[1] = { ...pieData[1], size: Math.round(pieData[1].amount / total * 100) };
             pieData[2] = { ...pieData[2], size: Math.round(pieData[2].amount / total * 100) };
 
-            setLegendData(pieData);
+            if (total > 0) {
+                setLegendData(pieData);
 
-            setStyleData([
-                { color: pieData[0].color, start: 0, end: pieData[0].size },
-                { color: pieData[1].color, start: pieData[0].size, end: pieData[0].size + pieData[1].size },
-                { color: pieData[2].color, start: pieData[0].size + pieData[1].size, end: 100 },
-            ]);
+                setStyleData([
+                    { color: pieData[0].color, start: 0, end: pieData[0].size },
+                    { color: pieData[1].color, start: pieData[0].size, end: pieData[0].size + pieData[1].size },
+                    { color: pieData[2].color, start: pieData[0].size + pieData[1].size, end: 100 },
+                ]);
+            } else {
+                setLegendData();
+                setStyleData();
+            }
         } else {
             setLegendData();
             setStyleData();
         }
-    }, [monthOverview, month]);
-
-    useEffect(() => {
-        setSearchParams(`month=${currentMonth}&year=${currentYear}`);
-    }, [currentMonth, currentYear, setSearchParams]);
+    }, [monthOverview, month, currentMonth, currentYear]);
 
     return (
         <Template>

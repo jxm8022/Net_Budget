@@ -73,6 +73,31 @@ const getOverview = (transactions) => {
 const transactionReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.ADD_TRANSACTION:
+            /* UPDATE TYPE DICTIONARY */
+            let typeIndex = state.lifetimeTypes.findIndex((type) => type[0] === categories[action.payload.type].type);
+            let newTypeAmounts = state.lifetimeTypes[typeIndex][1] + 1
+            let updatedType = [...state.lifetimeTypes[typeIndex]];
+            updatedType[1] = newTypeAmounts;
+            let updatedTypes = [...state.lifetimeTypes];
+            updatedTypes[typeIndex] = updatedType;
+
+            /* UPDATE LIFETIME NET */
+
+            let updatedLifetimeEarnings = state.lifetimeEarnings;
+            switch (action.payload.type) {
+                case 5:
+                    updatedLifetimeEarnings += action.payload.amount;
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    updatedLifetimeEarnings -= action.payload.amount;
+                    break;
+                default:
+                    break;
+            }
+
             /* GET ADDED TRANSACTION MONTH INDEX AND MONTH OVERVIEW FOR INDEX */
             const monthIndex = parseInt(action.payload.date.split('-')[1]) - 1;
             const monthInfo = state.monthOverview[monthIndex];
@@ -88,7 +113,9 @@ const transactionReducer = (state = initialState, action) => {
             addTransaction_MonthOverview[monthIndex] = addTransaction_Month;
             addTransaction_State = {
                 ...state,
-                monthOverview: addTransaction_MonthOverview
+                monthOverview: addTransaction_MonthOverview,
+                lifetimeEarnings: updatedLifetimeEarnings,
+                lifetimeTypes: updatedTypes
             }
 
             return addTransaction_State;

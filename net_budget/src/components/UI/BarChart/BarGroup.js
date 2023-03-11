@@ -3,7 +3,7 @@ import './BarGroup.css';
 
 const BarGroup = (props) => {
     const { net } = props.month;
-    const { index, onBarClick } = props;
+    const { index, onBarClick, barColour, textColour } = props;
 
     let barPadding = 10;
 
@@ -11,13 +11,6 @@ const BarGroup = (props) => {
     let width = widthScale(Math.abs(net));
 
     let yMid = props.barHeight * 0.5;
-
-    let barColour = 'rgb(0, 91, 0)';
-    let textColour = '#000';
-    if (net < 0) {
-        barColour = 'rgb(91, 0, 0)';
-        textColour = 'rgb(91, 0, 0)';
-    }
 
     return (
         <g className="bar-group">

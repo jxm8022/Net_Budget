@@ -32,17 +32,6 @@
     border-style: none solid;
 }
 
-/* Tooltip container */
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-    display: none;
-}
-
 /* tablets */
 @media only screen and (min-width: 600px) {
     .overview h4 {
@@ -61,59 +50,5 @@
         text-align: center;
         padding: 0px 40px;
         width: 20%;
-    }
-
-    /* Tooltip text */
-    .tooltip .tooltiptext {
-        color: #000;
-        text-align: center;
-        padding: 5px;
-        font-size: .55em;
-        display: block;
-        visibility: hidden;
-        width: 200px;
-        background-color: rgba(0, 0, 0, 0.50);
-        color: #fff;
-        border-radius: 6px;
-        font-size: .75em;
-        /* Position the tooltip text - see examples below! */
-        position: absolute;
-        z-index: 1;
-        top: -70px;
-    }
-
-    .tooltip-left {
-        right: 95%;
-    }
-
-    .tooltip-right {
-        left: 95%;
-    }
-
-    /* Show the tooltip text when you mouse over the tooltip container */
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-    }
-
-    /* Show the arrow on tool tip box. Position left. */
-    .tooltip .tooltiptext::after {
-        content: " ";
-        position: absolute;
-        top: 50%;
-        margin-top: -5px;
-        border-width: 5px;
-        border-style: solid;
-    }
-
-    /* To the left of the tooltip */
-    .arrow-left::after {
-        right: 100%;
-        border-color: transparent rgba(0, 0, 0, 0.50) transparent transparent;
-    }
-
-    /* Show the arrow on tool tip box. Position right. */
-    .arrow-right::after {
-        left: 100%;
-        border-color: transparent transparent transparent rgba(0, 0, 0, 0.50);
     }
 }
