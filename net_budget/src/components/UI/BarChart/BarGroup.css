@@ -13,7 +13,6 @@
 .value-label {
     font-weight: 900;
     font-size: 0.7em;
-    fill: #333;
     translate: -470px;
 }
 
@@ -57,13 +56,5 @@
 @media (prefers-color-scheme: dark) {
     .name-label {
         fill: white;
-    }
-
-    .value-label {
-        fill: white;
-    }
-
-    .bar-group rect {
-        fill: red;
     }
 }
