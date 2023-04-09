@@ -19,6 +19,7 @@ const MonthDetails = (props) => {
     useEffect(() => {
         setSortedTransactions(transactions);
         setFilters([]);
+        setSortColumn('Date');
     }, [transactions]);
 
     const sortTransactions = (header) => {
