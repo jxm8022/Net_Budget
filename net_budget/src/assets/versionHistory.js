@@ -141,6 +141,18 @@ const versionHistory = [
                 link: 'https://github.com/jxm8022/Net_Budget/issues/46'
             }
         ]
+    },
+    {
+        id: 6,
+        version: 1.6,
+        title: 'Release v1.6',
+        info: [
+            {
+                id: 0,
+                title: 'Fix minor bugs from previous release',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/55'
+            },
+        ]
     }
 ]
 

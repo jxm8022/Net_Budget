@@ -15,7 +15,7 @@ const Definitions = () => {
                 <p className='equation'>Potential Net = Net - Potential Transactions</p>
                 <p><b>Projected Income: </b>The amount of money that will be potentially available during the month.</p>
                 <p><b>Projected Net: </b>The amount of money available to spend in the corresponding month based off of month net after potential transactions are factored.</p>
-                <p className='equation'>Projected Net = Net - Projected Income</p>
+                <p className='equation'>Projected Net = Potential Net + Projected Income</p>
                 <p><b>Want: </b>Transactions that are not crucial.</p>
                 <p className='equation'>Examples: movies, fast food, snacks, etc</p>
                 <p><b>Need: </b>Transactions that are necessary for daily life.</p>
