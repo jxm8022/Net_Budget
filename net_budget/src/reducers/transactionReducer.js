@@ -271,7 +271,8 @@ const transactionReducer = (state = initialState, action) => {
             return initialState;
         case types.SAVE_ALL_TRANSACTIONS:
             let transactions = [];
-            let transactionDictionary = {};
+            let transactionWantsDictionary = {};
+            let transactionDictionary = [];
             let typeDictionary = {};
             for (const year in action.payload) {
                 for (const month in action.payload[year]) {
@@ -285,23 +286,25 @@ const transactionReducer = (state = initialState, action) => {
                         } else {
                             typeDictionary = { ...typeDictionary, [categories[type].type]: 1 }
                         }
-                        if (name in transactionDictionary && categories[type].type === 'Want') {
-                            transactionDictionary[name].times += 1;
-                            transactionDictionary[name].amount += amount;
+                        if (name in transactionWantsDictionary && categories[type].type === 'Want') {
+                            transactionWantsDictionary[name].times += 1;
+                            transactionWantsDictionary[name].amount += amount;
                         } else if (categories[type].type === 'Want') {
-                            transactionDictionary = { ...transactionDictionary, [name]: { times: 1, amount: amount } };
+                            transactionWantsDictionary = { ...transactionWantsDictionary, [name]: { times: 1, amount: amount } };
+                        }
+                        if (!transactionDictionary.includes(name)) {
+                            transactionDictionary = [ ...transactionDictionary, name ];
                         }
                     }
                 }
             }
-            let transactionNames = Object.keys(transactionDictionary).map((key) => key);
             let transactionTypes = Object.keys(typeDictionary).map((key) => [key, typeDictionary[key]]);
             let info = getOverview(transactions);
             return {
                 ...state,
-                mostVisited: transactionDictionary,
+                mostVisited: transactionWantsDictionary,
                 lifetimeEarnings: info.net,
-                lifetimeTransactions: transactionNames,
+                lifetimeTransactions: transactionDictionary,
                 lifetimeTypes: transactionTypes
             };
         default:
