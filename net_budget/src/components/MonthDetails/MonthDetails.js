@@ -20,6 +20,7 @@ const MonthDetails = (props) => {
         setSortedTransactions(transactions);
         setFilters([]);
         setSortColumn('Date');
+        setIsSortAsc(true);
     }, [transactions]);
 
     const sortTransactions = (header) => {
