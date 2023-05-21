@@ -96,6 +96,7 @@ const InputForm = (props) => {
                     style={{ width: '50%' }}
                     list='transactions'
                     name='transaction'
+                    autoComplete='on'
                 ></input>
                 <datalist id='transactions'>
                     {lifetimeTransactions.map((trans, index) => <option key={index} value={trans} />)}
