@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { labels } from '../../assets/labels';
 import './Overview.css';
 
 const MonthOverview = (props) => {
@@ -10,15 +11,15 @@ const MonthOverview = (props) => {
     return (
         <ul className='overview'>
             <li>
-                <h4>Potential Net</h4>
+                <h4>{labels.potentialNet}</h4>
                 <p className={textClass(potNet)}>{'$' + potNet.toFixed(2)}</p>
             </li>
             <li className='middle'>
-                <h4>Net</h4>
+                <h4>{labels.net}</h4>
                 <p className={textClass(net)}>{'$' + net.toFixed(2)}</p>
             </li>
             <li>
-                <h4>Projected Net</h4>
+                <h4>{labels.projectedNet}</h4>
                 <p className={textClass(projNet)}>{'$' + projNet.toFixed(2)}</p>
             </li>
         </ul >

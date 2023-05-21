@@ -1,4 +1,4 @@
-import { categories } from "../assets/categories";
+import { categories } from "../assets/labels";
 
 const sortType = (a, b) => {
     if (categories[a.type].type < categories[b.type].type) { return -1; }

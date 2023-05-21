@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import { categories } from '../assets/categories';
+import { categories } from '../assets/labels';
 
 const initialState = {
     mostVisited: '',

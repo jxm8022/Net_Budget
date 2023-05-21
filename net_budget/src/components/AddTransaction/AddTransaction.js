@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addTransaction } from "../../actions/transactionActions";
 import { addTransactionAPI } from "../../api/TransactionAPI";
+import { SUBMITTYPES } from "../../assets/constants";
 import InputForm from "../UI/Form/InputForm";
 
 const currentDate = new Date();
@@ -23,7 +24,7 @@ const AddTransaction = () => {
     }
 
     return (
-        <InputForm submitType='Add' transactionAction={submitTransaction} defaults={defaultData} />
+        <InputForm submitType={SUBMITTYPES.ADD} transactionAction={submitTransaction} defaults={defaultData} />
     );
 }
 

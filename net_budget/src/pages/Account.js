@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Template from "../components/UI/Template/Template";
-
+import { labels } from "../assets/labels";
 import showHidePassword from '../assets/images/auth/icons8-eye-90.png';
 import { setMessage } from "../actions/pageActions";
 import { changePassword } from "../api/userAPI";
@@ -41,13 +41,13 @@ const Account = () => {
 
     return (
         <Template>
-            <h1>Account</h1>
+            <h1>{labels.account}</h1>
             <hr style={{ width: "50%" }} />
             <Analytics />
             <hr style={{ width: "50%" }} />
             <form onSubmit={submitHandler}>
                 <div className='control'>
-                    <label htmlFor='password'>Change Password</label>
+                    <label htmlFor='password'>{labels.changePassword}</label>
                     <div className='passwordContainer'>
                         <input
                             type='password'
@@ -59,7 +59,7 @@ const Account = () => {
                     </div>
                 </div>
                 <div className='actions'>
-                    <button>Submit</button>
+                    <button>{labels.submit}</button>
                 </div>
             </form>
         </Template>

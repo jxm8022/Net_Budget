@@ -153,6 +153,18 @@ const versionHistory = [
                 link: 'https://github.com/jxm8022/Net_Budget/issues/55'
             },
         ]
+    },
+    {
+        id: 7,
+        version: 1.7,
+        title: 'Release v1.7',
+        info: [
+            {
+                id: 0,
+                title: 'Add constants for items',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/58'
+            }
+        ]
     }
 ]
 

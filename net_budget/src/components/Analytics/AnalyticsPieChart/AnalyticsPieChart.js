@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { labels } from "../../../assets/labels";
 import PieChart from "../../UI/PieChart/PieChart";
 
 const AnalyticsPieChart = () => {
@@ -60,7 +61,7 @@ const AnalyticsPieChart = () => {
 
     return (
         <>
-            <h3>Lifetime Transaction Types</h3>
+            <h3>{labels.lifetimeTypes}</h3>
             <PieChart styleData={styleData} legendData={legendData} />
         </>
     );
