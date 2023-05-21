@@ -1,4 +1,4 @@
-import { months } from '../../../assets/months';
+import { months } from '../../../assets/labels';
 import './BarGroup.css';
 
 const BarGroup = (props) => {

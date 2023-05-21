@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { categories } from '../../../assets/categories';
+import { categories, labels } from '../../../assets/labels';
 import Selector from '../Selector/Selector';
 import './InputForm.css';
+import { SELECTORTYPES } from '../../../assets/constants';
 
 const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
@@ -71,11 +72,11 @@ const InputForm = (props) => {
             {deleteTransaction && <span id='delete' className='delete' onClick={submitForm}>&times;</span>}
             <Selector
                 ref={transType}
-                type='TYPE'
+                type={SELECTORTYPES.TYPE}
                 defaultValue={defaults.type}
                 selectedMonth={selectedMonth}
             />
-            <label>Date
+            <label>{labels.date}
                 <input
                     id='date'
                     ref={transDate}
@@ -85,7 +86,7 @@ const InputForm = (props) => {
                     min={`${startYear}-01-01`}
                     max={maxDate}></input>
             </label>
-            <label >Transaction
+            <label >{labels.transaction}
                 <input
                     id='name'
                     ref={transName}
@@ -100,7 +101,7 @@ const InputForm = (props) => {
                     {lifetimeTransactions.map((trans, index) => <option key={index} value={trans} />)}
                 </datalist>
             </label>
-            <label>Amount
+            <label>{labels.amount}
                 <input
                     id='amount'
                     ref={transAmount}

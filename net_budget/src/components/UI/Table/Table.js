@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { categories } from '../../../assets/categories';
+import { categories } from '../../../assets/labels';
 import Modal from '../Modal/Modal';
 import './Table.css';
 

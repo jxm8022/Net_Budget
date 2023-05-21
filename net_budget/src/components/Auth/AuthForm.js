@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { setMessage } from '../../actions/pageActions';
 import { login } from '../../actions/userActions';
 import { signIn, resetPassword } from '../../api/userAPI';
+import { labels } from '../../assets/labels';
 
 import showHidePassword from '../../assets/images/auth/icons8-eye-90.png';
 import './AuthForm.css';
@@ -73,15 +74,15 @@ const AuthForm = () => {
 
     return (
         <section className='auth'>
-            <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+            <h1>{isLogin ? labels.login : labels.signUp}</h1>
             <form onSubmit={submitHandler}>
                 <div className='control'>
-                    <label style={{ color: 'white' }} htmlFor='email'>Email</label>
+                    <label style={{ color: 'white' }} htmlFor='email'>{labels.email}</label>
                     <input type='email' id='email' required ref={emailInputRef} />
-                    {!isEmailValid ? <p className='error'>Enter an email</p> : <></>}
+                    {!isEmailValid ? <p className='error'>{labels.enterEmail}</p> : <></>}
                 </div>
                 <div className='control'>
-                    <label style={{ color: 'white' }} htmlFor='password'>Password</label>
+                    <label style={{ color: 'white' }} htmlFor='password'>{labels.password}</label>
                     <div className='passwordContainer'>
                         <input
                             type='password'
@@ -93,17 +94,17 @@ const AuthForm = () => {
                     </div>
                 </div>
                 <div className='actions'>
-                    <button>{isLogin ? 'Login' : 'Create Account'}</button>
+                    <button>{isLogin ? labels.login : labels.createAccount}</button>
                     <button
                         type='button'
                         className='toggle'
                         onClick={switchAuthModeHandler}
                     >
-                        {isLogin ? 'Sign Up' : 'Login'}
+                        {isLogin ? labels.signUp : labels.login}
                     </button>
                 </div>
             </form>
-            {isLogin ? <button onClick={sendEmail} className='forgotPassword'>Forgot password</button> : <></>}
+            {isLogin ? <button onClick={sendEmail} className='forgotPassword'>{labels.forgotPassword}</button> : <></>}
         </section>
     );
 };

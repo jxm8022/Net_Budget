@@ -1,8 +1,8 @@
 import React from "react";
-import { months } from '../../../assets/months';
+import { labels, months } from '../../../assets/labels';
 import { useDispatch, useSelector } from 'react-redux';
 import './Selector.css';
-import { categories } from "../../../assets/categories";
+import { categories } from "../../../assets/labels";
 import { setDate } from "../../../actions/transactionActions";
 
 const currentDate = new Date();
@@ -17,11 +17,11 @@ const TypeSelector = React.forwardRef((props, ref) => {
     }
 
     return (
-        <label>Type
+        <label>{labels.type}
             <select id='type' defaultValue={defaultValue} ref={ref}>
                 {filteredOptions.map((category, index) => <option key={category.id} value={index}>{category.type}</option>)}
             </select>
-            {addApply && <button type='submit'>Apply</button>}
+            {addApply && <button type='submit'>{labels.apply}</button>}
         </label>
     );
 })
@@ -51,12 +51,12 @@ const MonthSelector = (props) => {
 
     return (
         <form className='month-input-form' onChange={setParameters}>
-            <label>Month
+            <label>{labels.month}
                 <select id='month' defaultValue={prevMonth}>
                     {months.map((month, index) => <option key={month.abb} value={index}>{month.abb}</option>)}
                 </select>
             </label>
-            <label>Year
+            <label>{labels.year}
                 <select id='year' defaultValue={prevYear}>
                     {activeYears.map((year, index) => <option key={index} value={year}>{year}</option>)}
                 </select>
@@ -74,7 +74,7 @@ const YearSelector = (props) => {
 
     return (
         <form className='year-input-form'>
-            <label>Year
+            <label>{labels.year}
                 <select id='type' defaultValue={dataYear} onChange={props.onYearChange}>
                     {activeYears.map((year, index) => <option key={index} value={year}>{year}</option>)}
                 </select>
@@ -98,7 +98,7 @@ const Selector = React.forwardRef((props, ref) => {
             selector = <YearSelector onYearChange={props.onYearChange} />
             break;
         default:
-            selector = <p style={{ color: 'red' }}>Error!</p>;
+            selector = <p style={{ color: 'red' }}>{labels.error}</p>;
     }
 
     return (

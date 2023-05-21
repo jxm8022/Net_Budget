@@ -4,7 +4,7 @@ import closedFilter from '../../../assets/images/sorting/hollowFilter.png';
 import './Filter.css';
 import { useRef, useState } from 'react';
 import Selector from '../Selector/Selector';
-import { categories } from '../../../assets/categories';
+import { categories } from '../../../assets/labels';
 
 const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;

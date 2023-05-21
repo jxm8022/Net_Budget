@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import Template from "../components/UI/Template/Template";
+import { labels } from "../assets/labels";
 
 const LoggedOut = () => {
     return (
         <>
-            <h1>Looks like you are not logged in!</h1>
-            <Link to={'/auth'}>Login</Link>
+            <h1>{labels.notLoggedIn}</h1>
+            <Link to={'/auth'}>{labels.login}</Link>
         </>
     );
 }
@@ -13,8 +14,8 @@ const LoggedOut = () => {
 const WhatThe = () => {
     return (
         <>
-            <h1>Looks like you are looking for something that does not exist!</h1>
-            <Link to={'/'}>Existing place...</Link>
+            <h1>{labels.notExist}</h1>
+            <Link to={'/'}>{labels.existingPlace}</Link>
         </>
     );
 }

@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 import BarGroup from "./BarGroup";
 import './BarChart.css';
+import { labels } from '../../../assets/labels';
 
 let barHeight = 50;
 
@@ -36,7 +37,7 @@ const BarChart = (props) => {
 
     return (
         <svg className="chart">
-            {max ? <g className='container'>{barGroups}</g> : <text id="noData" x={400 - (387.5 / 2)} y='300' fontSize={50} fill='#ff0000'>No data to display.</text>}
+            {max ? <g className='container'>{barGroups}</g> : <text id="noData" x={400 - (387.5 / 2)} y='300' fontSize={50} fill='#ff0000'>{labels.noData}</text>}
         </svg >
     );
 }

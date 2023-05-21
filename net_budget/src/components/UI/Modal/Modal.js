@@ -3,6 +3,7 @@ import { updateTransaction, deleteTransaction } from '../../../actions/transacti
 import { deleteTransactionAPI, updateTransactionAPI } from '../../../api/TransactionAPI';
 import InputForm from '../Form/InputForm';
 import './Modal.css';
+import { labels } from '../../../assets/labels';
 
 const Modal = (props) => {
     const { data, closeModal } = props;
@@ -36,7 +37,7 @@ const Modal = (props) => {
         <div className='modal'>
             <div className='modal-header'>
                 <span className='close' onClick={closeModal}>&times;</span>
-                <h2>Update Transaction</h2>
+                <h2>{labels.updateTransaction}</h2>
             </div>
             <div className='modal-body'>
                 <InputForm submitType='Update' deleteTransaction={true} closeModal={closeModal} transactionAction={submitTransaction} defaults={data} />

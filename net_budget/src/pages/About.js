@@ -1,3 +1,4 @@
+import { labels } from "../assets/labels";
 import DeveloperInfo from "../components/DeveloperInfo/DeveloperInfo";
 import SiteInfo from "../components/SiteInfo/SiteInfo";
 import Template from "../components/UI/Template/Template";
@@ -5,10 +6,10 @@ import Template from "../components/UI/Template/Template";
 const About = () => {
     return (
         <Template>
-            <h1>About</h1>
+            <h1>{labels.about}</h1>
             <SiteInfo />
             <DeveloperInfo />
-            <a href='#top' className="scroll-top">Top</a>
+            <a href='#top' className="scroll-top">{labels.top}</a>
         </Template>
     );
 }

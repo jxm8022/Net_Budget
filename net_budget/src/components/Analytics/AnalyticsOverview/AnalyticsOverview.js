@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { labels } from "../../../assets/labels";
+import { TABLETYPES } from "../../../assets/constants";
 import Table from "../../UI/Table/Table";
 import "./AnalyticsOverview.css";
 
@@ -54,20 +56,20 @@ const AnalyticsOverview = () => {
         <>
             <ul className="analyticsOverview">
                 <li>
-                    <h4>Lifetime Net</h4>
+                    <h4>{labels.lifetimeNet}</h4>
                     <p className={textClass(lifetimeEarnings)}>${lifetimeEarnings.toFixed(2)}</p>
                 </li>
             </ul >
             <Table
-                tableTitle={'Top Wants by Visits'}
-                dataType={'TOPTRANSACTIONS'}
-                headers={['#', 'Name', 'Times Visited']}
+                tableTitle={labels.topWantVisits}
+                dataType={TABLETYPES.TOPTRANSACTIONS}
+                headers={labels.topWantVisitsHeaders}
                 data={topWantsByTimes}
             />
             <Table
-                tableTitle={'Top Wants by Amount'}
-                dataType={'TOPTRANSACTIONS'}
-                headers={['#', 'Name', 'Amount Spent']}
+                tableTitle={labels.topWantAmounts}
+                dataType={TABLETYPES.TOPTRANSACTIONS}
+                headers={labels.topWantAmountsHeaders}
                 data={topWantsByAmount}
             />
         </>

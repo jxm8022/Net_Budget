@@ -5,6 +5,7 @@ import logo from '../../../assets/images/logo/piggy-100.png';
 // import logoutSymbol from '../../../assets/images/auth/logout-rounded-100.png';
 import CollapseSideBar from './CollapseSideBar/CollapseSideBar';
 import './NavBar.css';
+import { labels } from '../../../assets/labels';
 
 const NavBar = () => {
     const { currentMonth, currentYear } = useSelector((state) => state.transaction);
@@ -31,32 +32,32 @@ const NavBar = () => {
             {
                 id: 0,
                 where: `../yearOverview?year=${currentYear}`,
-                name: 'Home'
+                name: labels.home
             },
             {
                 id: 1,
                 where: '../addTransaction',
-                name: 'Add Transaction'
+                name: labels.addTransaction
             },
             {
                 id: 2,
                 where: `../monthOverview?month=${currentMonth}&year=${currentYear}`,
-                name: 'Month Overview'
+                name: labels.monthOverview
             },
             {
                 id: 3,
                 where: `../about`,
-                name: 'About'
+                name: labels.about
             },
             {
                 id: 4,
                 where: '../account',
-                name: 'Account'
+                name: labels.account
             },
             {
                 id: 5,
                 where: `../auth`,
-                name: 'Logout',
+                name: labels.logout,
                 do: handleLogout
             }
         ]
@@ -65,7 +66,7 @@ const NavBar = () => {
             {
                 id: 3,
                 where: `../about`,
-                name: 'About'
+                name: labels.about
             }
         ]
     }
@@ -73,7 +74,7 @@ const NavBar = () => {
     return (
         <nav className='navbar'>
             <img className='logo' onClick={handleLogo} src={logo} alt='Website logo.' />
-            <h2>Net Budget</h2>
+            <h2>{labels.netBudget}</h2>
             <ul className='nav-list'>
                 {links.map((link) => <li key={link.id}>
                     <NavLink

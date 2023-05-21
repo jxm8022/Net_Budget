@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setDate } from '../../actions/transactionActions';
+import { labels } from '../../assets/labels';
+import { SELECTORTYPES } from '../../assets/constants';
 import Selector from '../UI/Selector/Selector';
 import './Overview.css';
 
@@ -22,18 +24,18 @@ const YearOverview = (props) => {
     return (
         <>
             <h2>{year} Overview</h2>
-            <Selector type='YEAR' onYearChange={onYearChange} />
+            <Selector type={SELECTORTYPES.YEAR} onYearChange={onYearChange} />
             <ul className='overview'>
                 <li>
-                    <h4>Best Month</h4>
+                    <h4>{labels.bestMonth}</h4>
                     <p className={textClass(max)}>{'$' + max.toFixed(2)}</p>
                 </li>
                 <li className='middle'>
-                    <h4>Net</h4>
+                    <h4>{labels.net}</h4>
                     <p className={textClass(netTotal)}>{'$' + netTotal.toFixed(2)}</p>
                 </li>
                 <li>
-                    <h4>Worst Month</h4>
+                    <h4>{labels.worstMonth}</h4>
                     <p className={textClass(min)}>{'$' + min.toFixed(2)}</p>
                 </li>
             </ul >

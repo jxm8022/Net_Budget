@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { months } from "../../assets/months";
+import { useSelector } from "react-redux";
+import { months, labels } from "../../assets/labels";
+import { 
+    RATIOS,
+    SELECTORTYPES,
+    TABLETYPES,
+    TYPES
+} from "../../assets/constants";
 import Table from '../UI/Table/Table';
 import Selector from "../UI/Selector/Selector";
 import './MonthSelector.css';
-import { useSelector } from "react-redux";
-
-const headers = ['Type', 'Available', 'Remaining'];
 
 const MonthSelector = (props) => {
     const { monthIndex, year, setSearchParams } = props;
@@ -23,22 +27,22 @@ const MonthSelector = (props) => {
     let incomeTotal = 0;
     transactions.forEach(transaction => {
         switch (transaction.type) {
-            case 0:
+            case TYPES.WANT:
                 data[1].remaining -= transaction.amount;
                 break;
-            case 1:
+            case TYPES.NEED:
                 data[0].remaining -= transaction.amount;
                 break;
-            case 2:
-            case 3:
+            case TYPES.SAVINGS:
+            case TYPES.DEBT:
                 data[2].remaining -= transaction.amount;
                 break;
-            case 4:
+            case TYPES.INCOME:
                 incomeTotal += transaction.amount;
                 break;
-            case 5:
+            case TYPES.PTRANSACTION:
                 break;
-            case 6:
+            case TYPES.PINCOME:
                 incomeTotal += transaction.amount;
                 break;
             default:
@@ -47,9 +51,9 @@ const MonthSelector = (props) => {
     });
 
     /* Set available and remaining */
-    data[0].available = incomeTotal * .5;
-    data[1].available = incomeTotal * .3;
-    data[2].available = incomeTotal * .2;
+    data[0].available = incomeTotal * RATIOS.NEED;
+    data[1].available = incomeTotal * RATIOS.WANT;
+    data[2].available = incomeTotal * RATIOS.SAVINGS;
 
     data[0].remaining += data[0].available;
     data[1].remaining += data[1].available;
@@ -65,7 +69,7 @@ const MonthSelector = (props) => {
     return (
         <>
             <h2>{months[monthIndex].month} {year}</h2>
-            <Selector type='MONTH' setSearchParams={setSearchParams} />
+            <Selector type={SELECTORTYPES.MONTH} setSearchParams={setSearchParams} />
             <img
                 onClick={tableVisibility}
                 alt='Toggle table.'
@@ -73,8 +77,8 @@ const MonthSelector = (props) => {
                 style={{ display: buttonVisibility }}
             />
             {visibility === 'block' && <Table
-                headers={headers}
-                dataType={'RATIOS'}
+                headers={labels.ratioHeaders}
+                dataType={TABLETYPES.RATIOS}
                 data={data}
                 hideTable={tableVisibility}
             />}

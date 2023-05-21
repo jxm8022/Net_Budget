@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { labels } from "../assets/labels";
 import MonthDetails from "../components/MonthDetails/MonthDetails";
 import MonthSelector from "../components/MonthDisplay/MonthSelector";
 import MonthOverview from "../components/Overview/MonthOverview";
@@ -75,7 +76,7 @@ const DisplayMonth = () => {
             <PieChart styleData={styleData} legendData={legendData} />
             <MonthOverview monthIndex={month} />
             <MonthDetails monthIndex={month} />
-            <a href='#top' className="scroll-top">Top</a>
+            <a href='#top' className="scroll-top">{labels.top}</a>
         </Template>
     );
 }

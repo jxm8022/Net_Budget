@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { labels } from '../../assets/labels';
+import { TABLETYPES } from '../../assets/constants';
 import SortAscending from '../../utilities/SortAscending';
 import SortDescending from '../../utilities/SortDescending';
 import FilterData from '../../utilities/FilterData';
 import Filter from '../UI/Filter/Filter';
 import Table from '../UI/Table/Table';
-
-const headers = ['Type', 'Date', 'Name', 'Amount'];
 
 const MonthDetails = (props) => {
     const { monthIndex } = props;
@@ -29,13 +29,13 @@ const MonthDetails = (props) => {
             if (isSortAsc) {
                 setSortedTransactions((prev) => SortDescending({
                     type: header,
-                    headers,
+                    headers: labels.transactionHeaders,
                     transactions: [...prev]
                 }));
             } else {
                 setSortedTransactions((prev) => SortAscending({
                     type: sortColumn,
-                    headers,
+                    headers: labels.transactionHeaders,
                     transactions: [...prev]
                 }));
             }
@@ -44,7 +44,7 @@ const MonthDetails = (props) => {
             setIsSortAsc(true);
             setSortedTransactions((prev) => SortAscending({
                 type: header,
-                headers,
+                headers: labels.transactionHeaders,
                 transactions: [...prev]
             }));
         }
@@ -55,7 +55,7 @@ const MonthDetails = (props) => {
         setSortedTransactions(FilterData({
             type,
             filters,
-            sortData: { isSortAsc, headers, sortColumn },
+            sortData: { isSortAsc, headers: labels.transactionHeaders, sortColumn },
             transactions
         }));
     }
@@ -65,7 +65,7 @@ const MonthDetails = (props) => {
         setSortedTransactions(FilterData({
             type: type,
             filters,
-            sortData: { isSortAsc, headers, sortColumn },
+            sortData: { isSortAsc, headers: labels.transactionHeaders, sortColumn },
             transactions
         }));
     }
@@ -88,8 +88,8 @@ const MonthDetails = (props) => {
                 clearFilters={clearFilters}
                 monthIndex={monthIndex} />
             <Table
-                headers={headers}
-                dataType={'TRANSACTIONS'}
+                headers={labels.transactionHeaders}
+                dataType={TABLETYPES.TRANSACTIONS}
                 data={sortedTransactions}
                 isSortAsc={isSortAsc}
                 sortColumn={sortColumn}
