@@ -1,26 +1,26 @@
 export const categories = [
-    { id: 1, type: 'Want' },
-    { id: 2, type: 'Need' },
-    { id: 3, type: 'Savings' },
-    { id: 4, type: 'Debt' },
-    { id: 5, type: 'Income' },
-    { id: 6, type: 'pTransaction' },
-    { id: 7, type: 'pIncome' }
+    { id: 0, type: 'Want' },
+    { id: 1, type: 'Need' },
+    { id: 2, type: 'Savings' },
+    { id: 3, type: 'Debt' },
+    { id: 4, type: 'Income' },
+    { id: 5, type: 'pTransaction' },
+    { id: 6, type: 'pIncome' }
 ];
 
 export const months = [
-    { id: 1, month: 'January', abb: 'Jan' },
-    { id: 2, month: 'February', abb: 'Feb' },
-    { id: 3, month: 'March', abb: 'Mar' },
-    { id: 4, month: 'April', abb: 'Apr' },
-    { id: 5, month: 'May', abb: 'May' },
-    { id: 6, month: 'June', abb: 'Jun' },
-    { id: 7, month: 'July', abb: 'Jul' },
-    { id: 8, month: 'August', abb: 'Aug' },
-    { id: 9, month: 'September', abb: 'Sep' },
-    { id: 10, month: 'October', abb: 'Oct' },
-    { id: 11, month: 'November', abb: 'Nov' },
-    { id: 12, month: 'December', abb: 'Dec' }
+    { id: 0, month: 'January', abb: 'Jan' },
+    { id: 1, month: 'February', abb: 'Feb' },
+    { id: 2, month: 'March', abb: 'Mar' },
+    { id: 3, month: 'April', abb: 'Apr' },
+    { id: 4, month: 'May', abb: 'May' },
+    { id: 5, month: 'June', abb: 'Jun' },
+    { id: 6, month: 'July', abb: 'Jul' },
+    { id: 7, month: 'August', abb: 'Aug' },
+    { id: 8, month: 'September', abb: 'Sep' },
+    { id: 9, month: 'October', abb: 'Oct' },
+    { id: 10, month: 'November', abb: 'Nov' },
+    { id: 11, month: 'December', abb: 'Dec' }
 ];
 
 export const labels = {

@@ -165,6 +165,18 @@ const versionHistory = [
                 link: 'https://github.com/jxm8022/Net_Budget/issues/58'
             }
         ]
+    },
+    {
+        id: 8,
+        version: 1.8,
+        title: 'Release v1.8',
+        info: [
+            {
+                id: 0,
+                title: 'Updat labels to be zero indexed',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/60'
+            }
+        ]
     }
 ]
 

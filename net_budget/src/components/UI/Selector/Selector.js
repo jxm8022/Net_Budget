@@ -1,9 +1,10 @@
 import React from "react";
 import { labels, months } from '../../../assets/labels';
 import { useDispatch, useSelector } from 'react-redux';
-import './Selector.css';
 import { categories } from "../../../assets/labels";
 import { setDate } from "../../../actions/transactionActions";
+import { TYPES } from "../../../assets/constants";
+import './Selector.css';
 
 const currentDate = new Date();
 const currentMonth = currentDate.getMonth();
@@ -13,7 +14,7 @@ const TypeSelector = React.forwardRef((props, ref) => {
     let filteredOptions = [...categories];
 
     if (currentMonth !== selectedMonth) {
-        filteredOptions = categories.filter((category) => category.id < 6);
+        filteredOptions = categories.filter((category) => category.id !== TYPES.PINCOME && category.id !== TYPES.PTRANSACTION);
     }
 
     return (
