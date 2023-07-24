@@ -11,6 +11,7 @@ import Version from './pages/Version';
 import { loadTransactionsAPI } from './api/TransactionAPI';
 import Account from './pages/Account';
 import AddTransaction from './components/DisplayMonth/AddTransaction/AddTransaction';
+import Statistics from './pages/Statistics';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
@@ -39,6 +40,10 @@ function App() {
       {
         path: '/monthOverview/addTransaction',
         component: <AddTransaction />
+      },
+      {
+        path: '/statistics',
+        component: <Statistics />
       },
       {
         path: '/account',

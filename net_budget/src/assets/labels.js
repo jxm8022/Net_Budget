@@ -74,6 +74,9 @@ export const labels = {
         'Amount'
     ],
 
+    // Statistics
+    statistics: 'Statistics',
+
     // About
     howTo: 'How To',
     aboutDeveloper: 'About Developer',

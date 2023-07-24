@@ -180,6 +180,11 @@ const versionHistory = [
                 id: 1,
                 title: 'Create add transaction button in month overview',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/62'
+            },
+            {
+                id: 2,
+                title: 'Add statistics tab',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/65'
             }
         ]
     }
