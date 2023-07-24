@@ -6,11 +6,11 @@ import { loadUser } from './actions/userActions';
 import './App.css';
 import About from './pages/About';
 import DisplayMonth from './pages/DisplayMonth';
-import InsertItem from './pages/InsertItem';
 import Auth from './pages/Auth';
 import Version from './pages/Version';
 import { loadTransactionsAPI } from './api/TransactionAPI';
 import Account from './pages/Account';
+import AddTransaction from './components/DisplayMonth/AddTransaction/AddTransaction';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
@@ -33,12 +33,12 @@ function App() {
         component: <HomePage />
       },
       {
-        path: '/addTransaction',
-        component: <InsertItem />
-      },
-      {
         path: '/monthOverview',
         component: <DisplayMonth />
+      },
+      {
+        path: '/monthOverview/addTransaction',
+        component: <AddTransaction />
       },
       {
         path: '/account',

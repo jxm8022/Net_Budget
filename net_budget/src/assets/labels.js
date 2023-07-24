@@ -58,6 +58,7 @@ export const labels = {
 
     // Month Overview
     month: 'Month',
+    addTransaction: 'Add transaction',
     potentialNet: 'Potential Net',
     projectedNet: 'Projected Net',
     name: 'Name',

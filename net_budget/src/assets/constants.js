@@ -1,4 +1,4 @@
-export const DATEFORMAT = 'yyyy-MM-dd';
+export const DATEFORMAT = 'yyyy-MM-DD';
 
 export const TYPES = {
     WANT: 0,
