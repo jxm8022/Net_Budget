@@ -1,0 +1,36 @@
+/* mobile */
+.transaction-input-form {
+    margin: 10px 10px 40px 10px;
+    padding: 20px;
+    width: 70%;
+}
+
+.transaction-input-form label {
+    padding: 10px;
+    display: block;
+    height: 60px;
+}
+
+.transaction-input-form label select,
+.transaction-input-form label input {
+    margin: 10px;
+    height: 40%;
+}
+
+.transaction-input-form button {
+    margin: 10px;
+}
+
+/* tablets */
+@media only screen and (min-width: 600px) {
+    .transaction-input-form {
+        width: 60%;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 900px) {
+    .transaction-input-form {
+        width: 40%;
+    }
+}

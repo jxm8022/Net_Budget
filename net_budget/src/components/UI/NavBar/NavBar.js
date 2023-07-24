@@ -36,26 +36,21 @@ const NavBar = () => {
             },
             {
                 id: 1,
-                where: '../addTransaction',
-                name: labels.addTransaction
-            },
-            {
-                id: 2,
                 where: `../monthOverview?month=${currentMonth}&year=${currentYear}`,
                 name: labels.monthOverview
             },
             {
-                id: 3,
+                id: 2,
                 where: `../about`,
                 name: labels.about
             },
             {
-                id: 4,
+                id: 3,
                 where: '../account',
                 name: labels.account
             },
             {
-                id: 5,
+                id: 4,
                 where: `../auth`,
                 name: labels.logout,
                 do: handleLogout
@@ -64,7 +59,7 @@ const NavBar = () => {
     } else {
         links = [
             {
-                id: 3,
+                id: 5,
                 where: `../about`,
                 name: labels.about
             }

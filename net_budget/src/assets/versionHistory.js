@@ -175,6 +175,11 @@ const versionHistory = [
                 id: 0,
                 title: 'Updat labels to be zero indexed',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/60'
+            },
+            {
+                id: 1,
+                title: 'Create add transaction button in month overview',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/62'
             }
         ]
     }

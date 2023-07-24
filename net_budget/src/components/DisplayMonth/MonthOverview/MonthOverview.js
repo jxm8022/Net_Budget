@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
-import { labels } from '../../assets/labels';
-import './Overview.css';
+import { useSearchParams } from 'react-router-dom';
+import { labels } from '../../../assets/labels';
+import '../../Overview/Overview.css';
 
 const MonthOverview = (props) => {
-    const { monthIndex } = props;
-    const { potNet, projNet, net } = useSelector((state) => state.transaction.monthOverview[monthIndex]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { potNet, projNet, net } = useSelector((state) => state.transaction.monthOverview[searchParams.get('month')]);
 
     const textClass = (amount) => amount < 0 ? 'negative' : '';
 
