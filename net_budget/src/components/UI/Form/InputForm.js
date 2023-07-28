@@ -7,7 +7,6 @@ import { SELECTORTYPES } from '../../../assets/constants';
 
 const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;
-const maxDate = `${currentDate.getFullYear() + 1}-01-07`;
 
 const InputForm = (props) => {
     const { submitType, deleteTransaction, closeModal, transactionAction, defaults } = props;
@@ -17,8 +16,7 @@ const InputForm = (props) => {
     const transAmount = useRef();
     const [selectedMonth, setSelectedMonth] = useState(defaultDate.split('-')[1] - 1);
     const [error, setError] = useState();
-    const { startYear } = useSelector((state) => state.user);
-    const { lifetimeTransactions } = useSelector((state) => state.transaction);
+    const { transactionDictionary } = useSelector((state) => state.statistics);
 
     const dateChanged = (event) => {
         setSelectedMonth(transDate.current.value.split('-')[1] - 1);
@@ -43,7 +41,11 @@ const InputForm = (props) => {
             const amount = +parseFloat(transAmount.current.value).toFixed(2);
 
             if (type && date && name && amount) {
-                const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${categories[type].type}\nTransaction Date: ${date}\nTransaction Name: ${name}\nTransaction Amount: $${amount}`);
+                const typeComparison = categories[defaults.type].id === categories[type].id ? categories[type].type : `${categories[defaults.type].type} -> ${categories[type].type}`;
+                const dateComparison = defaults.date === date ? date : `${defaults.date} -> ${date}`;
+                const nameComparison = defaults.name === name ? name : `${defaults.name} -> ${name}`;
+                const amountComparison = defaults.amount === amount ? amount : `${defaults.amount} -> ${amount}`;
+                const response = window.confirm(`Do you want to update the following information?\nTransaction Type: ${typeComparison}\nTransaction Date: ${dateComparison}\nTransaction Name: ${nameComparison}\nTransaction Amount: $${amountComparison}`);
                 if (response) {
                     transactionAction(
                         {
@@ -83,8 +85,7 @@ const InputForm = (props) => {
                     type='date'
                     onChange={dateChanged}
                     defaultValue={defaults.date}
-                    min={`${startYear}-01-01`}
-                    max={maxDate}></input>
+                ></input>
             </label>
             <label >{labels.transaction}
                 <input
@@ -99,7 +100,7 @@ const InputForm = (props) => {
                     autoComplete='on'
                 ></input>
                 <datalist id='transactions'>
-                    {lifetimeTransactions.map((trans, index) => <option key={index} value={trans} />)}
+                    {transactionDictionary.map((trans, index) => <option key={index} value={trans} />)}
                 </datalist>
             </label>
             <label>{labels.amount}

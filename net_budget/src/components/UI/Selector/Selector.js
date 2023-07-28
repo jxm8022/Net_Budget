@@ -68,10 +68,7 @@ const MonthSelector = (props) => {
 
 const YearSelector = (props) => {
     const dataYear = useSelector((state) => state.transaction.currentYear)
-    const { startYear, currentYear } = useSelector((state) => state.user);
-
-    let activeYears = [];
-    for (let i = startYear; i <= currentYear; i++) { activeYears.push(i) };
+    const { activeYears } = useSelector((state) => state.statistics);
 
     return (
         <form className='year-input-form'>

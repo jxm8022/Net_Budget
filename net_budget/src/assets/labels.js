@@ -76,6 +76,20 @@ export const labels = {
 
     // Statistics
     statistics: 'Statistics',
+    lifetimeNet: 'Lifetime Net',
+    topWantVisits: 'Top Wants by Visits',
+    topWantVisitsHeaders: [
+        '#',
+        'Name',
+        'Times Visited'
+    ],
+    topWantAmounts: 'Top Wants by Amount',
+    topWantAmountsHeaders: [
+        '#',
+        'Name',
+        'Amount Spent'
+    ],
+    lifetimeTypes: 'Lifetime Transaction Types',
 
     // About
     howTo: 'How To',
@@ -122,20 +136,6 @@ export const labels = {
     bio: 'I graduated from the University of Texas at Arlington in 2021 with a bachelor\'s degree in software engineering. Since then, I\'ve been trying to get experience by creating my own little projects, like this one. I\'m interested in creating things, whether that\'s by coding, 3D printing, or tinkering with tools. Besides coding, my hobbies include gaming, stargazing, and fishing.',
 
     // Account
-    lifetimeNet: 'Lifetime Net',
-    topWantVisits: 'Top Wants by Visits',
-    topWantVisitsHeaders: [
-        '#',
-        'Name',
-        'Times Visited'
-    ],
-    topWantAmounts: 'Top Wants by Amount',
-    topWantAmountsHeaders: [
-        '#',
-        'Name',
-        'Amount Spent'
-    ],
-    lifetimeTypes: 'Lifetime Transaction Types',
     changePassword: 'Change Password',
 
     // Not found page
