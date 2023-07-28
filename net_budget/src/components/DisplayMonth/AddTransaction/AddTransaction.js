@@ -5,7 +5,6 @@ import { addTransaction } from '../../../actions/transactionActions';
 import { addTransactionAPI } from '../../../api/TransactionAPI';
 import { DATEFORMAT } from '../../../assets/constants';
 import { FormatString, GetStringLength } from '../../../utilities/FormatData';
-import { setMessage } from '../../../actions/pageActions';
 import Template from '../../UI/Template/Template';
 import moment from 'moment/moment';
 import './AddTransaction.css';
