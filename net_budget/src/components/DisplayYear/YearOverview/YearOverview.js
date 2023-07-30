@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setDate } from '../../actions/transactionActions';
-import { labels } from '../../assets/labels';
-import { SELECTORTYPES } from '../../assets/constants';
-import Selector from '../UI/Selector/Selector';
+import { setDate } from '../../../actions/transactionActions';
+import { labels } from '../../../assets/labels';
+import { SELECTORTYPES } from '../../../assets/constants';
+import Selector from '../../UI/Selector/Selector';
 import './Overview.css';
 
 const YearOverview = (props) => {

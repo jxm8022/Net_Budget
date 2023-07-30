@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import YearOverview from "../components/Overview/YearOverview";
-import BarChart from "../components/UI/BarChart/BarChart";
+import YearOverview from "../components/DisplayYear/YearOverview/YearOverview";
+import BarChart from "../components/DisplayYear/BarChart/BarChart";
 import Template from "../components/UI/Template/Template";
 
 const Home = () => {
