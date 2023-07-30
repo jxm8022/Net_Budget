@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { categories, labels } from '../../../assets/labels';
 import Selector from '../Selector/Selector';
+import { categories, labels } from '../../../resources/labels';
+import { SELECTORTYPES } from '../../../resources/constants';
 import './InputForm.css';
-import { SELECTORTYPES } from '../../../assets/constants';
 
 const currentDate = new Date();
 const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 })}`;

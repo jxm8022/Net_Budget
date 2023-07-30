@@ -1,9 +1,9 @@
 import React from "react";
-import { labels, months } from '../../../assets/labels';
+import { labels, months } from '../../../resources/labels';
 import { useDispatch, useSelector } from 'react-redux';
-import { categories } from "../../../assets/labels";
+import { categories } from "../../../resources/labels";
 import { setDate } from "../../../actions/transactionActions";
-import { TYPES } from "../../../assets/constants";
+import { TYPES } from "../../../resources/constants";
 import './Selector.css';
 
 const currentDate = new Date();

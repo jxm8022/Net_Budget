@@ -1,4 +1,4 @@
-import { labels } from '../../assets/labels';
+import { labels } from '../../resources/labels';
 import github from '../../assets/images/socialMedia/github-48.png';
 import linkedin from '../../assets/images/socialMedia/linkedin-48.png';
 import me from '../../assets/images/socialMedia/me.jpeg';

@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateTransaction, deleteTransaction } from '../../../actions/transactionActions';
 import { deleteTransactionAPI, updateTransactionAPI } from '../../../api/TransactionAPI';
 import InputForm from '../Form/InputForm';
+import { labels } from '../../../resources/labels';
 import './Modal.css';
-import { labels } from '../../../assets/labels';
 
 const Modal = (props) => {
     const { data, closeModal } = props;

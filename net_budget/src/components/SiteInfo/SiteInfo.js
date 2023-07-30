@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { labels } from '../../assets/labels';
+import { labels } from '../../resources/labels';
 import './SiteInfo.css';
 
 const Definitions = () => {

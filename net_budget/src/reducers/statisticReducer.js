@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import { categories } from '../assets/labels';
+import { categories } from '../resources/labels';
 import { getOverview, sortByAmount, sortByTimes } from '../utilities/ReducerHelper';
 
 const initialState = {

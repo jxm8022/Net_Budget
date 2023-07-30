@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 import BarGroup from "./BarGroup";
 import './BarChart.css';
-import { labels } from '../../../assets/labels';
+import { labels } from '../../../resources/labels';
 
 let barHeight = 50;
 

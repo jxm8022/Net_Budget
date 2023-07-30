@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { categories, labels } from '../../../assets/labels';
+import { categories, labels } from '../../../resources/labels';
 import { addTransaction } from '../../../actions/transactionActions';
 import { addTransactionAPI } from '../../../api/TransactionAPI';
-import { DATEFORMAT } from '../../../assets/constants';
+import { DATEFORMAT } from '../../../resources/constants';
 import { FormatString, GetStringLength } from '../../../utilities/FormatData';
 import Template from '../../UI/Template/Template';
 import moment from 'moment/moment';

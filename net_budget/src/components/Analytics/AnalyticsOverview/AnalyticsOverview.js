@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { labels } from "../../../assets/labels";
-import { TABLETYPES } from "../../../assets/constants";
+import { labels } from "../../../resources/labels";
+import { TABLETYPES } from "../../../resources/constants";
 import Table from "../../UI/Table/Table";
 import "./AnalyticsOverview.css";
 

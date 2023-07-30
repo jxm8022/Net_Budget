@@ -1,4 +1,4 @@
-import { labels } from "../assets/labels";
+import { labels } from "../resources/labels";
 import DeveloperInfo from "../components/DeveloperInfo/DeveloperInfo";
 import SiteInfo from "../components/SiteInfo/SiteInfo";
 import Template from "../components/UI/Template/Template";

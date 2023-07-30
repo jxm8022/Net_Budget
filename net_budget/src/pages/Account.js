@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Template from "../components/UI/Template/Template";
-import { labels } from "../assets/labels";
+import { labels } from "../resources/labels";
 import showHidePassword from '../assets/images/auth/icons8-eye-90.png';
 import { setMessage } from "../actions/pageActions";
 import { changePassword } from "../api/userAPI";

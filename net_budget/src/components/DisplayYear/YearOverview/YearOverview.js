@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setDate } from '../../../actions/transactionActions';
-import { labels } from '../../../assets/labels';
-import { SELECTORTYPES } from '../../../assets/constants';
+import { labels } from '../../../resources/labels';
+import { SELECTORTYPES } from '../../../resources/constants';
 import Selector from '../../UI/Selector/Selector';
 import './Overview.css';
 

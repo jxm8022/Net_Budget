@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { labels } from '../../../assets/labels';
+import { labels } from '../../../resources/labels';
 import '../../DisplayYear/YearOverview/Overview.css';
 
 const MonthOverview = (props) => {
