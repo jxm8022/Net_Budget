@@ -37,7 +37,7 @@ const MonthSelector = (props) => {
                     </select>
                 </label>
             </form>
-            <button onClick={addTransaction}>{labels.addTransaction}</button>
+            <button onClick={addTransaction}>{labels.addTransactionBtnLabel}</button>
         </>
     );
 }

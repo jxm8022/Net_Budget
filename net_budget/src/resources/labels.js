@@ -38,7 +38,6 @@ export const labels = {
 
     // Navigation
     home: 'Home',
-    addTransaction: 'Add Transaction',
     monthOverview: 'Month Overview',
     about: 'About',
     account: 'Account',
@@ -58,7 +57,8 @@ export const labels = {
 
     // Month Overview
     month: 'Month',
-    addTransaction: 'Add transaction',
+    addTransactionTitle: 'Add Transaction',
+    addTransactionBtnLabel: 'Add transaction',
     potentialNet: 'Potential Net',
     projectedNet: 'Projected Net',
     name: 'Name',

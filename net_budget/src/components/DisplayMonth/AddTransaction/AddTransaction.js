@@ -70,7 +70,7 @@ const AddTransaction = (props) => {
 
     return (
         <Template>
-            <h1>{labels.addTransaction}</h1>
+            <h1>{labels.addTransactionTitle}</h1>
             <form className='transaction-input-form' onSubmit={submitForm} onFocus={() => {setError()}}>
                 <label>{labels.type}
                     <select id='type' ref={transType}>
@@ -113,7 +113,7 @@ const AddTransaction = (props) => {
                     ></input>
                 </label>
                 <button type='submit'>
-                    {labels.addTransaction}
+                    {labels.addTransactionBtnLabel}
                 </button>
                 {error && <p className='error'>Please input information!</p>}
             </form >
