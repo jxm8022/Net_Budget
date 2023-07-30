@@ -5,7 +5,7 @@ import logo from '../../../assets/images/logo/piggy-100.png';
 // import logoutSymbol from '../../../assets/images/auth/logout-rounded-100.png';
 import CollapseSideBar from './CollapseSideBar/CollapseSideBar';
 import './NavBar.css';
-import { labels } from '../../../assets/labels';
+import { labels } from '../../../resources/labels';
 
 const NavBar = () => {
     const { currentMonth, currentYear } = useSelector((state) => state.transaction);

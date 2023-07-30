@@ -1,22 +1,24 @@
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { loadTransactions, saveAllTransactions } from './actions/transactionActions';
+import { loadTransactions } from './actions/transactionActions';
 import { loadUser } from './actions/userActions';
-import './App.css';
+import { loadTransactionsAPI } from './api/TransactionAPI';
+import { calculateStatistics, saveAllTransactions } from './actions/statisticActions';
 import About from './pages/About';
 import DisplayMonth from './pages/DisplayMonth';
 import Auth from './pages/Auth';
 import Version from './pages/Version';
-import { loadTransactionsAPI } from './api/TransactionAPI';
 import Account from './pages/Account';
 import AddTransaction from './components/DisplayMonth/AddTransaction/AddTransaction';
 import Statistics from './pages/Statistics';
+import './App.css';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
+  const { lifetimeTransactions } = useSelector((state) => state.statistics);
   const { currentYear } = useSelector((state) => state.transaction);
   const { isLoggedIn, userId, token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -80,34 +82,21 @@ function App() {
 
   useEffect(() => {
     if (userId) {
-      loadTransactionsAPI(userId, token).then((res) => {
-        if (res) {
-          dispatch(saveAllTransactions(res));
-          localStorage.setItem('startYear', JSON.stringify(Object.keys(res)[0]));
-          // SAVE OTHER YEARS IN STATE SO WHEN VIEW DATE IS CHANGED, IT GETS THAT TRANSACTION DATA
-          let yearTransactions = {};
-          for (const month in res[currentYear]) {
-            const monthTransactions = [];
-            for (const key in res[currentYear][month]) {
-              monthTransactions.push({
-                id: key,
-                type: res[currentYear][month][key].type,
-                date: res[currentYear][month][key].date,
-                name: res[currentYear][month][key].name,
-                amount: res[currentYear][month][key].amount
-              })
-            }
-
-            yearTransactions[month] = monthTransactions;
+      if (lifetimeTransactions && Object.keys(lifetimeTransactions).length !== 0) {
+        dispatch(loadTransactions(lifetimeTransactions[currentYear]));
+        dispatch(calculateStatistics());
+      } else {
+        loadTransactionsAPI(userId, token).then((res) => {
+          if (res) {
+            dispatch(saveAllTransactions(res));
+          } else {
+            localStorage.setItem('startYear', new Date().getFullYear().toString());
           }
-          dispatch(loadTransactions(yearTransactions));
-        } else {
-          localStorage.setItem('startYear', new Date().getFullYear().toString());
-        }
-      })
+        });
+      }
     }
     dispatch(loadUser());
-  }, [dispatch, currentYear, userId, token]);
+  }, [dispatch, currentYear, userId, token, lifetimeTransactions]);
 
   return (
     <Suspense>

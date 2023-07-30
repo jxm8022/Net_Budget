@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setMessage } from '../../actions/pageActions';
-import { login } from '../../actions/userActions';
-import { signIn, resetPassword } from '../../api/userAPI';
-import { labels } from '../../assets/labels';
+import { setMessage } from '../../../actions/pageActions';
+import { login } from '../../../actions/userActions';
+import { signIn, resetPassword } from '../../../api/userAPI';
+import { labels } from '../../../resources/labels';
 
-import showHidePassword from '../../assets/images/auth/icons8-eye-90.png';
+import showHidePassword from '../../../assets/images/auth/icons8-eye-90.png';
 import './AuthForm.css';
 
 const AuthForm = () => {

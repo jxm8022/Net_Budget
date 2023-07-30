@@ -1,16 +1,16 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { categories, labels } from '../../../assets/labels';
+import { categories, labels } from '../../../resources/labels';
 import { addTransaction } from '../../../actions/transactionActions';
 import { addTransactionAPI } from '../../../api/TransactionAPI';
-import { DATEFORMAT } from '../../../assets/constants';
+import { DATEFORMAT } from '../../../resources/constants';
 import { FormatString, GetStringLength } from '../../../utilities/FormatData';
 import Template from '../../UI/Template/Template';
 import moment from 'moment/moment';
 import './AddTransaction.css';
 
 const AddTransaction = (props) => {
-    const { lifetimeTransactions, currentMonth, currentYear } = useSelector((state) => state.transaction);
+    const { transactionDictionary } = useSelector((state) => state.statistics);
     const { userId, token } = useSelector((state) => state.user);
     const [error, setError] = useState();
     const transType = useRef();
@@ -55,19 +55,22 @@ const AddTransaction = (props) => {
             amount: parseFloat(transAmount.current.value),
         };
 
-        addTransactionAPI(userId, formData, token).then((res) => {
-            if (res) {
-                dispatch(addTransaction({
-                    ...formData,
-                    id: res.name
-                }));
-            }
-        });
+        const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${categories[formData.type].type}\nTransaction Date: ${formData.date}\nTransaction Name: ${formData.name}\nTransaction Amount: $${formData.amount}`);
+        if (response) {
+            addTransactionAPI(userId, formData, token).then((res) => {
+                if (res) {
+                    dispatch(addTransaction({
+                        ...formData,
+                        id: res.name
+                    }));
+                }
+            });
+        }
     }
 
     return (
         <Template>
-            <h1>{labels.addTransaction}</h1>
+            <h1>{labels.addTransactionTitle}</h1>
             <form className='transaction-input-form' onSubmit={submitForm} onFocus={() => {setError()}}>
                 <label>{labels.type}
                     <select id='type' ref={transType}>
@@ -96,7 +99,7 @@ const AddTransaction = (props) => {
                         autoComplete='on'
                     ></input>
                     <datalist id='transactions'>
-                        {lifetimeTransactions.map((trans, index) => <option key={index} value={trans} />)}
+                        {transactionDictionary.map((trans, index) => <option key={index} value={trans} />)}
                     </datalist>
                 </label>
                 <label>{labels.amount}
@@ -110,7 +113,7 @@ const AddTransaction = (props) => {
                     ></input>
                 </label>
                 <button type='submit'>
-                    {labels.addTransaction}
+                    {labels.addTransactionBtnLabel}
                 </button>
                 {error && <p className='error'>Please input information!</p>}
             </form >

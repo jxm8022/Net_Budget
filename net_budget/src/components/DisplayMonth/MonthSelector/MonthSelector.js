@@ -1,8 +1,8 @@
-import { months, labels } from "../../../assets/labels";
 import { useNavigate, useSearchParams, createSearchParams } from "react-router-dom";
-import './MonthSelector.css';
 import { useDispatch } from "react-redux";
 import { setDate } from "../../../actions/transactionActions";
+import { months, labels } from "../../../resources/labels";
+import './MonthSelector.css';
 
 const MonthSelector = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +37,7 @@ const MonthSelector = (props) => {
                     </select>
                 </label>
             </form>
-            <button onClick={addTransaction}>{labels.addTransaction}</button>
+            <button onClick={addTransaction}>{labels.addTransactionBtnLabel}</button>
         </>
     );
 }

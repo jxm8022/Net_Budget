@@ -1,4 +1,4 @@
-import { labels } from "../assets/labels";
+import { labels } from "../resources/labels";
 import versionHistory from "../assets/versionHistory";
 import Template from "../components/UI/Template/Template";
 

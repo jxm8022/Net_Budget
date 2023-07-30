@@ -185,6 +185,11 @@ const versionHistory = [
                 id: 2,
                 title: 'Add statistics tab',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/65'
+            },
+            {
+                id: 3,
+                title: 'QOL updates',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/67'
             }
         ]
     }

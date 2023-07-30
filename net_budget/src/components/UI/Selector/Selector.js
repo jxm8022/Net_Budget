@@ -1,9 +1,9 @@
 import React from "react";
-import { labels, months } from '../../../assets/labels';
+import { labels, months } from '../../../resources/labels';
 import { useDispatch, useSelector } from 'react-redux';
-import { categories } from "../../../assets/labels";
+import { categories } from "../../../resources/labels";
 import { setDate } from "../../../actions/transactionActions";
-import { TYPES } from "../../../assets/constants";
+import { TYPES } from "../../../resources/constants";
 import './Selector.css';
 
 const currentDate = new Date();
@@ -68,10 +68,7 @@ const MonthSelector = (props) => {
 
 const YearSelector = (props) => {
     const dataYear = useSelector((state) => state.transaction.currentYear)
-    const { startYear, currentYear } = useSelector((state) => state.user);
-
-    let activeYears = [];
-    for (let i = startYear; i <= currentYear; i++) { activeYears.push(i) };
+    const { activeYears } = useSelector((state) => state.statistics);
 
     return (
         <form className='year-input-form'>

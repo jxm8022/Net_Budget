@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { labels } from '../../../assets/labels';
-import { TABLETYPES } from '../../../assets/constants';
+import { labels } from '../../../resources/labels';
+import { TABLETYPES } from '../../../resources/constants';
 import SortAscending from '../../../utilities/SortAscending';
 import SortDescending from '../../../utilities/SortDescending';
 import Table from '../../UI/Table/Table';
