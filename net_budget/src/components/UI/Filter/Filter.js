@@ -1,3 +1,9 @@
+/***************************************
+ * 
+ * REMOVED FILTER FUNCTIONALITY IN VERSION 1.8
+ * 
+***************************************/
+
 import { useRef, useState } from 'react';
 import Selector from '../Selector/Selector';
 import FilteredBy from './FilteredBy/FilteredBy';
