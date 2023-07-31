@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { loadTransactions } from './actions/transactionActions';
+import { loadRecurringTransactions, loadTransactions } from './actions/transactionActions';
 import { loadUser } from './actions/userActions';
 import { loadTransactionsAPI } from './api/TransactionAPI';
 import { calculateStatistics, saveAllTransactions } from './actions/statisticActions';
@@ -88,7 +88,8 @@ function App() {
       } else {
         loadTransactionsAPI(userId, token).then((res) => {
           if (res) {
-            dispatch(saveAllTransactions(res));
+            dispatch(saveAllTransactions(res.transactions));
+            dispatch(loadRecurringTransactions(res.recurringTransactions));
           } else {
             localStorage.setItem('startYear', new Date().getFullYear().toString());
           }

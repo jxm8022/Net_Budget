@@ -190,6 +190,11 @@ const versionHistory = [
                 id: 3,
                 title: 'QOL updates',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/67'
+            },
+            {
+                id: 4,
+                title: 'Add recurring transactions',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/66'
             }
         ]
     }
