@@ -17,11 +17,46 @@ const initialState = {
         { potNet: 0, projNet: 0, net: 0, transactions: [] },
         { potNet: 0, projNet: 0, net: 0, transactions: [] },
         { potNet: 0, projNet: 0, net: 0, transactions: [] }
-    ]
+    ],
+    recurringTransactions: [
+
+    ],
 }
 
 const transactionReducer = (state = initialState, action) => {
     switch (action.type) {
+        case types.ADD_RECURRING_TRANSACTION:
+            return {
+                ...state,
+                recurringTransactions: [
+                    ...state.recurringTransactions,
+                    action.payload
+                ],
+            };
+        case types.DELETE_RECURRING_TRANSACTION:
+            let updatedRecurringTransactions = [...state.recurringTransactions].filter((transaction) => transaction.id !== action.payload);
+            return {
+                ...state,
+                recurringTransactions: updatedRecurringTransactions
+            };
+        case types.LOAD_RECURRING_TRANSACTIONS:
+            let recurringData = action.payload;
+            let recurringTransactions = [];
+            for (const transactionId in recurringData) {
+                recurringTransactions.push({
+                    id: transactionId,
+                    type: recurringData[transactionId].type,
+                    occurrenceType: recurringData[transactionId].occurrenceType,
+                    occurrenceValue: recurringData[transactionId].occurrenceValue,
+                    name: recurringData[transactionId].name,
+                    amount: recurringData[transactionId].amount,
+                });
+            }
+
+            return {
+                ...state,
+                recurringTransactions: recurringTransactions,
+            };
         case types.LOAD_TRANSACTIONS:
             let data = action.payload;
 

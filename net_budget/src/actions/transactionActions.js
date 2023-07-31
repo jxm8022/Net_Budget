@@ -1,5 +1,29 @@
 import * as types from './actionTypes';
 
+export const addRecurringTransaction = (payload) => {
+    return {
+        type: types.ADD_RECURRING_TRANSACTION,
+        info: 'Add recurring transaction',
+        payload
+    }
+}
+
+export const deleteRecurringTransaction = (payload) => {
+    return {
+        type: types.DELETE_RECURRING_TRANSACTION,
+        info: 'Delete recurring transaction',
+        payload
+    }
+}
+
+export const loadRecurringTransactions = (payload) => {
+    return {
+        type: types.LOAD_RECURRING_TRANSACTIONS,
+        info: 'Load reacurring transactions',
+        payload
+    }
+}
+
 export const addTransaction = (payload) => {
     return {
         type: types.ADD_TRANSACTION,

@@ -1,10 +1,16 @@
 import { useNavigate, useSearchParams, createSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDate } from "../../../actions/transactionActions";
 import { months, labels } from "../../../resources/labels";
+import { DATEFORMAT } from "../../../resources/constants";
+import { addTransactionAPI } from "../../../api/TransactionAPI";
+import { addTransaction } from "../../../actions/transactionActions";
+import moment from 'moment/moment';
 import './MonthSelector.css';
 
 const MonthSelector = (props) => {
+    const { userId, token } = useSelector((state) => state.user);
+    const { recurringTransactions } = useSelector((state) => state.transaction);
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -12,7 +18,7 @@ const MonthSelector = (props) => {
     const month = searchParams.get('month');
     const year = searchParams.get('year');
 
-    const addTransaction = () => {
+    const createTransaction = () => {
         navigate({
             pathname: '/monthOverview/addTransaction',
             search: createSearchParams({
@@ -20,6 +26,30 @@ const MonthSelector = (props) => {
                 year: year
             }).toString()
         });
+    }
+
+    const addRecurring = () => {
+        for (let id in recurringTransactions) {
+            let transaction = recurringTransactions[id];
+            let dateString = `${parseInt(month)+1}/${1}/${year}`;
+            let daysInMonth = moment(dateString, "MM-DD-YYYY").daysInMonth();
+            let recurringDate = `${parseInt(month)+1}/${transaction.occurrenceValue && transaction.occurrenceValue < daysInMonth ? transaction.occurrenceValue : daysInMonth}/${year}`;
+            let formData = {
+                type: transaction.type,
+                date: moment(recurringDate, "MM-DD-YYYY").format(DATEFORMAT).toString(),
+                name: transaction.name,
+                amount: transaction.amount,
+            };
+            
+            addTransactionAPI(userId, formData, token).then((res) => {
+                if (res) {
+                    dispatch(addTransaction({
+                        ...formData,
+                        id: res.name
+                    }));
+                }
+            });
+        }
     }
 
     const submitForm = (e) => {
@@ -37,7 +67,8 @@ const MonthSelector = (props) => {
                     </select>
                 </label>
             </form>
-            <button onClick={addTransaction}>{labels.addTransactionBtnLabel}</button>
+            <button onClick={createTransaction}>{labels.addTransactionBtnLabel}</button>
+            <button onClick={addRecurring}>{labels.addRecurringTransactionBtnLabel}</button>
         </>
     );
 }

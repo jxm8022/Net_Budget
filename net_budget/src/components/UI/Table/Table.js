@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { categories } from '../../../resources/labels';
+import { categories, occurrenceTypes } from '../../../resources/labels';
 import Modal from '../Modal/Modal';
 import './Table.css';
 
 const Table = (props) => {
-    const { headers, dataType, data, isSortAsc, sortColumn, sortTable, hideTable, tableTitle } = props;
+    const { headers, dataType, data, isSortAsc, sortColumn, sortTable, hideTable, tableTitle, deleteRow } = props;
     const [showModal, setShowModal] = useState();
 
     const getImage = (sortColumn) => {
@@ -89,6 +89,27 @@ const Table = (props) => {
                         <td>{item.place}</td>
                         <td>{item.name}</td>
                         <td>{headers[headers.length - 1] === 'Times Visited' ? `${item.amount}` : `$${item.amount.toFixed(2)}`}</td>
+                    </tr>
+                )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td></tr>}
+            </tbody>
+        </table>;
+    }
+
+    if (dataType === 'RECURRING') {
+        table = <table className="table">
+            <thead>
+                <tr>
+                    {headers.map((header) => <th key={header}>{header}</th>)}
+                </tr>
+            </thead>
+            <tbody>
+                {data.length > 0 ? data.map((item) => (
+                    <tr key={item.id} onClick={() => deleteRow(item)}>
+                        <td>{categories[item.type].type}</td>
+                        <td>{occurrenceTypes[item.occurrenceType].type}</td>
+                        <td>{item.occurrenceValue ?? 'N/A'}</td>
+                        <td>{item.name}</td>
+                        <td>{`$${item.amount.toFixed(2)}`}</td>
                     </tr>
                 )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td></tr>}
             </tbody>

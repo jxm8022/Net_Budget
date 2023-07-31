@@ -5,7 +5,8 @@ export const categories = [
     { id: 3, type: 'Debt' },
     { id: 4, type: 'Income' },
     { id: 5, type: 'pTransaction' },
-    { id: 6, type: 'pIncome' }
+    { id: 6, type: 'pIncome' },
+    { id: 7, type: 'Recurring'},
 ];
 
 export const months = [
@@ -20,7 +21,12 @@ export const months = [
     { id: 8, month: 'September', abb: 'Sep' },
     { id: 9, month: 'October', abb: 'Oct' },
     { id: 10, month: 'November', abb: 'Nov' },
-    { id: 11, month: 'December', abb: 'Dec' }
+    { id: 11, month: 'December', abb: 'Dec' },
+];
+
+export const occurrenceTypes = [
+    { id: 0, type: 'Day' },
+    { id: 1, type: 'End of month' },
 ];
 
 export const labels = {
@@ -51,6 +57,7 @@ export const labels = {
 
     // Add Transaction page
     type: 'Type',
+    subtype: 'Subtype',
     date: 'Date',
     transaction: 'Transaction',
     amount: 'Amount',
@@ -137,6 +144,16 @@ export const labels = {
 
     // Account
     changePassword: 'Change Password',
+    recurringTransactionsTitle: 'Recurring transactions',
+    addRecurringTransactionBtnLabel: 'Add recurring transaction',
+    occurrence: 'Occurrence',
+    recurringTransactionsHeaders: [
+        'Type',
+        'Occurrence',
+        'Day',
+        'Name',
+        'Amount'
+    ],
 
     // Not found page
     notLoggedIn: 'Looks like you are not logged in!',

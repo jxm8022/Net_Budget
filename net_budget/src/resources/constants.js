@@ -7,7 +7,8 @@ export const TYPES = {
     DEBT: 3,
     INCOME: 4,
     PTRANSACTION: 5,
-    PINCOME: 6
+    PINCOME: 6,
+    RECURRING: 7,
 };
 
 export const SUBMITTYPES = {
@@ -23,7 +24,8 @@ export const SELECTORTYPES = {
 export const TABLETYPES = {
     RATIOS: 'RATIOS',
     TOPTRANSACTIONS: 'TOPTRANSACTIONS',
-    TRANSACTIONS: 'TRANSACTIONS'
+    TRANSACTIONS: 'TRANSACTIONS',
+    RECURRING: 'RECURRING',
 };
 
 export const RATIOS = {
@@ -31,3 +33,5 @@ export const RATIOS = {
     WANT: .3,
     SAVINGS: .2
 };
+
+export const DAYS = 31;
