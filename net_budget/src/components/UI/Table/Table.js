@@ -111,7 +111,7 @@ const Table = (props) => {
                         <td>{item.name}</td>
                         <td>{`$${item.amount.toFixed(2)}`}</td>
                     </tr>
-                )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td></tr>}
+                )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td><td> </td><td> </td></tr>}
             </tbody>
         </table>;
     }
