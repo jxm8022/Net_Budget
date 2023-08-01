@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from '../../../actions/userActions';
-import logo from '../../../assets/images/logo/piggy-100.png';
-// import logoutSymbol from '../../../assets/images/auth/logout-rounded-100.png';
+import { labels } from '../../../resources/labels';
 import CollapseSideBar from './CollapseSideBar/CollapseSideBar';
 import './NavBar.css';
-import { labels } from '../../../resources/labels';
 
 const NavBar = () => {
     const { currentMonth, currentYear } = useSelector((state) => state.transaction);
@@ -73,8 +71,7 @@ const NavBar = () => {
 
     return (
         <nav className='navbar'>
-            <img className='logo' onClick={handleLogo} src={logo} alt='Website logo.' />
-            <h2>{labels.netBudget}</h2>
+            <h2 onClick={handleLogo}>{labels.websiteName}</h2>
             <ul className='nav-list'>
                 {links.map((link) => <li key={link.id}>
                     <NavLink
@@ -91,7 +88,6 @@ const NavBar = () => {
                 </li>
                 )}
             </ul>
-            {/* <img onClick={handleLogout} className='logout' src={logoutSymbol} alt='Logout button.' /> */}
             <CollapseSideBar
                 currentMonth={currentMonth}
                 currentYear={currentYear}

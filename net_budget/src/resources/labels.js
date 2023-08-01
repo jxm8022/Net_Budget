@@ -31,7 +31,7 @@ export const occurrenceTypes = [
 
 export const labels = {
     // Application name
-    netBudget: 'Net Budget',
+    websiteName: 'Pocket Change',
 
     // Authentication page
     email: 'Email',

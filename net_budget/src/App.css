@@ -1,3 +1,12 @@
+:root {
+  --darkteal: #213029;
+  --teal: #3f595e;
+  --green: #69995D;
+  --brown: #a57b4b;
+  --darkpink: #a3919b;
+  --pink: #f8e9e9;
+}
+
 .scroll-top {
   padding: 2px 7px;
   font-size: .75em;
@@ -38,7 +47,7 @@
 
 @media (prefers-color-scheme: dark) {
   .negative {
-    color: red;
+    color: var(--salmon);
   }
 
   .version {
@@ -56,6 +65,6 @@
   }
 
   .version {
-    color: black;
+    color: var(--teal);
   }
 }

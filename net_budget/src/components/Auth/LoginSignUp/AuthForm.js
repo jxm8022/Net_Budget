@@ -74,15 +74,15 @@ const AuthForm = () => {
 
     return (
         <section className='auth'>
-            <h1>{isLogin ? labels.login : labels.signUp}</h1>
+            <h2>{isLogin ? labels.login : labels.signUp}</h2>
             <form onSubmit={submitHandler}>
                 <div className='control'>
-                    <label style={{ color: 'white' }} htmlFor='email'>{labels.email}</label>
+                    <label htmlFor='email'>{labels.email}</label>
                     <input type='email' id='email' required ref={emailInputRef} />
                     {!isEmailValid ? <p className='error'>{labels.enterEmail}</p> : <></>}
                 </div>
                 <div className='control'>
-                    <label style={{ color: 'white' }} htmlFor='password'>{labels.password}</label>
+                    <label htmlFor='password'>{labels.password}</label>
                     <div className='passwordContainer'>
                         <input
                             type='password'

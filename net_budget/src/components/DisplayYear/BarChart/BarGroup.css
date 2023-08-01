@@ -55,6 +55,6 @@
 
 @media (prefers-color-scheme: dark) {
     .name-label {
-        fill: white;
+        fill: var(--pink);
     }
 }

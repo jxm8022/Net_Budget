@@ -173,7 +173,7 @@ const versionHistory = [
         info: [
             {
                 id: 0,
-                title: 'Updat labels to be zero indexed',
+                title: 'Update labels to be zero indexed',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/60'
             },
             {
@@ -195,6 +195,11 @@ const versionHistory = [
                 id: 4,
                 title: 'Add recurring transactions',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/66'
+            },
+            {
+                id: 5,
+                title: 'Update website design',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/64'
             }
         ]
     }

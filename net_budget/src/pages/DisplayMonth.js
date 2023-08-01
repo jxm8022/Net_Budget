@@ -7,6 +7,7 @@ import Template from "../components/UI/Template/Template";
 const DisplayMonth = () => {
     return (
         <Template>
+            <h1>{labels.monthOverview}</h1>
             <MonthSelector />
             <MonthOverview />
             <MonthDetails />
