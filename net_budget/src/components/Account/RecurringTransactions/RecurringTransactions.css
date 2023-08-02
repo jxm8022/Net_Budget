@@ -1,2 +1,23 @@
+/* mobile */
 .addRecurringBtn {
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    background-color: var(--teal);
+    font: inherit;
+    color: var(--pink);
+}
+
+/* tablet */
+@media only screen and (min-width: 600px) {}
+
+/* desktop */
+@media only screen and (min-width: 900px) {}
+
+@media (prefers-color-scheme: dark) {
+}
+
+@media (prefers-color-scheme: light) {
 }

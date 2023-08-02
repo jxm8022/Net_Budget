@@ -30,8 +30,8 @@ const BarChart = (props) => {
             onBarClick={() => { navigateToMonthOverview(index) }}
             barHeight={barHeight}
             barWidth={max}
-            barColour={month.net < 0 ? 'var(--salmon)': 'var(--green)'}
-            textColour={month.net < 0 ? 'var(--salmon)': 'var(--green)'}
+            barColour={month.net < 0 ? 'var(--red)': 'var(--green)'}
+            textColour={month.net < 0 ? 'var(--red)': 'var(--green)'}
         />
     </g>);
 
