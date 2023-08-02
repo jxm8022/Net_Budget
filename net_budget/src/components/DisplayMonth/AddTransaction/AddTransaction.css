@@ -11,14 +11,42 @@
     height: 60px;
 }
 
+.transaction-input-form p {
+    margin: 10px 0px;
+    padding: 0px 10px;
+    float: left;
+    font-weight: 600;
+}
+
 .transaction-input-form label select,
 .transaction-input-form label input {
     margin: 10px;
-    height: 40%;
+}
+
+.transaction-input-form select, input {
+    cursor: pointer;
+    border: none;
+    border: 1px solid var(--teal);
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 0px 10px;
+    background-color: var(--pink);
+    font: inherit;
+    font-size: .75em;
+    color: var(--teal);
+    outline: none;
 }
 
 .transaction-input-form button {
-    margin: 10px;
+    float: right;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    background-color: var(--teal);
+    font: inherit;
+    color: var(--pink);
 }
 
 /* tablets */

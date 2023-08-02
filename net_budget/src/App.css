@@ -3,8 +3,9 @@
   --teal: #3f595e;
   --green: #69995D;
   --brown: #a57b4b;
-  --darkpink: #a3919b;
+  --darkpink: #cf9797;
   --pink: #f8e9e9;
+  --red: #ac1818;
 }
 
 .scroll-top {
@@ -61,7 +62,7 @@
 
 @media (prefers-color-scheme: light) {
   .negative {
-    color: rgb(120, 0, 0);
+    color: var(--red);
   }
 
   .version {

@@ -1,7 +1,7 @@
 /* mobile */
 .inline-anchor {
     text-decoration: none;
-    color: blue;
+    color: var(--darkpink);
 }
 
 .equation {

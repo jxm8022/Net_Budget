@@ -132,7 +132,8 @@ const AddTransaction = (props) => {
         <Template>
             <h1>{labels.addTransactionTitle}</h1>
             <form className='transaction-input-form' onSubmit={submitForm} onFocus={() => {setError()}}>
-                <label>{labels.type}
+                <label>
+                    <p>{labels.type}</p>
                     <select id='type' ref={transType} defaultValue={searchParams.get('type')} onChange={checkForRecurring}>
                         {categories.map((category, index) => {
                             return <option key={category.id} value={index}>{category.type}</option>})
@@ -142,14 +143,16 @@ const AddTransaction = (props) => {
                 {
                     isRecurringType ? 
                     <>
-                        <label>{labels.subtype}
+                        <label>
+                            <p>{labels.subtype}</p>
                             <select id='subtype' ref={subtype}>
                                 {categories.filter((category) => category.id === TYPES.PINCOME || category.id === TYPES.PTRANSACTION).map((category) => {
                                     return <option key={category.id} value={category.id}>{category.type}</option>})
                                 }
                             </select>
                         </label>
-                        <label>{labels.occurrence}
+                        <label>
+                            <p>{labels.occurrence}</p>
                             <select id='occurrence' ref={occurrenceType} onChange={checkOccurrence}>
                                 {occurrenceTypes.map((category, index) => {
                                     return <option key={category.id} value={index}>{category.type}</option>})
@@ -165,7 +168,8 @@ const AddTransaction = (props) => {
                         </label>
                     </>
                     :
-                    <label>{labels.date}
+                    <label>
+                        <p>{labels.date}</p>
                         <input
                             id='date'
                             ref={transDate}
@@ -174,7 +178,8 @@ const AddTransaction = (props) => {
                         ></input>
                     </label>
                 }
-                <label >{labels.transaction}
+                <label>
+                    <p>{labels.transaction}</p>
                     <input
                         id='name'
                         ref={transName}
@@ -189,7 +194,8 @@ const AddTransaction = (props) => {
                         {transactionDictionary.map((trans, index) => <option key={index} value={trans} />)}
                     </datalist>
                 </label>
-                <label>{labels.amount}
+                <label>
+                    <p>{labels.amount}</p>
                     <input
                         id='amount'
                         ref={transAmount}

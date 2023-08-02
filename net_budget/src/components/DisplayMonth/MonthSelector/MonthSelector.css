@@ -8,6 +8,31 @@
     z-index: 1;
 }
 
+.selector {
+    cursor: pointer;
+    border: none;
+    border: 1px solid var(--teal);
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 0px 10px;
+    background-color: var(--pink);
+    font: inherit;
+    font-size: .75em;
+    color: var(--teal);
+    outline: none;
+}
+
+.transaction-btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    background-color: var(--teal);
+    font: inherit;
+    color: var(--pink);
+}
+
 @media (prefers-color-scheme: dark) {
     .table-toggle {
         content: url('../../../assets/images/charts/table-96-light.png');

@@ -3,22 +3,24 @@
     border-collapse: collapse;
     width: 90%;
     margin: 20px 0px 40px 0px;
+    color: var(--teal);
 }
 
 .table th,
 .table tr,
 .table td {
-    border: 1px solid black;
+    border: 1px solid var(--teal);
     padding: 5px;
     font-size: .75em;
 }
 
 .table th {
-    background-color: rgb(111, 111, 111);
+    background-color: var(--teal);
+    color: var(--pink)
 }
 
 .table tr:hover {
-    background-color: rgba(69, 69, 69, 0.25);
+    background-color: rgba(69, 69, 69, 0.15);
 }
 
 .table img {

@@ -13,7 +13,7 @@ const AnalyticsOverview = () => {
         <>
             <ul className="analyticsOverview">
                 <li>
-                    <h4>{labels.lifetimeNet}</h4>
+                    <h3>{labels.lifetimeNet}</h3>
                     <p className={textClass(lifetimeNet)}>${lifetimeNet.toFixed(2)}</p>
                 </li>
             </ul >
