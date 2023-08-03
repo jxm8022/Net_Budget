@@ -6,6 +6,7 @@
   --darkpink: #cf9797;
   --pink: #f8e9e9;
   --red: #ac1818;
+  --lightred: #e43939;
 }
 
 .scroll-top {
@@ -30,14 +31,16 @@
 
 .version-body {
   width: 60%;
+  margin-bottom: 30px;
 }
 
 .version-title {
   text-align: left;
 }
 
-.version-title a {
+.version-info a {
   text-decoration: none;
+  color: var(--darkpink);
 }
 
 .version-info {
@@ -46,25 +49,17 @@
   padding: 10px 0 0 0;
 }
 
+.negative {
+  color: var(--lightred);
+}
+
 @media (prefers-color-scheme: dark) {
-  .negative {
-    color: var(--salmon);
-  }
-
   .version {
-    color: white;
-  }
-
-  .version-title a:visited {
-    color: rgb(232, 38, 232);
+    color: var(--pink);
   }
 }
 
 @media (prefers-color-scheme: light) {
-  .negative {
-    color: var(--red);
-  }
-
   .version {
     color: var(--teal);
   }

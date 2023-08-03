@@ -46,13 +46,6 @@
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    .inline-anchor {
-        text-decoration: none;
-        color: rgb(97, 215, 255);
-    }
+@media (prefers-color-scheme: dark) {}
 
-    .page-references a:visited {
-        color: rgb(232, 38, 232);
-    }
-}
+@media (prefers-color-scheme: light) {}

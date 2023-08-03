@@ -64,7 +64,7 @@ const MonthSelector = (props) => {
     return (
         <>
             <h2>{months[month].month} {year}</h2>
-            <form className='month-input-form' onChange={submitForm}>
+            <form onChange={submitForm}>
                 <label>{labels.month}
                     <select className='selector' id='month' defaultValue={month}>
                         {months.map((month, index) => <option key={month.abb} value={index}>{month.abb}</option>)}

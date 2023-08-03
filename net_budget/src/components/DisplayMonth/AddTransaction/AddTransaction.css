@@ -26,14 +26,11 @@
 .transaction-input-form select, input {
     cursor: pointer;
     border: none;
-    border: 1px solid var(--teal);
     border-radius: 50px;
     margin: 10px 0px;
     padding: 0px 10px;
-    background-color: var(--pink);
     font: inherit;
     font-size: .75em;
-    color: var(--teal);
     outline: none;
 }
 
@@ -44,9 +41,7 @@
     border-radius: 50px;
     margin: 10px 0px;
     padding: 10px 20px;
-    background-color: var(--teal);
     font: inherit;
-    color: var(--pink);
 }
 
 /* tablets */
@@ -60,5 +55,31 @@
 @media only screen and (min-width: 900px) {
     .transaction-input-form {
         width: 40%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .transaction-input-form select, input {
+        border: 1px solid var(--pink);
+        background-color: var(--teal);
+        color: var(--pink);
+    }
+
+    .transaction-input-form button {
+        background-color: var(--pink);
+        color: var(--teal);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .transaction-input-form select, input {
+        border: 1px solid var(--teal);
+        background-color: var(--pink);
+        color: var(--teal);
+    }
+
+    .transaction-input-form button {
+        background-color: var(--teal);
+        color: var(--pink);
     }
 }

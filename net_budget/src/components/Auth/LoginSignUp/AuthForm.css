@@ -7,7 +7,6 @@
 
 .auth h2 {
     text-align: center;
-    color: var(--pink);
 }
 
 .control {
@@ -18,13 +17,11 @@
     display: block;
     font-weight: bold;
     margin-bottom: 15px;
-    color: var(--pink);
 }
 
 .control input {
     font: inherit;
     border-radius: 50px;
-    border: 1px solid var(--pink);
     width: 97%;
     text-align: left;
     padding: .5rem;
@@ -93,10 +90,42 @@
     .auth {
         background-color: var(--pink);
     }
+
+    .auth h2 {
+        color: var(--teal);
+    }
+
+    .control label {
+        color: var(--teal);
+    }
+    
+    .control input {
+        border: 1px solid var(--teal);
+    }
+
+    .forgotPassword {
+        color: var(--teal);
+    }
 }
 
 @media (prefers-color-scheme: light) {
     .auth {
         background-color: var(--teal);
+    }
+
+    .auth h2 {
+        color: var(--pink);
+    }
+
+    .control label {
+        color: var(--pink);
+    }
+    
+    .control input {
+        border: 1px solid var(--pink);
+    }
+
+    .forgotPassword {
+        color: var(--pink);
     }
 }

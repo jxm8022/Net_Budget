@@ -27,14 +27,11 @@
 
 .navbarLink {
     display: inline-block;
-    color: var(--teal);
     padding: 20px 10px;
     text-decoration: none;
 }
 
 .active {
-    background-color: var(--teal);
-    color: var(--pink);
     border-radius: 50px;
 }
 
@@ -90,10 +87,28 @@
     .navbar h2 {
         color: var(--pink);
     }
+
+    .navbarLink {
+        color: var(--pink);
+    }
+
+    .active {
+        background-color: var(--pink);
+        color: var(--teal);
+    }
 }
 
 @media (prefers-color-scheme: light) {
     .navbar h2 {
         color: var(--teal);
+    }
+
+    .navbarLink {
+        color: var(--teal);
+    }
+
+    .active {
+        background-color: var(--teal);
+        color: var(--pink);
     }
 }
