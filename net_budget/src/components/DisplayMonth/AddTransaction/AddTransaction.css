@@ -2,7 +2,7 @@
 .transaction-input-form {
     margin: 10px 10px 40px 10px;
     padding: 20px;
-    width: 70%;
+    width: 90%;
 }
 
 .transaction-input-form label {
@@ -44,6 +44,10 @@
     font: inherit;
 }
 
+#name {
+    width: 42%;
+}
+
 /* tablets */
 @media only screen and (min-width: 600px) {
     .transaction-input-form {
@@ -55,6 +59,10 @@
 @media only screen and (min-width: 900px) {
     .transaction-input-form {
         width: 40%;
+    }
+
+    #name {
+        width: 50%;
     }
 }
 

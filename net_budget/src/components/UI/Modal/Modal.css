@@ -23,14 +23,14 @@
 .modal-container {
     background-color: var(--darkteal);
     height: 100%;
-    width: 55%;
+    width: 75%;
     margin: auto;
     padding: 0px 16px;
     text-align: left;
 }
 
 .modal-header {
-    width: 45%;
+    width: 60%;
     margin: auto;
     padding: 50px 0px;
 }
@@ -63,6 +63,13 @@
 
 /* desktop */
 @media only screen and (min-width: 900px) {
+    .modal-container {
+        width: 55%;
+    }
+
+    .modal-header {
+        width: 45%;
+    }
 }
 
 @media (prefers-color-scheme: dark) {

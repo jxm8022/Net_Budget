@@ -185,7 +185,6 @@ const AddTransaction = (props) => {
                         ref={transName}
                         type='text'
                         placeholder='Transaction Name'
-                        style={{ width: '50%' }}
                         list='transactions'
                         name='transaction'
                         autoComplete='on'
