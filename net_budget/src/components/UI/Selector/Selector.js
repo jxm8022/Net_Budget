@@ -11,10 +11,10 @@ const currentMonth = currentDate.getMonth();
 
 const TypeSelector = React.forwardRef((props, ref) => {
     const { defaultValue, selectedMonth, addApply } = props;
-    let filteredOptions = [...categories];
+    let filteredOptions = [...categories].filter((category) => category.id !== TYPES.RECURRING);
 
     if (currentMonth !== selectedMonth) {
-        filteredOptions = categories.filter((category) => category.id !== TYPES.PINCOME && category.id !== TYPES.PTRANSACTION);
+        filteredOptions = filteredOptions.filter((category) => category.id !== TYPES.PINCOME && category.id !== TYPES.PTRANSACTION);
     }
 
     return (

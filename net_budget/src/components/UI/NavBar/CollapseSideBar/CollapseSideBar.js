@@ -6,13 +6,16 @@ import './CollapseSideBar.css';
 const CollapseSideBar = (props) => {
     const { links } = props;
     const [displayStyle, setDisplayStyle] = useState('0px');
+    const [backgroundDisplay, setBackgroundDisplay] = useState('none');
 
     function openNav() {
         displayStyle === '220px' ? setDisplayStyle('0px') : setDisplayStyle('220px');
+        backgroundDisplay === 'none' ? setBackgroundDisplay('block') : setBackgroundDisplay('none');
     }
 
     return (
         <>
+            <div onClick={openNav} style={{ display: backgroundDisplay}} className='navbar-background'></div>
             <div style={{ width: displayStyle }} className="sidebar">
                 {links.map((link) => <NavLink
                     key={link.id}

@@ -77,11 +77,12 @@ const Definitions = () => {
 }
 
 const HowTo = () => {
+    const { currentMonth, currentYear } = useSelector((state) => state.transaction);
     return (
         <>
             <h2 id='howto'>{labels.howTo}</h2>
             <p className='about-body'>
-                Based off of your personal bank records, <a href='./addTransaction' className='inline-anchor'>add a transaction</a> when a payment has been finalized on your account.
+                Based off of your personal bank records, <a href={`./monthOverview/addTransaction?month=${currentMonth}&year=${currentYear}`} className='inline-anchor'>add a transaction</a> when a payment has been finalized on your account.
                 The transaction type determines how your budget is calculated. For pending transactions, they have their own types, <b>pTransaction</b> and <b>pIncome</b>.
             </p>
         </>
@@ -93,9 +94,9 @@ const SiteInfo = () => {
     return (
         <>
             <ul className='page-references'>
-                <li><a href='#howto'>{labels.howTo}</a></li>
-                <li className='middle'><a href='#developer'>{labels.aboutDeveloper}</a></li>
-                <li><a href='#definitions'>{labels.definitions}</a></li>
+                <li><a href='#howto' className='inline-anchor'>{labels.howTo}</a></li>
+                <li className='middle'><a href='#developer' className='inline-anchor'>{labels.aboutDeveloper}</a></li>
+                <li><a href='#definitions' className='inline-anchor'>{labels.definitions}</a></li>
             </ul >
             <p className='about-body'>
                 The <a href='.' className='inline-anchor'>bar chart</a> displays the net information for each month in a given year.

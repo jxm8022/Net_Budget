@@ -1,17 +1,40 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from '../../../actions/userActions';
-import logo from '../../../assets/images/logo/piggy-100.png';
-// import logoutSymbol from '../../../assets/images/auth/logout-rounded-100.png';
+import { labels } from '../../../resources/labels';
 import CollapseSideBar from './CollapseSideBar/CollapseSideBar';
 import './NavBar.css';
-import { labels } from '../../../resources/labels';
+import { useCallback, useEffect, useState } from 'react';
 
 const NavBar = () => {
     const { currentMonth, currentYear } = useSelector((state) => state.transaction);
     const { isLoggedIn } = useSelector((state) => state.user);
+    const [show, setShow] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const controlNavbar = useCallback(() => {
+        if (typeof window !== 'undefined') {
+            if (window.scrollY > 0) {
+                setShow(false);
+            } else {
+                setShow(true);
+            }
+
+            setLastScrollY(window.scrollY);
+        }
+    },[]);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.addEventListener('scroll', controlNavbar);
+
+            return () => {
+                window.removeEventListener('scroll', controlNavbar);
+            };
+        }
+    }, [lastScrollY, controlNavbar]);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -72,9 +95,8 @@ const NavBar = () => {
     }
 
     return (
-        <nav className='navbar'>
-            <img className='logo' onClick={handleLogo} src={logo} alt='Website logo.' />
-            <h2>{labels.netBudget}</h2>
+        <nav className={show ? 'navbar fade-in' : 'navbar fade-out'}>
+            <h2 onClick={handleLogo}>{labels.websiteName}</h2>
             <ul className='nav-list'>
                 {links.map((link) => <li key={link.id}>
                     <NavLink
@@ -91,7 +113,6 @@ const NavBar = () => {
                 </li>
                 )}
             </ul>
-            {/* <img onClick={handleLogout} className='logout' src={logoutSymbol} alt='Logout button.' /> */}
             <CollapseSideBar
                 currentMonth={currentMonth}
                 currentYear={currentYear}

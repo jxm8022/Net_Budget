@@ -2,7 +2,7 @@
 .transaction-input-form {
     margin: 10px 10px 40px 10px;
     padding: 20px;
-    width: 70%;
+    width: 90%;
 }
 
 .transaction-input-form label {
@@ -11,14 +11,41 @@
     height: 60px;
 }
 
+.transaction-input-form p {
+    margin: 10px 0px;
+    padding: 0px 10px;
+    float: left;
+    font-weight: 600;
+}
+
 .transaction-input-form label select,
 .transaction-input-form label input {
     margin: 10px;
-    height: 40%;
+}
+
+.transaction-input-form select, input {
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 0px 10px;
+    font: inherit;
+    font-size: .75em;
+    outline: none;
 }
 
 .transaction-input-form button {
-    margin: 10px;
+    float: right;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    font: inherit;
+}
+
+#name {
+    width: 42%;
 }
 
 /* tablets */
@@ -32,5 +59,35 @@
 @media only screen and (min-width: 900px) {
     .transaction-input-form {
         width: 40%;
+    }
+
+    #name {
+        width: 50%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .transaction-input-form select, input {
+        border: 1px solid var(--pink);
+        background-color: var(--teal);
+        color: var(--pink);
+    }
+
+    .transaction-input-form button {
+        background-color: var(--pink);
+        color: var(--teal);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .transaction-input-form select, input {
+        border: 1px solid var(--teal);
+        background-color: var(--pink);
+        color: var(--teal);
+    }
+
+    .transaction-input-form button {
+        background-color: var(--teal);
+        color: var(--pink);
     }
 }

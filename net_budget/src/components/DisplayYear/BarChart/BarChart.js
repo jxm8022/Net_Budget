@@ -30,14 +30,14 @@ const BarChart = (props) => {
             onBarClick={() => { navigateToMonthOverview(index) }}
             barHeight={barHeight}
             barWidth={max}
-            barColour={month.net < 0 ? 'rgb(191, 0, 0)': 'rgb(0, 191, 0)'}
-            textColour={month.net < 0 ? 'rgb(191, 0, 0)': 'rgb(0, 191, 0)'}
+            barColour={month.net < 0 ? 'var(--lightred)': 'var(--green)'}
+            textColour={month.net < 0 ? 'var(--lightred)': 'var(--green)'}
         />
     </g>);
 
     return (
         <svg className="chart">
-            {max ? <g className='container'>{barGroups}</g> : <text id="noData" x={400 - (387.5 / 2)} y='300' fontSize={50} fill='#ff0000'>{labels.noData}</text>}
+            {max ? <g className='container'>{barGroups}</g> : <text id="noData" x={400 - (387.5 / 2)} y='300' fontSize={50} fill='var(--lightred)'>{labels.noData}</text>}
         </svg >
     );
 }

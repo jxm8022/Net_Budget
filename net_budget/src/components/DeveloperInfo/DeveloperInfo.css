@@ -40,3 +40,15 @@
         width: 30%;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .about-separator {
+        border: 1px solid var(--pink);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .about-separator {
+        border: 1px solid var(--teal);
+    }
+}

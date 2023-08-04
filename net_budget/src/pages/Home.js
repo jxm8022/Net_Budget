@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import YearOverview from "../components/DisplayYear/YearOverview/YearOverview";
 import BarChart from "../components/DisplayYear/BarChart/BarChart";
 import Template from "../components/UI/Template/Template";
+import { labels } from "../resources/labels";
 
 const Home = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -15,6 +16,7 @@ const Home = () => {
 
     return (
         <Template>
+            <h1>{labels.home}</h1>
             <YearOverview
                 year={currentYear}
                 setSearchParams={setSearchParams}

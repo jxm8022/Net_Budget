@@ -1,21 +1,42 @@
 /* mobile */
 .input-form {
-    border-style: solid;
-    margin: 10px 10px 40px 10px;
-    padding: 20px;
-    width: 300px;
+    position: relative;
+    margin: auto;
+    width: 90%;
 }
 
 .input-form label {
     padding: 10px;
     display: block;
     height: 60px;
+    color: var(--pink);
 }
 
 .input-form label select,
 .input-form label input {
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
     margin: 10px;
-    height: 40%;
+    padding: 0px 10px;
+    font: inherit;
+    font-size: .75em;
+    outline: none;
+    border: 1px solid var(--pink);
+    background-color: var(--teal);
+    color: var(--pink);
+}
+
+.input-form button {
+    float: right;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    font: inherit;
+    background-color: var(--pink);
+    color: var(--darkteal);
 }
 
 .error {
@@ -24,7 +45,6 @@
     margin: 10px;
 }
 
-/* The Close Button */
 .delete {
     color: #ff0000;
     float: right;
@@ -41,14 +61,14 @@
 
 /* tablets */
 @media only screen and (min-width: 600px) {
-    .input-form {
-        width: 500px;
-    }
 }
 
 /* desktop */
 @media only screen and (min-width: 900px) {
-    .input-form {
-        width: 85%;
-    }
+}
+
+@media (prefers-color-scheme: dark) {
+}
+
+@media (prefers-color-scheme: light) {
 }

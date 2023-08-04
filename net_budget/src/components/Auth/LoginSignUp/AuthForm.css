@@ -1,15 +1,12 @@
 /* mobile */
 .auth {
     width: 75%;
-    border-radius: 40px;
-    background-color: rgb(69, 69, 69);
-    box-shadow: 0 1px 4px rgb(0, 0, 0);
+    border-radius: 80px;
     padding: 25px;
 }
 
-.auth h1 {
+.auth h2 {
     text-align: center;
-    color: white;
 }
 
 .control {
@@ -24,12 +21,10 @@
 
 .control input {
     font: inherit;
-    background-color: #e3e3e3;
-    border-radius: 4px;
-    border: 1px solid white;
-    width: 98%;
+    border-radius: 50px;
+    width: 97%;
     text-align: left;
-    padding: 0.5rem;
+    padding: .5rem;
 }
 
 .actions {
@@ -44,11 +39,20 @@
 .forgotPassword {
     cursor: pointer;
     font: inherit;
-    color: white;
-    background-color: rgb(45, 45, 45);
+    font-weight: 600;
+    color: var(--pink);
     border: none;
-    border-radius: 4px;
     padding: 0.5rem 2.5rem;
+}
+
+.actions button,
+.toggle {
+    background-color: var(--darkteal);
+    border-radius: 50px;
+}
+
+.forgotPassword {
+    background-color: transparent;
 }
 
 .actions .toggle {
@@ -80,17 +84,48 @@
     .auth {
         width: 30%;
     }
-
-    .actions button:hover,
-    .toggle:hover,
-    .forgotPassword:hover {
-        background-color: rgb(35, 35, 35);
-        transition: .5s;
-    }
 }
 
 @media (prefers-color-scheme: dark) {
     .auth {
-        background-color: rgb(45, 45, 45);
+        background-color: var(--pink);
+    }
+
+    .auth h2 {
+        color: var(--teal);
+    }
+
+    .control label {
+        color: var(--teal);
+    }
+    
+    .control input {
+        border: 1px solid var(--teal);
+    }
+
+    .forgotPassword {
+        color: var(--teal);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .auth {
+        background-color: var(--teal);
+    }
+
+    .auth h2 {
+        color: var(--pink);
+    }
+
+    .control label {
+        color: var(--pink);
+    }
+    
+    .control input {
+        border: 1px solid var(--pink);
+    }
+
+    .forgotPassword {
+        color: var(--pink);
     }
 }

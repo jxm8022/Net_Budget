@@ -1,10 +1,11 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { labels } from "../../../resources/labels";
-import showHidePassword from '../../../assets/images/auth/icons8-eye-90.png';
 import { setMessage } from "../../../actions/pageActions";
 import { changePassword } from "../../../api/userAPI";
 import { login } from "../../../actions/userActions";
+import showHidePassword from '../../../assets/images/auth/icons8-eye-90.png';
+import './UpdatePassword.css';
 
 const UpdatePassword = () => {
     const dispatch = useDispatch();
@@ -38,20 +39,20 @@ const UpdatePassword = () => {
     };
 
     return (
-        <form onSubmit={submitHandler}>
-            <div className='control'>
+        <form className='updatePassword' onSubmit={submitHandler}>
+            <div className='passwordForm'>
                 <label htmlFor='password'>{labels.changePassword}</label>
-                <div className='passwordContainer'>
+                <div className='passwordInput'>
                     <input
                         type='password'
                         id='password'
                         required
                         ref={passwordInputRef}
                     />
-                    <img onClick={showPassword} src={showHidePassword} alt='Hide or show password' className='showPassword' />
+                    <img onClick={showPassword} src={showHidePassword} alt='Hide or show password' className='showBtn' />
                 </div>
             </div>
-            <div className='actions'>
+            <div>
                 <button>{labels.submit}</button>
             </div>
         </form>

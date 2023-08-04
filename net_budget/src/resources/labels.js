@@ -31,7 +31,7 @@ export const occurrenceTypes = [
 
 export const labels = {
     // Application name
-    netBudget: 'Net Budget',
+    websiteName: 'Pocket Change',
 
     // Authentication page
     email: 'Email',
@@ -56,11 +56,12 @@ export const labels = {
     year: 'Year',
 
     // Add Transaction page
-    type: 'Type',
-    subtype: 'Subtype',
-    date: 'Date',
-    transaction: 'Transaction',
-    amount: 'Amount',
+    type: 'TYPE :',
+    subtype: 'SUBTYPE :',
+    occurrence: 'OCCURRENCE :',
+    date: 'DATE :',
+    transaction: 'TRANSACTION :',
+    amount: 'AMOUNT :',
 
     // Month Overview
     month: 'Month',
@@ -146,7 +147,6 @@ export const labels = {
     changePassword: 'Change Password',
     recurringTransactionsTitle: 'Recurring transactions',
     addRecurringTransactionBtnLabel: 'Add recurring transaction',
-    occurrence: 'Occurrence',
     recurringTransactionsHeaders: [
         'Type',
         'Occurrence',

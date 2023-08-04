@@ -1,124 +1,83 @@
 /* mobile */
-/* The Modal (background) */
+.modal-background,
 .modal {
     position: fixed;
-    /* Stay in place */
-    z-index: 3;
-    /* Sit on top */
+    z-index: 99999;
     left: 0;
-    top: 60px;
     width: 100%;
-    /* Full width */
+    overflow: hidden;
+    margin: auto;
+}
+
+.modal-background {
+    top: 0;
     height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
-    margin: auto;
+    backdrop-filter: blur(5px);
 }
 
-/* Modal Header */
-.modal-header {
-    width: 85%;
-    margin: auto;
-    padding: 2px 16px;
-    background-color: rgb(45, 45, 45);
-    color: white;
+.modal {
+    top: 0;
+    height: 100%;
 }
 
-/* Modal Body */
-.modal-body {
-    width: 85%;
+.modal-container {
+    background-color: var(--darkteal);
+    height: 100%;
+    width: 75%;
     margin: auto;
-    padding: 2px 16px;
-    background-color: white;
+    padding: 0px 16px;
     text-align: left;
 }
 
-/* Modal Footer */
-.modal-footer {
-    width: 85%;
+.modal-header {
+    width: 60%;
     margin: auto;
-    padding: 16px;
-    background-color: white;
-    text-align: right;
+    padding: 50px 0px;
 }
 
-/* The Close Button */
+.modal-header h2 {
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--pink);
+    color: var(--darkteal);
+}
+
 .close {
-    color: #fff;
+    color: var(--pink);
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: var(--darkpink);
     text-decoration: none;
     cursor: pointer;
 }
 
 /* tablets */
 @media only screen and (min-width: 600px) {
-
-    /* Modal Header */
-    .modal-header {
-        width: 68%;
-    }
-
-    /* Modal Body */
-    .modal-body {
-        width: 68%;
-    }
-
-    /* Modal Footer */
-    .modal-footer {
-        width: 68%;
-    }
 }
 
 /* desktop */
 @media only screen and (min-width: 900px) {
+    .modal-container {
+        width: 55%;
+    }
 
-    /* Modal Header */
     .modal-header {
-        width: 40%;
-    }
-
-    /* Modal Body */
-    .modal-body {
-        width: 40%;
-    }
-
-    /* Modal Footer */
-    .modal-footer {
-        width: 40%;
+        width: 45%;
     }
 }
 
 @media (prefers-color-scheme: dark) {
-
-    /* Modal Body */
-    .modal-body {
-        background-color: rgb(69, 69, 69);
+    .modal-container {
+        border-left: 10px solid var(--pink);
+        border-right: 10px solid var(--pink);
     }
+}
 
-    /* Modal Footer */
-    .modal-footer {
-        background-color: rgb(69, 69, 69);
-    }
-
-    /* The Close Button */
-    .close {
-        color: #fff;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-    }
+@media (prefers-color-scheme: light) {
 }

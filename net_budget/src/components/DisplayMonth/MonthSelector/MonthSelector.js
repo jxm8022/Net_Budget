@@ -29,26 +29,30 @@ const MonthSelector = (props) => {
     }
 
     const addRecurring = () => {
-        for (let id in recurringTransactions) {
-            let transaction = recurringTransactions[id];
-            let dateString = `${parseInt(month)+1}/${1}/${year}`;
-            let daysInMonth = moment(dateString, "MM-DD-YYYY").daysInMonth();
-            let recurringDate = `${parseInt(month)+1}/${transaction.occurrenceValue && transaction.occurrenceValue < daysInMonth ? transaction.occurrenceValue : daysInMonth}/${year}`;
-            let formData = {
-                type: transaction.type,
-                date: moment(recurringDate, "MM-DD-YYYY").format(DATEFORMAT).toString(),
-                name: transaction.name,
-                amount: transaction.amount,
-            };
-            
-            addTransactionAPI(userId, formData, token).then((res) => {
-                if (res) {
-                    dispatch(addTransaction({
-                        ...formData,
-                        id: res.name
-                    }));
-                }
-            });
+        const response = window.confirm(`Do you want to add recurring transactions to ${months[month].month}?`);
+        if (response) {
+            for (let id in recurringTransactions) {
+                let transaction = recurringTransactions[id];
+                let dateString = `${parseInt(month)+1}/${1}/${year}`;
+                let daysInMonth = moment(dateString, "MM-DD-YYYY").daysInMonth();
+                let recurringDate = `${parseInt(month)+1}/${transaction.occurrenceValue && transaction.occurrenceValue < daysInMonth ? transaction.occurrenceValue : daysInMonth}/${year}`;
+    
+                let formData = {
+                    type: transaction.type,
+                    date: moment(recurringDate, "MM-DD-YYYY").format(DATEFORMAT).toString(),
+                    name: transaction.name,
+                    amount: transaction.amount,
+                };
+                
+                addTransactionAPI(userId, formData, token).then((res) => {
+                    if (res) {
+                        dispatch(addTransaction({
+                            ...formData,
+                            id: res.name
+                        }));
+                    }
+                });
+            }
         }
     }
 
@@ -60,15 +64,15 @@ const MonthSelector = (props) => {
     return (
         <>
             <h2>{months[month].month} {year}</h2>
-            <form className='month-input-form' onChange={submitForm}>
+            <form onChange={submitForm}>
                 <label>{labels.month}
-                    <select id='month' defaultValue={month}>
+                    <select className='selector' id='month' defaultValue={month}>
                         {months.map((month, index) => <option key={month.abb} value={index}>{month.abb}</option>)}
                     </select>
                 </label>
             </form>
-            <button onClick={createTransaction}>{labels.addTransactionBtnLabel}</button>
-            <button onClick={addRecurring}>{labels.addRecurringTransactionBtnLabel}</button>
+            <button className='transaction-btn' onClick={createTransaction}>{labels.addTransactionBtnLabel}</button>
+            <button className='transaction-btn' onClick={addRecurring}>{labels.addRecurringTransactionBtnLabel}</button>
         </>
     );
 }

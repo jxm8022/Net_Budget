@@ -1,31 +1,52 @@
 /* mobile */
-.table-toggle {
-    content: url('../../../assets/images/charts/table-96-dark.png');
-    width: 45px;
-    position: absolute;
-    top: 65px;
-    right: 0;
-    z-index: 1;
+.selector {
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    margin: 10px;
+    padding: 0px 10px;
+    font: inherit;
+    font-size: .75em;
+    outline: none;
 }
 
-@media (prefers-color-scheme: dark) {
-    .table-toggle {
-        content: url('../../../assets/images/charts/table-96-light.png');
-    }
+.transaction-btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    font: inherit;
 }
 
 /* tablets */
 @media only screen and (min-width: 600px) {}
 
 /* desktop */
-@media only screen and (min-width: 900px) {
-    .table-toggle {
-        content: url('../../../assets/images/charts/table-48-dark.png');
-    }
+@media only screen and (min-width: 900px) {}
 
-    @media (prefers-color-scheme: dark) {
-        .table-toggle {
-            content: url('../../../assets/images/charts/table-48-light.png');
-        }
+@media (prefers-color-scheme: dark) {
+    .selector {
+        border: 1px solid var(--pink);
+        background-color: var(--teal);
+        color: var(--pink);
+    }
+    
+    .transaction-btn {
+        background-color: var(--pink);
+        color: var(--teal);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .selector {
+        border: 1px solid var(--teal);
+        background-color: var(--pink);
+        color: var(--teal);
+    }
+    
+    .transaction-btn {
+        background-color: var(--teal);
+        color: var(--pink);
     }
 }
