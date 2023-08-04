@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTransaction, deleteTransaction } from '../../../actions/transactionActions';
 import { deleteTransactionAPI, updateTransactionAPI } from '../../../api/TransactionAPI';
-import InputForm from '../Form/InputForm';
 import { labels } from '../../../resources/labels';
+import InputForm from '../Form/InputForm';
 import './Modal.css';
 
 const Modal = (props) => {
@@ -34,15 +34,20 @@ const Modal = (props) => {
     }
 
     return (
-        <div className='modal'>
-            <div className='modal-header'>
-                <span className='close' onClick={closeModal}>&times;</span>
-                <h2>{labels.updateTransaction}</h2>
+        <>
+            <div className='modal-background'></div>
+            <div className='modal'>
+                <div className='modal-container'>
+                    <span className='close' onClick={closeModal}>&times;</span>
+                    <div className='modal-header'>
+                        <h2>{labels.updateTransaction}</h2>
+                    </div>
+                    <div className='modal-body'>
+                        <InputForm submitType='Update' deleteTransaction={true} closeModal={closeModal} transactionAction={submitTransaction} defaults={data} />
+                    </div>
+                </div>
             </div>
-            <div className='modal-body'>
-                <InputForm submitType='Update' deleteTransaction={true} closeModal={closeModal} transactionAction={submitTransaction} defaults={data} />
-            </div>
-        </div>
+        </>
     );
 }
 
