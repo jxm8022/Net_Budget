@@ -10,6 +10,8 @@ import Template from '../../UI/Template/Template';
 import moment from 'moment/moment';
 import './AddTransaction.css';
 import { addRecurringTransactionAPI } from '../../../api/recurringTransactionsAPI';
+import { addDebtAPI } from '../../../api/debtAPI';
+import { addDebt } from '../../../actions/debtActions';
 
 const AddTransaction = (props) => {
     const [searchParams, setSearchParams] = useSearchParams(); // searchParams.get('type');
@@ -17,6 +19,7 @@ const AddTransaction = (props) => {
     const { userId, token } = useSelector((state) => state.user);
     const [error, setError] = useState();
     const [isRecurringType, setIsRecurringType] = useState();
+    const [ isDebtType, setIsDebtType ] = useState();
     const [isDay, setIsDay] = useState(true);
     const transType = useRef();
     const transDate = useRef();
@@ -30,6 +33,9 @@ const AddTransaction = (props) => {
     useEffect(() => {
         if (parseInt(transType.current.value) === TYPES.RECURRING) {
             setIsRecurringType(true);
+        }
+        if (parseInt(transType.current.value) === TYPES.DEBT) {
+            setIsDebtType(true);
         }
     }, [searchParams]);
 
@@ -61,11 +67,34 @@ const AddTransaction = (props) => {
             setError(true);
             return;
         }
-
+        
         if (isRecurringType) {
             submitRecurringTransaction();
+        } else if (isDebtType) {
+            submitDebt();
         } else {
             submitTransaction();
+        }
+    }
+
+    const submitDebt = () => {
+        let formData = {
+            type: parseInt(transType.current.value),
+            date: moment(transDate.current.value).format(DATEFORMAT).toString(),
+            name: FormatString(transName.current.value),
+            amount: parseFloat(transAmount.current.value),
+        };
+
+        const response = window.confirm(`Does the following debt information look correct?\nDebt Type: ${categories[formData.type].type}\nDebt Date: ${formData.date}\nDebt Name: ${formData.name}\nDebt Amount: $${formData.amount}`);
+        if (response) {
+            addDebtAPI(userId, formData, token).then((res) => {
+                if (res) {
+                    dispatch(addDebt({
+                        ...formData,
+                        id: res.name
+                    }));
+                }
+            });
         }
     }
 
@@ -78,7 +107,7 @@ const AddTransaction = (props) => {
             amount: parseFloat(transAmount.current.value),
         };
 
-        const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${categories[parseInt(transType.current.value)].type}\nTransaction Date: ${occurrenceTypes[formData.occurrenceType].type}\nTransaction Name: ${formData.name}\nTransaction Amount: $${formData.amount}`);
+        const response = window.confirm(`Does the following recurring information look correct?\nTransaction Type: ${categories[parseInt(transType.current.value)].type}\nTransaction Date: ${occurrenceTypes[formData.occurrenceType].type}\nTransaction Name: ${formData.name}\nTransaction Amount: $${formData.amount}`);
         if (response) {
             addRecurringTransactionAPI(userId, formData, token).then((res) => {
                 if (res) {
@@ -112,11 +141,20 @@ const AddTransaction = (props) => {
         }
     }
 
-    const checkForRecurring = () => {
-        if (parseInt(transType.current.value) === TYPES.RECURRING) {
-            setIsRecurringType(true);
-        } else {
-            setIsRecurringType(false);
+    const checkType = () => {
+        switch (parseInt(transType.current.value)) {
+            case TYPES.RECURRING:
+                setIsRecurringType(true);
+                setIsDebtType(false);
+                break;
+            case TYPES.DEBT:
+                setIsDebtType(true);
+                setIsRecurringType(false);
+                break;
+            default:
+                setIsRecurringType(false);
+                setIsDebtType(false);
+                break;
         }
     }
 
@@ -134,7 +172,7 @@ const AddTransaction = (props) => {
             <form className='transaction-input-form' onSubmit={submitForm} onFocus={() => {setError()}}>
                 <label>
                     <p>{labels.type}</p>
-                    <select id='type' ref={transType} defaultValue={searchParams.get('type')} onChange={checkForRecurring}>
+                    <select id='type' ref={transType} defaultValue={searchParams.get('type')} onChange={checkType}>
                         {categories.map((category, index) => {
                             return <option key={category.id} value={index}>{category.type}</option>})
                         }

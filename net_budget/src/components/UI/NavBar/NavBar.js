@@ -74,11 +74,16 @@ const NavBar = () => {
             },
             {
                 id: 4,
+                where: `../debt`,
+                name: labels.debt
+            },
+            {
+                id: 5,
                 where: `../about`,
                 name: labels.about
             },
             {
-                id: 5,
+                id: 6,
                 where: `../auth`,
                 name: labels.logout,
                 do: handleLogout
@@ -87,7 +92,7 @@ const NavBar = () => {
     } else {
         links = [
             {
-                id: 6,
+                id: 7,
                 where: `../about`,
                 name: labels.about
             }

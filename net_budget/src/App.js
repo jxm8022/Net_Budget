@@ -5,6 +5,7 @@ import { loadRecurringTransactions, loadTransactions } from './actions/transacti
 import { loadUser } from './actions/userActions';
 import { loadTransactionsAPI } from './api/TransactionAPI';
 import { calculateStatistics, saveAllTransactions } from './actions/statisticActions';
+import { calculateDebtSummary, loadDebt } from './actions/debtActions';
 import About from './pages/About';
 import DisplayMonth from './pages/DisplayMonth';
 import Auth from './pages/Auth';
@@ -12,6 +13,7 @@ import Version from './pages/Version';
 import Account from './pages/Account';
 import AddTransaction from './components/DisplayMonth/AddTransaction/AddTransaction';
 import Statistics from './pages/Statistics';
+import Debt from './pages/Debt';
 import './App.css';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
@@ -20,6 +22,7 @@ const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 function App() {
   const { lifetimeTransactions } = useSelector((state) => state.statistics);
   const { currentYear } = useSelector((state) => state.transaction);
+  const { debts } = useSelector((state) => state.debt);
   const { isLoggedIn, userId, token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -46,6 +49,10 @@ function App() {
       {
         path: '/statistics',
         component: <Statistics />
+      },
+      {
+        path: '/debt',
+        component: <Debt />
       },
       {
         path: '/account',
@@ -85,11 +92,13 @@ function App() {
       if (lifetimeTransactions && Object.keys(lifetimeTransactions).length !== 0) {
         dispatch(loadTransactions(lifetimeTransactions[currentYear]));
         dispatch(calculateStatistics());
+        dispatch(calculateDebtSummary(lifetimeTransactions));
       } else {
         loadTransactionsAPI(userId, token).then((res) => {
           if (res) {
             dispatch(saveAllTransactions(res.transactions));
             dispatch(loadRecurringTransactions(res.recurringTransactions));
+            dispatch(loadDebt(res.debts));
           } else {
             localStorage.setItem('startYear', new Date().getFullYear().toString());
           }
@@ -97,7 +106,7 @@ function App() {
       }
     }
     dispatch(loadUser());
-  }, [dispatch, currentYear, userId, token, lifetimeTransactions]);
+  }, [dispatch, currentYear, userId, token, lifetimeTransactions, debts]);
 
   return (
     <Suspense>

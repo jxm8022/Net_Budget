@@ -116,6 +116,25 @@ const Table = (props) => {
         </table>;
     }
 
+    if (dataType === 'DEBT') {
+        table = <table className="table">
+            <thead>
+                <tr>
+                    {headers.map((header) => <th key={header}>{header}</th>)}
+                </tr>
+            </thead>
+            <tbody>
+                {data.length > 0 ? data.map((item) => (
+                    <tr key={item.id} onClick={() => deleteRow(item)}>
+                        <td>{item.name}</td>
+                        <td>{item.date}</td>
+                        <td>{`$${item.amount.toFixed(2)}`}</td>
+                    </tr>
+                )) : <tr style={{ height: '48px' }}>{headers.map((x) => <td key={x}> </td>)}</tr>}
+            </tbody>
+        </table>;
+    }
+
     return (
         <>
             {showModal && <Modal data={showModal} closeModal={closeModal} />}
