@@ -200,6 +200,11 @@ const versionHistory = [
                 id: 5,
                 title: 'Update website design',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/64'
+            },
+            {
+                id: 6,
+                title: 'Add debt tracker feature',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/56'
             }
         ]
     }
