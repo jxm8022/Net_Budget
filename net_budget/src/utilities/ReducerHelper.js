@@ -44,6 +44,16 @@ export const sortTransactionsByDate = (a, b) => {
     return 0;
 }
 
+export const sortTransactionsByDateDesc = (a, b) => {
+    if (a.date > b.date) {
+        return -1;
+    }
+    if (a.date < b.date) {
+        return 1;
+    }
+    return 0;
+}
+
 export const sortByTimes = (a, b) => {
     if (a[1].times > b[1].times) {
         return -1;

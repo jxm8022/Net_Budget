@@ -18,9 +18,7 @@ const initialState = {
         { potNet: 0, projNet: 0, net: 0, transactions: [] },
         { potNet: 0, projNet: 0, net: 0, transactions: [] }
     ],
-    recurringTransactions: [
-
-    ],
+    recurringTransactions: [],
 }
 
 const transactionReducer = (state = initialState, action) => {
@@ -85,7 +83,7 @@ const transactionReducer = (state = initialState, action) => {
 
             let newLoadState = {
                 ...state,
-                monthOverview: loadedTransactions
+                monthOverview: loadedTransactions,
             }
 
             return newLoadState;

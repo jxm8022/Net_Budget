@@ -2,11 +2,12 @@ export const categories = [
     { id: 0, type: 'Want' },
     { id: 1, type: 'Need' },
     { id: 2, type: 'Savings' },
-    { id: 3, type: 'Debt' },
+    { id: 3, type: 'Debt Payment' },
     { id: 4, type: 'Income' },
     { id: 5, type: 'pTransaction' },
     { id: 6, type: 'pIncome' },
     { id: 7, type: 'Recurring'},
+    { id: 8, type: 'Debt'},
 ];
 
 export const months = [
@@ -62,6 +63,16 @@ export const labels = {
     date: 'DATE :',
     transaction: 'TRANSACTION :',
     amount: 'AMOUNT :',
+
+    // Add Debt page
+    debt: 'Debt',
+    debtPurchasesTitle: 'Debt',
+    addDebtPurchaseBtnLabel: 'Add Debt',
+    debtPurchasesHeaders: [
+        'Name',
+        'Date',
+        'Amount',
+    ],
 
     // Month Overview
     month: 'Month',

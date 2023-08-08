@@ -4,11 +4,12 @@ export const TYPES = {
     WANT: 0,
     NEED: 1,
     SAVINGS: 2,
-    DEBT: 3,
+    DEBTPAYMENT: 3,
     INCOME: 4,
     PTRANSACTION: 5,
     PINCOME: 6,
     RECURRING: 7,
+    DEBT: 8,
 };
 
 export const SUBMITTYPES = {
@@ -26,6 +27,7 @@ export const TABLETYPES = {
     TOPTRANSACTIONS: 'TOPTRANSACTIONS',
     TRANSACTIONS: 'TRANSACTIONS',
     RECURRING: 'RECURRING',
+    DEBT: 'DEBT',
 };
 
 export const RATIOS = {
