@@ -1,3 +1,9 @@
+/***************************************
+ * 
+ * REMOVED FILTER FUNCTIONALITY IN VERSION 1.8
+ * 
+***************************************/
+
 import { months } from '../../../resources/labels';
 import './BarGroup.css';
 

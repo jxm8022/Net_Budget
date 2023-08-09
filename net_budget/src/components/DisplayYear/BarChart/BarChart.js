@@ -1,3 +1,9 @@
+/***************************************
+ * 
+ * REMOVED FILTER FUNCTIONALITY IN VERSION 1.8
+ * 
+***************************************/
+
 import { useSelector } from 'react-redux';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 import BarGroup from "./BarGroup";
