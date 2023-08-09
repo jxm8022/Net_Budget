@@ -19,6 +19,11 @@ const initialState = {
         { potNet: 0, projNet: 0, net: 0, transactions: [] }
     ],
     recurringTransactions: [],
+    graphData: {
+        income: [],
+        spent: [],
+        net: []
+    },
 }
 
 const transactionReducer = (state = initialState, action) => {
@@ -59,6 +64,9 @@ const transactionReducer = (state = initialState, action) => {
             let data = action.payload;
 
             let loadedTransactions = [...initialState.monthOverview];
+            let incomeData = [];
+            let spentData = [];
+            let netData = [];
             for (const month in data) {
                 let monthTransactions = [];
                 for (const transactionId in data[month]){
@@ -71,6 +79,13 @@ const transactionReducer = (state = initialState, action) => {
                     });
                 }
                 let monthOverview = getOverview(monthTransactions);
+
+                /***********    GET LINE GRAPH DATA     *************/
+                incomeData.push(monthOverview.incomeTotal.toFixed(2));
+                spentData.push(monthOverview.transactionsTotal.toFixed(2));
+                netData.push(monthOverview.net.toFixed(2));
+                /***********    END LINE GRAPH DATA     *************/
+
                 let monthIndex = parseInt(month)-1;
                 loadedTransactions[monthIndex] = {
                     ...loadedTransactions[monthIndex],
@@ -81,12 +96,17 @@ const transactionReducer = (state = initialState, action) => {
                 };
             }
 
-            let newLoadState = {
+            let newGraphData = {
+                income: incomeData,
+                spent: spentData,
+                net: netData,
+            };
+
+            return {
                 ...state,
                 monthOverview: loadedTransactions,
-            }
-
-            return newLoadState;
+                graphData: newGraphData,
+            };
         case types.SET_DATE:
             const { month, year } = action.payload;
             let newDate = { ...state };

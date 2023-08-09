@@ -205,6 +205,11 @@ const versionHistory = [
                 id: 6,
                 title: 'Add debt tracker feature',
                 link: 'https://github.com/jxm8022/Net_Budget/issues/56'
+            },
+            {
+                id: 7,
+                title: 'Update bar chart',
+                link: 'https://github.com/jxm8022/Net_Budget/issues/73'
             }
         ]
     }

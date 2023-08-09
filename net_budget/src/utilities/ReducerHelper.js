@@ -30,7 +30,9 @@ export const getOverview = (transactions) => {
     return {
         potNet,
         projNet,
-        net
+        net,
+        incomeTotal,
+        transactionsTotal,
     };
 }
 

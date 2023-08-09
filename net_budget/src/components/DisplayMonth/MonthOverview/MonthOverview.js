@@ -3,8 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { labels } from '../../../resources/labels';
 import '../../DisplayYear/YearOverview/Overview.css';
 
-const MonthOverview = (props) => {
-    const [searchParams, setSearchParams] = useSearchParams();
+const MonthOverview = () => {
+    const [searchParams] = useSearchParams();
     const { potNet, projNet, net } = useSelector((state) => state.transaction.monthOverview[searchParams.get('month')]);
 
     const textClass = (amount) => amount < 0 ? 'negative' : '';
