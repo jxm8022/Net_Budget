@@ -56,6 +56,12 @@ export const labels = {
     worstMonth: 'Worst Month',
     year: 'Year',
 
+    // Line graph
+    incomeSeriesName: 'Income',
+    spentSeriesName: 'Spent',
+    netSeriesName: 'Net',
+    noDataText: 'No data to display.',
+
     // Add Transaction page
     type: 'TYPE :',
     subtype: 'SUBTYPE :',

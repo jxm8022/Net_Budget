@@ -7,8 +7,8 @@ import SortAscending from '../../../utilities/SortAscending';
 import SortDescending from '../../../utilities/SortDescending';
 import Table from '../../UI/Table/Table';
 
-const MonthDetails = (props) => {
-    const [searchParams, setSearchParams] = useSearchParams();
+const MonthDetails = () => {
+    const [searchParams] = useSearchParams();
     const { transactions } = useSelector((state) => state.transaction.monthOverview[searchParams.get('month')]);
     const [isSortAsc, setIsSortAsc] = useState(true);
     const [sortColumn, setSortColumn] = useState('Date');

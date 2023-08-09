@@ -6,15 +6,15 @@ import { addRecurringTransaction, addTransaction } from '../../../actions/transa
 import { addTransactionAPI } from '../../../api/TransactionAPI';
 import { DATEFORMAT, DAYS, TYPES } from '../../../resources/constants';
 import { FormatString, GetStringLength } from '../../../utilities/FormatData';
-import Template from '../../UI/Template/Template';
-import moment from 'moment/moment';
-import './AddTransaction.css';
 import { addRecurringTransactionAPI } from '../../../api/recurringTransactionsAPI';
 import { addDebtAPI } from '../../../api/debtAPI';
 import { addDebt } from '../../../actions/debtActions';
+import Template from '../../UI/Template/Template';
+import moment from 'moment/moment';
+import './AddTransaction.css';
 
-const AddTransaction = (props) => {
-    const [searchParams, setSearchParams] = useSearchParams(); // searchParams.get('type');
+const AddTransaction = () => {
+    const [searchParams] = useSearchParams(); // searchParams.get('type');
     const { transactionDictionary } = useSelector((state) => state.statistics);
     const { userId, token } = useSelector((state) => state.user);
     const [error, setError] = useState();

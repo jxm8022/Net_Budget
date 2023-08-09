@@ -1,13 +1,13 @@
 import ReactApexChart from "react-apexcharts";
 import { useSelector } from "react-redux";
-import { months } from "../../../resources/labels";
+import { labels, months } from "../../../resources/labels";
 import { useEffect, useState } from "react";
 import './Graph.css';
 
-const Graph = (props) => {
+const Graph = () => {
     const { graphData } = useSelector((state) => state.transaction);
     const [ width, setWidth ] = useState(window.innerWidth);
-    const [ isDarkMode, setIsDarkMode ] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const [ isDarkMode ] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     useEffect(() => {
         const updateWidth = () => {
@@ -19,29 +19,19 @@ const Graph = (props) => {
 
     const data = {
         series: [
-            {
-                name: "Income",
-                data: graphData.income
-            },
-            {
-                name: "Spent",
-                data: graphData.spent
-            },
-            {
-                name: 'Net',
-                data: graphData.net
-            }
+            { name: labels.incomeSeriesName, data: graphData.income },
+            { name: labels.spentSeriesName, data: graphData.spent },
+            { name: labels.netSeriesName, data: graphData.net }
         ],
         options: {
             noData: {
-                text: 'No data',
+                text: labels.noDataText,
                 style: {
                     color: 'var(--lightred)',
                     fontSize: '32px',
                 }
             },
             chart: {
-                height: 650,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -129,7 +119,7 @@ const Graph = (props) => {
 
     return (
         <>
-            <ReactApexChart options={data.options} series={data.series} type="line" height={350} width={width > 600 ? width * .8 : width} />
+            <ReactApexChart options={data.options} series={data.series} type="line" height={400} width={width > 600 ? width * .8 : width} />
         </>
     );
 }
