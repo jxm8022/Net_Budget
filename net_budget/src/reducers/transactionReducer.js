@@ -20,9 +20,9 @@ const initialState = {
     ],
     recurringTransactions: [],
     graphData: {
-        income: [],
-        spent: [],
-        net: []
+        income: [0,0,0,0,0,0,0,0,0,0,0,0],
+        spent: [0,0,0,0,0,0,0,0,0,0,0,0],
+        net: [0,0,0,0,0,0,0,0,0,0,0,0]
     },
 }
 
@@ -64,9 +64,9 @@ const transactionReducer = (state = initialState, action) => {
             let data = action.payload;
 
             let loadedTransactions = [...initialState.monthOverview];
-            let incomeData = [];
-            let spentData = [];
-            let netData = [];
+            let incomeData = [...initialState.graphData.income];
+            let spentData = [...initialState.graphData.spent];
+            let netData = [...initialState.graphData.net];
             for (const month in data) {
                 let monthTransactions = [];
                 for (const transactionId in data[month]){
@@ -79,14 +79,14 @@ const transactionReducer = (state = initialState, action) => {
                     });
                 }
                 let monthOverview = getOverview(monthTransactions);
+                let monthIndex = parseInt(month)-1;
 
                 /***********    GET LINE GRAPH DATA     *************/
-                incomeData.push(monthOverview.incomeTotal.toFixed(2));
-                spentData.push(monthOverview.transactionsTotal.toFixed(2));
-                netData.push(monthOverview.net.toFixed(2));
+                incomeData[monthIndex] = monthOverview.incomeTotal.toFixed(2);
+                spentData[monthIndex] = monthOverview.transactionsTotal.toFixed(2);
+                netData[monthIndex] = monthOverview.net.toFixed(2);
                 /***********    END LINE GRAPH DATA     *************/
 
-                let monthIndex = parseInt(month)-1;
                 loadedTransactions[monthIndex] = {
                     ...loadedTransactions[monthIndex],
                     net: monthOverview.net,

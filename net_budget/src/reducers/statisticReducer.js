@@ -245,6 +245,8 @@ const statisticReducer = (state = initialState, action) => {
                 topVisited_amount: sortAmount,
                 topVisited_times: sortTimes
             };
+        case types.LOGOUT:
+            return initialState;
         default:
             return state;
     }
