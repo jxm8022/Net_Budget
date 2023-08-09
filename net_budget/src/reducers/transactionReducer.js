@@ -122,6 +122,8 @@ const transactionReducer = (state = initialState, action) => {
                 }
             }
             return newDate;
+        case types.LOGOUT:
+            return initialState;
         default:
             return state;
     }
