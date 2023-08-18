@@ -56,6 +56,18 @@ export const sortTransactionsByDateDesc = (a, b) => {
     return 0;
 }
 
+export const sortRecurringTransactionsByDayAsc = (a, b) => {
+    let transactionA = a.occurrenceValue ?? 0;
+    let transactionB = b.occurrenceValue ?? 0;
+    if (transactionA < transactionB) {
+        return -1;
+    }
+    if (transactionA > transactionB) {
+        return 1;
+    }
+    return 0;
+}
+
 export const sortByTimes = (a, b) => {
     if (a[1].times > b[1].times) {
         return -1;
