@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDate } from '../../../actions/transactionActions';
-import { labels } from '../../../resources/labels';
+import { labels, months } from '../../../resources/labels';
 import { SELECTORTYPES } from '../../../resources/constants';
 import Selector from '../../UI/Selector/Selector';
 import './Overview.css';
@@ -8,16 +9,47 @@ import './Overview.css';
 const YearOverview = (props) => {
     const { year, setSearchParams } = props;
     const { monthOverview } = useSelector((state) => state.transaction);
+    const [bestMonth, setBestMonth] = useState({value: 0, index: 0});
+    const [worstMonth, setWorstMonth] = useState({value: 0, index: 0});
+    const [monthNet, setMonthNet] = useState(0);
     const dispatch = useDispatch();
-
-    const max = monthOverview.reduce((max, month) => month.net > max ? month.net : max, monthOverview[0].net);
-    const min = monthOverview.reduce((min, month) => month.net < min ? month.net : min, monthOverview[0].net);
-    const netTotal = monthOverview.reduce((total, month) => month.net + total, 0);
 
     const onYearChange = (event) => {
         dispatch(setDate({ year: parseInt(event.target.value) }));
         setSearchParams(`year=${event.target.value}`);
     }
+
+    useEffect(() => {
+        if (monthOverview) {
+            const best = monthOverview.reduce((best, month, index) => {
+                if (month.net > best.value) {
+                    return {
+                        value: month.net.toFixed(2),
+                        index: index
+                    };
+                }
+                return best;
+            }, {value: monthOverview[0].net, index: 0});
+
+            const worst = monthOverview.reduce((worst, month, index) => {
+                if (month.net < worst.value) {
+                    return {
+                        value: month.net.toFixed(2),
+                        index: index
+                    };
+                }
+                return worst;
+            }, {value: monthOverview[0].net, index: 0});
+
+            const net = monthOverview.reduce((net, month) => {
+                return month.net + net;
+            }, 0);
+
+            setBestMonth(best);
+            setWorstMonth(worst);
+            setMonthNet(net.toFixed(2));
+        }
+    }, [monthOverview]);
 
     const textClass = (amount) => amount < 0 ? 'negative' : '';
 
@@ -27,16 +59,16 @@ const YearOverview = (props) => {
             <Selector type={SELECTORTYPES.YEAR} onYearChange={onYearChange} />
             <ul className='overview'>
                 <li>
-                    <h4>{labels.bestMonth}</h4>
-                    <p className={textClass(max)}>{'$' + max.toFixed(2)}</p>
+                    <h4>{labels.bestNet}{` (${months[bestMonth.index].abb})`}</h4>
+                    <p className={textClass(bestMonth.value)}>{`$${bestMonth.value}`}</p>
                 </li>
                 <li className='middle'>
                     <h4>{labels.net}</h4>
-                    <p className={textClass(netTotal)}>{'$' + netTotal.toFixed(2)}</p>
+                    <p className={textClass(monthNet)}>{`$${monthNet}`}</p>
                 </li>
                 <li>
-                    <h4>{labels.worstMonth}</h4>
-                    <p className={textClass(min)}>{'$' + min.toFixed(2)}</p>
+                    <h4>{labels.worstNet}{worstMonth && ` (${months[worstMonth.index].abb})`}</h4>
+                    <p className={textClass(worstMonth.value)}>{`$${worstMonth.value}`}</p>
                 </li>
             </ul >
         </>

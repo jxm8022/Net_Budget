@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import { getOverview, sortTransactionsByDate } from '../utilities/ReducerHelper';
+import { getOverview, sortRecurringTransactionsByDayAsc, sortTransactionsByDate } from '../utilities/ReducerHelper';
 
 const initialState = {
     currentMonth: new Date().getMonth(),
@@ -34,13 +34,13 @@ const transactionReducer = (state = initialState, action) => {
                 recurringTransactions: [
                     ...state.recurringTransactions,
                     action.payload
-                ],
+                ].sort(sortRecurringTransactionsByDayAsc),
             };
         case types.DELETE_RECURRING_TRANSACTION:
             let updatedRecurringTransactions = [...state.recurringTransactions].filter((transaction) => transaction.id !== action.payload);
             return {
                 ...state,
-                recurringTransactions: updatedRecurringTransactions
+                recurringTransactions: updatedRecurringTransactions.sort(sortRecurringTransactionsByDayAsc)
             };
         case types.LOAD_RECURRING_TRANSACTIONS:
             let recurringData = action.payload;
@@ -58,7 +58,7 @@ const transactionReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                recurringTransactions: recurringTransactions,
+                recurringTransactions: recurringTransactions.sort(sortRecurringTransactionsByDayAsc),
             };
         case types.LOAD_TRANSACTIONS:
             let data = action.payload;

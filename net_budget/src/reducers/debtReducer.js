@@ -15,13 +15,13 @@ const debtReducer = (state = initialState, action) => {
                 debts: [
                     ...state.debts,
                     action.payload
-                ],
+                ].sort(sortTransactionsByDateDesc),
             };
         case types.DELETE_DEBT:
             let updatedDebts = [...state.debts].filter((transaction) => transaction.id !== action.payload);
             return {
                 ...state,
-                debts: updatedDebts
+                debts: updatedDebts.sort(sortTransactionsByDateDesc)
             };
         case types.LOAD_DEBT:
             let data = action.payload;

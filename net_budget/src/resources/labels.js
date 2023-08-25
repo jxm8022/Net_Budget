@@ -51,9 +51,9 @@ export const labels = {
     logout: 'Logout',
 
     // Home page
-    bestMonth: 'Best Month',
+    bestNet: 'Best Net',
     net: 'Net',
-    worstMonth: 'Worst Month',
+    worstNet: 'Worst Net',
     year: 'Year',
 
     // Line graph
