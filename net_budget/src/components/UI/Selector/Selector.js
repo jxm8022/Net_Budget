@@ -73,7 +73,7 @@ const YearSelector = (props) => {
     return (
         <form className='year-input-form'>
             <label>{labels.year}
-                <select id='type' defaultValue={dataYear} onChange={props.onYearChange}>
+                <select id='type' value={dataYear} onChange={props.onYearChange}>
                     {activeYears.map((year, index) => <option key={index} value={year}>{year}</option>)}
                 </select>
             </label>

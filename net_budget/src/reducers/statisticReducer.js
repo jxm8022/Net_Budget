@@ -17,12 +17,12 @@ const statisticReducer = (state = initialState, action) => {
             let transactionToAdd = action.payload;
             let year = parseInt(action.payload.date.split('-')[0]);
             let month = action.payload.date.split('-')[1];
-            let existingTransactions = {...state.lifetimeTransactions};
+            let existingTransactions = { ...state.lifetimeTransactions };
             let updatedActiveYears = state.activeYears;
-            if (existingTransactions[year]){
+            if (existingTransactions[year]) {
                 if (existingTransactions[year][month]) {
-                    let updatedYear = {...existingTransactions[year]};
-                    let updatedMonth = {...existingTransactions[year][month]};
+                    let updatedYear = { ...existingTransactions[year] };
+                    let updatedMonth = { ...existingTransactions[year][month] };
                     updatedMonth = {
                         ...updatedMonth,
                         [transactionToAdd.id]: {
@@ -32,12 +32,12 @@ const statisticReducer = (state = initialState, action) => {
                             type: transactionToAdd.type,
                         }
                     };
-    
+
                     updatedYear = {
                         ...updatedYear,
                         [month]: updatedMonth
                     };
-    
+
                     existingTransactions = {
                         ...existingTransactions,
                         [year]: updatedYear
@@ -45,41 +45,45 @@ const statisticReducer = (state = initialState, action) => {
                 } else if (existingTransactions[year]) {
                     existingTransactions[year] = {
                         ...existingTransactions[year],
-                        [month]: {[transactionToAdd.id]: {
-                            amount: transactionToAdd.amount,
-                            date: transactionToAdd.date,
-                            name: transactionToAdd.name,
-                            type: transactionToAdd.type,
-                        }}
+                        [month]: {
+                            [transactionToAdd.id]: {
+                                amount: transactionToAdd.amount,
+                                date: transactionToAdd.date,
+                                name: transactionToAdd.name,
+                                type: transactionToAdd.type,
+                            }
+                        }
                     };
                 }
             } else {
                 existingTransactions = {
                     ...existingTransactions,
                     [year]: {
-                        [month]: {[transactionToAdd.id]: {
-                            amount: transactionToAdd.amount,
-                            date: transactionToAdd.date,
-                            name: transactionToAdd.name,
-                            type: transactionToAdd.type,
-                        }}
+                        [month]: {
+                            [transactionToAdd.id]: {
+                                amount: transactionToAdd.amount,
+                                date: transactionToAdd.date,
+                                name: transactionToAdd.name,
+                                type: transactionToAdd.type,
+                            }
+                        }
                     }
                 }
                 updatedActiveYears = Object.keys(existingTransactions);
             }
-            
+
             return {
                 ...state,
                 lifetimeTransactions: existingTransactions,
                 activeYears: updatedActiveYears,
             };
         case types.UPDATE_TRANSACTION:
-            let updatedTransactions = {...state.lifetimeTransactions};
+            let updatedTransactions = { ...state.lifetimeTransactions };
             // REMOVE TRANSACTION
             let old_Transaction = action.payload.prev;
             let old_Year = old_Transaction.date.split('-')[0];
             let old_Month = old_Transaction.date.split('-')[1];
-            let old_updatedYearTransactions = {...updatedTransactions[old_Year]};
+            let old_updatedYearTransactions = { ...updatedTransactions[old_Year] };
             let newMonthTransactions;
             for (let transaction in updatedTransactions[old_Year][old_Month]) {
                 if (transaction !== old_Transaction.id) {
@@ -104,10 +108,10 @@ const statisticReducer = (state = initialState, action) => {
             let new_Year = new_Transaction.date.split('-')[0];
             let new_Month = new_Transaction.date.split('-')[1];
             let new_updatedActiveYears = state.activeYears;
-            if (updatedTransactions[new_Year]){
+            if (updatedTransactions[new_Year]) {
                 if (updatedTransactions[new_Year][new_Month]) {
-                    let updatedYear = {...updatedTransactions[new_Year]};
-                    let updatedMonth = {...updatedTransactions[new_Year][new_Month]};
+                    let updatedYear = { ...updatedTransactions[new_Year] };
+                    let updatedMonth = { ...updatedTransactions[new_Year][new_Month] };
                     updatedMonth = {
                         ...updatedMonth,
                         [new_Transaction.id]: {
@@ -117,12 +121,12 @@ const statisticReducer = (state = initialState, action) => {
                             type: new_Transaction.type,
                         }
                     };
-    
+
                     updatedYear = {
                         ...updatedYear,
                         [new_Month]: updatedMonth
                     };
-    
+
                     updatedTransactions = {
                         ...updatedTransactions,
                         [new_Year]: updatedYear
@@ -130,24 +134,28 @@ const statisticReducer = (state = initialState, action) => {
                 } else if (updatedTransactions[new_Year]) {
                     updatedTransactions[new_Year] = {
                         ...updatedTransactions[new_Year],
-                        [new_Month]: {[new_Transaction.id]: {
-                            amount: new_Transaction.amount,
-                            date: new_Transaction.date,
-                            name: new_Transaction.name,
-                            type: new_Transaction.type,
-                        }}
+                        [new_Month]: {
+                            [new_Transaction.id]: {
+                                amount: new_Transaction.amount,
+                                date: new_Transaction.date,
+                                name: new_Transaction.name,
+                                type: new_Transaction.type,
+                            }
+                        }
                     };
                 }
             } else {
                 updatedTransactions = {
                     ...updatedTransactions,
                     [new_Year]: {
-                        [new_Month]: {[new_Transaction.id]: {
-                            amount: new_Transaction.amount,
-                            date: new_Transaction.date,
-                            name: new_Transaction.name,
-                            type: new_Transaction.type,
-                        }}
+                        [new_Month]: {
+                            [new_Transaction.id]: {
+                                amount: new_Transaction.amount,
+                                date: new_Transaction.date,
+                                name: new_Transaction.name,
+                                type: new_Transaction.type,
+                            }
+                        }
                     }
                 }
                 new_updatedActiveYears = Object.keys(updatedTransactions);
@@ -159,11 +167,11 @@ const statisticReducer = (state = initialState, action) => {
                 activeYears: new_updatedActiveYears,
             };
         case types.DELETE_TRANSACTION:
-            let delete_updatedTransactions = {...state.lifetimeTransactions};
+            let delete_updatedTransactions = { ...state.lifetimeTransactions };
             let transactionToDelete = action.payload.prev;
             let delete_Year = transactionToDelete.date.split('-')[0];
             let delete_Month = transactionToDelete.date.split('-')[1];
-            let delete_updatedYearTransactions = {...delete_updatedTransactions[delete_Year]};
+            let delete_updatedYearTransactions = { ...delete_updatedTransactions[delete_Year] };
             let delete_newMonthTransactions;
             for (let transaction in delete_updatedTransactions[delete_Year][delete_Month]) {
                 if (transaction !== transactionToDelete.id) {
@@ -191,6 +199,11 @@ const statisticReducer = (state = initialState, action) => {
             let activeYears = Object.keys(action.payload);
             localStorage.setItem('startYear', JSON.stringify(activeYears[0]));
 
+            const currentYear = new Date().getFullYear().toString();
+            if (!activeYears.includes(currentYear)) {
+                activeYears.push(currentYear);
+            }
+
             return {
                 ...state,
                 lifetimeTransactions: action.payload,
@@ -214,7 +227,7 @@ const statisticReducer = (state = initialState, action) => {
                             transactionWantsDictionary = { ...transactionWantsDictionary, [transaction.name]: { times: 1, amount: transaction.amount } };
                         }
                         if (!transactionDictionary.includes(transaction.name)) {
-                            transactionDictionary = [ ...transactionDictionary, transaction.name ];
+                            transactionDictionary = [...transactionDictionary, transaction.name];
                         }
                     }
                 }

@@ -6,7 +6,7 @@ import Graph from "./Graph/Graph";
 import YearOverview from "./YearOverview/YearOverview";
 
 const DisplayYearBase = (props) => {
-    const [ , setSearchParams] = useSearchParams();
+    const [, setSearchParams] = useSearchParams();
     const { currentYear } = useSelector((state) => state.transaction);
 
     useEffect(() => {
