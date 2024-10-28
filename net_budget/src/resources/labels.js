@@ -171,6 +171,7 @@ export const labels = {
         'Name',
         'Amount'
     ],
+    deleteData: 'Delete data',
 
     // Not found page
     notLoggedIn: 'Looks like you are not logged in!',

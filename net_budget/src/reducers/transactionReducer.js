@@ -122,6 +122,13 @@ const transactionReducer = (state = initialState, action) => {
                 }
             }
             return newDate;
+        case types.DELETE_ALL_TRANSACTIONS:
+            return {
+                ...state,
+                monthOverview: initialState.monthOverview,
+                recurringTransactions: initialState.recurringTransactions,
+                graphData: initialState.graphData,
+            }
         case types.LOGOUT:
             return initialState;
         default:

@@ -98,6 +98,12 @@ const debtReducer = (state = initialState, action) => {
                 ...state,
                 debtSummary: calculatedSummary,
             };
+        case types.DELETE_ALL_TRANSACTIONS:
+            return {
+                ...state,
+                debts: initialState.debts,
+                debtSummary: initialState.debtSummary,
+            }
         default:
             return state;
     }
