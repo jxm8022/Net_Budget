@@ -269,7 +269,10 @@ const statisticReducer = (state = initialState, action) => {
                 topVisited_times: sortTimes
             };
         case types.DELETE_ALL_TRANSACTIONS:
-            return initialState;
+            return {
+                ...initialState,
+                activeYears: [new Date().getFullYear()]
+            };
         case types.LOGOUT:
             return initialState;
         default:

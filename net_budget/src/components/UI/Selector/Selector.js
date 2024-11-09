@@ -68,6 +68,7 @@ const MonthSelector = (props) => {
 
 const YearSelector = (props) => {
     const dataYear = useSelector((state) => state.transaction.currentYear);
+    console.log(dataYear)
     const { activeYears } = useSelector((state) => state.statistics);
 
     return (
