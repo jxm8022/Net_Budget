@@ -29,7 +29,7 @@ const YearOverview = (props) => {
                     };
                 }
                 return best;
-            }, {value: monthOverview[0].net, index: 0});
+            }, {value: monthOverview[0].net.toFixed(2), index: 0});
 
             const worst = monthOverview.reduce((worst, month, index) => {
                 if (month.net < worst.value) {
@@ -39,7 +39,7 @@ const YearOverview = (props) => {
                     };
                 }
                 return worst;
-            }, {value: monthOverview[0].net, index: 0});
+            }, {value: monthOverview[0].net.toFixed(2), index: 0});
 
             const net = monthOverview.reduce((net, month) => {
                 return month.net + net;

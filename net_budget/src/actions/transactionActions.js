@@ -63,3 +63,10 @@ export const setDate = (payload) => {
         payload
     }
 }
+
+export const deleteAllTransactions = (payload) => {
+    return {
+        type: types.DELETE_ALL_TRANSACTIONS,
+        info: 'Delete all transactions'
+    }
+}

@@ -72,7 +72,7 @@ const MonthSelector = (props) => {
                 </label>
             </form>
             <button className='transaction-btn' onClick={createTransaction}>{labels.addTransactionBtnLabel}</button>
-            <button className='transaction-btn' onClick={addRecurring}>{labels.addRecurringTransactionBtnLabel}</button>
+            {/*<button className='transaction-btn' onClick={addRecurring}>{labels.addRecurringTransactionBtnLabel}</button> disabled for now*/}
         </>
     );
 }

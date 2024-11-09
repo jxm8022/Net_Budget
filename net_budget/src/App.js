@@ -22,7 +22,6 @@ const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
 function App() {
   const { lifetimeTransactions } = useSelector((state) => state.statistics);
   const { currentYear } = useSelector((state) => state.transaction);
-  const { debts } = useSelector((state) => state.debt);
   const { isLoggedIn, userId, token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -95,8 +94,8 @@ function App() {
         dispatch(calculateDebtSummary(lifetimeTransactions));
       } else {
         loadTransactionsAPI(userId, token).then((res) => {
+          dispatch(saveAllTransactions(res?.transactions));
           if (res) {
-            dispatch(saveAllTransactions(res.transactions));
             dispatch(loadRecurringTransactions(res.recurringTransactions));
             dispatch(loadDebt(res.debts));
           } else {
@@ -105,8 +104,11 @@ function App() {
         });
       }
     }
-    dispatch(loadUser());
-  }, [dispatch, currentYear, userId, token, lifetimeTransactions, debts]);
+    else
+    {
+      dispatch(loadUser());
+    }
+  }, [dispatch, currentYear, userId, token, lifetimeTransactions]);
 
   return (
     <Suspense>

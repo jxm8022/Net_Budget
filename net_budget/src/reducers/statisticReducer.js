@@ -196,10 +196,20 @@ const statisticReducer = (state = initialState, action) => {
                 lifetimeTransactions: delete_updatedTransactions,
             };
         case types.SAVE_ALL_TRANSACTIONS:
+            const currentYear = new Date().getFullYear().toString();
+            if (!action.payload)
+            {
+                let activeYears = [currentYear];
+                localStorage.setItem('startYear', JSON.stringify(currentYear));
+                return {
+                    ...state,
+                    activeYears: activeYears,
+                };
+            }
+
             let activeYears = Object.keys(action.payload);
             localStorage.setItem('startYear', JSON.stringify(activeYears[0]));
 
-            const currentYear = new Date().getFullYear().toString();
             if (!activeYears.includes(currentYear)) {
                 activeYears.push(currentYear);
             }
@@ -208,7 +218,7 @@ const statisticReducer = (state = initialState, action) => {
                 ...state,
                 lifetimeTransactions: action.payload,
                 activeYears: activeYears,
-            }
+            };
         case types.CALCULATE_STATISTICS:
             let data = state.lifetimeTransactions;
 
@@ -257,6 +267,11 @@ const statisticReducer = (state = initialState, action) => {
                 transactionDictionary: transactionDictionary,
                 topVisited_amount: sortAmount,
                 topVisited_times: sortTimes
+            };
+        case types.DELETE_ALL_TRANSACTIONS:
+            return {
+                ...initialState,
+                activeYears: [new Date().getFullYear()]
             };
         case types.LOGOUT:
             return initialState;
