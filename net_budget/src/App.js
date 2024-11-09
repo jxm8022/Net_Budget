@@ -15,6 +15,8 @@ import AddTransaction from './components/DisplayMonth/AddTransaction/AddTransact
 import Statistics from './pages/Statistics';
 import Debt from './pages/Debt';
 import './App.css';
+import { loadAccountsAPI } from './api/accountAPI';
+import { loadAccounts } from './actions/accountActions';
 
 const HomePage = React.lazy(() => import('./pages/Home'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'));
@@ -93,14 +95,17 @@ function App() {
         dispatch(calculateStatistics());
         dispatch(calculateDebtSummary(lifetimeTransactions));
       } else {
-        loadTransactionsAPI(userId, token).then((res) => {
-          dispatch(saveAllTransactions(res?.transactions));
-          if (res) {
-            dispatch(loadRecurringTransactions(res.recurringTransactions));
-            dispatch(loadDebt(res.debts));
-          } else {
-            localStorage.setItem('startYear', new Date().getFullYear().toString());
-          }
+        loadAccountsAPI(userId, token).then((accounts) => {
+          dispatch(loadAccounts(accounts));
+          loadTransactionsAPI(userId, token).then((res) => {
+            dispatch(saveAllTransactions(res?.transactions));
+            if (res) {
+              dispatch(loadRecurringTransactions(res.recurringTransactions));
+              dispatch(loadDebt(res.debts));
+            } else {
+              localStorage.setItem('startYear', new Date().getFullYear().toString());
+            }
+          });
         });
       }
     }

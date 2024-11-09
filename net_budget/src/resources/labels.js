@@ -30,6 +30,12 @@ export const occurrenceTypes = [
     { id: 1, type: 'End of month' },
 ];
 
+export const accountTypes = [
+    { id: 0, type: 'Checking'},
+    { id: 1, type: 'Savings'},
+    { id: 2, type: 'Credit'},
+]
+
 export const labels = {
     // Application name
     websiteName: 'Pocket Change',
@@ -172,6 +178,14 @@ export const labels = {
         'Amount'
     ],
     deleteData: 'Delete data',
+    addAccountButtonLabel: 'Add Account',
+    accountTableHeader: 'Accounts',
+    accountsHeaders: [
+        'Account',
+        'Type',
+        'Initial Balance',
+        'Date',
+    ],
 
     // Not found page
     notLoggedIn: 'Looks like you are not logged in!',

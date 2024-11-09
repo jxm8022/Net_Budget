@@ -9,6 +9,7 @@ const initialState = {
     topVisited_amount: [],
     topVisited_times: [],
     activeYears: [],
+    hasBaseline: false,
 }
 
 const statisticReducer = (state = initialState, action) => {
@@ -218,6 +219,7 @@ const statisticReducer = (state = initialState, action) => {
                 ...state,
                 lifetimeTransactions: action.payload,
                 activeYears: activeYears,
+                hasBaseline: true,
             };
         case types.CALCULATE_STATISTICS:
             let data = state.lifetimeTransactions;

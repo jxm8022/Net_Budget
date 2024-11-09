@@ -29,3 +29,7 @@ export const LOGOUT = 'LOGOUT';
 
 // PAGE ACTIONS
 export const SET_MESSAGE = 'SET_MESSAGE';
+
+// ACCOUNT ACTIONS
+export const ADD_ACCOUNT = 'ADD_ACCOUNT';
+export const LOAD_ACCOUNTS = 'LOAD_ACCOUNTS';
