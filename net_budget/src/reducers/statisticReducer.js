@@ -9,7 +9,7 @@ const initialState = {
     topVisited_amount: [],
     topVisited_times: [],
     activeYears: [],
-    hasBaseline: false,
+    initialLoadComplete: false,
 }
 
 const statisticReducer = (state = initialState, action) => {
@@ -31,6 +31,7 @@ const statisticReducer = (state = initialState, action) => {
                             date: transactionToAdd.date,
                             name: transactionToAdd.name,
                             type: transactionToAdd.type,
+                            accountId: transactionToAdd.accountId,
                         }
                     };
 
@@ -52,6 +53,7 @@ const statisticReducer = (state = initialState, action) => {
                                 date: transactionToAdd.date,
                                 name: transactionToAdd.name,
                                 type: transactionToAdd.type,
+                                accountId: transactionToAdd.accountId,
                             }
                         }
                     };
@@ -66,6 +68,7 @@ const statisticReducer = (state = initialState, action) => {
                                 date: transactionToAdd.date,
                                 name: transactionToAdd.name,
                                 type: transactionToAdd.type,
+                                accountId: transactionToAdd.accountId,
                             }
                         }
                     }
@@ -207,19 +210,59 @@ const statisticReducer = (state = initialState, action) => {
                     activeYears: activeYears,
                 };
             }
+            
+            let combinedTransactions = {};
+            for (let accountId in action.payload)
+            {
+                const accountTransactions = {...action.payload[accountId].transactions};
+                if (accountTransactions)
+                {
+                    for (let y in accountTransactions)
+                    {
+                        if (!combinedTransactions[y])
+                        {
+                            combinedTransactions[y] = {}
+                        }
 
-            let activeYears = Object.keys(action.payload);
-            localStorage.setItem('startYear', JSON.stringify(activeYears[0]));
+                        for (let m in accountTransactions[y])
+                        {
+                            if (!combinedTransactions[y][m])
+                            {
+                                combinedTransactions[y][m] = {}
+                            }
 
+                            let updatedTransactionsWithAccountIds = {};
+                            for (let transactionId in accountTransactions[y][m])
+                            {
+                                updatedTransactionsWithAccountIds = {
+                                    ...updatedTransactionsWithAccountIds,
+                                    [transactionId]: {
+                                        ...accountTransactions[y][m][transactionId],
+                                        accountId: accountId,
+                                    }
+                                }
+                            }
+                            
+                            combinedTransactions[y][m] = {
+                                ...combinedTransactions[y][m],
+                                ...accountTransactions[y][m]
+                            };
+                        }
+                    }
+                }
+            }
+            
+            let activeYears = Object.keys(combinedTransactions);
             if (!activeYears.includes(currentYear)) {
                 activeYears.push(currentYear);
             }
+            localStorage.setItem('startYear', JSON.stringify(activeYears[0]));
 
             return {
                 ...state,
-                lifetimeTransactions: action.payload,
+                lifetimeTransactions: combinedTransactions,
                 activeYears: activeYears,
-                hasBaseline: true,
+                initialLoadComplete: true,
             };
         case types.CALCULATE_STATISTICS:
             let data = state.lifetimeTransactions;

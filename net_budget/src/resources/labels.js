@@ -10,6 +10,15 @@ export const categories = [
     { id: 8, type: 'Debt'},
 ];
 
+export const transactionCategories = [
+    { id: 0, type: 'Want' },
+    { id: 1, type: 'Need' },
+    { id: 2, type: 'Savings' },
+    { id: 3, type: 'Debt Payment' },
+    { id: 4, type: 'Income' },
+    { id: 5, type: 'Interest' },
+];
+
 export const months = [
     { id: 0, month: 'January', abb: 'Jan' },
     { id: 1, month: 'February', abb: 'Feb' },

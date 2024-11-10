@@ -1,9 +1,9 @@
-export const addAccountAPI = (userId, accountName, accountPayload, token) => {
-    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/accounts/${accountName}.json?auth=${token}`;
+export const addAccountAPI = (userId, accountPayload, token) => {
+    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/accounts.json?auth=${token}`;
     return fetch(
         addURL,
         {
-            method: 'PUT',
+            method: 'POST',
             body: JSON.stringify(accountPayload),
             headers: {
                 'Content-Type': 'application/json'

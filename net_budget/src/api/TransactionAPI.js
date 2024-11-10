@@ -1,12 +1,12 @@
-export const addTransactionAPI = (userId, transaction, token) => { // date format yyyy-mm-dd
-    const year = transaction.date.substring(0, 4);
-    const month = transaction.date.substring(5, 7);
-    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${year}/${month}.json?auth=${token}`;
+export const addTransactionAPI = (userId, accountId, payload, token) => { // date format yyyy-mm-dd
+    const year = payload.date.substring(0, 4);
+    const month = payload.date.substring(5, 7);
+    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/accounts/${accountId}/transactions/${year}/${month}.json?auth=${token}`;
     return fetch(
         addURL,
         {
             method: 'POST',
-            body: JSON.stringify(transaction),
+            body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json'
             }

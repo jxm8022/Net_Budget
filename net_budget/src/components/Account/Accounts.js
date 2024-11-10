@@ -51,9 +51,9 @@ const Accounts = () => {
     const submitForm = (event) => {
         event.preventDefault();
         setError(false);
-        
-        const accountName = transName.current.value;
+
         const payload = {
+            name: transName.current.value,
             type: parseInt(transType.current.value),
             date: transDate.current.value,
             balance: parseFloat(transAmount.current.value),
@@ -64,16 +64,11 @@ const Accounts = () => {
             return;
         }
 
-        addAccountAPI(userId, accountName, payload, token).then(res =>{
-            dispatch(addAccount({payload: res, name: accountName}));
+        addAccountAPI(userId, payload, token).then(res =>{
+            dispatch(addAccount({...payload, id: res.name}));
             setIsDisplayModal(false);
         });
     }
-
-    const checkType = () => {
-
-    }
-
     return (
         <AccountsWrapper>
             <table>
@@ -87,16 +82,16 @@ const Accounts = () => {
                 </thead>
                 <tbody>
                     {accounts.length > 0 ? accounts.map((account) => (
-                        <tr key={account.key}>
-                            <td>{account.key}</td>
-                            <td>{account.value.type}</td>
-                            <td>{account.value.balance}</td>
-                            <td>{account.value.date}</td>
+                        <tr key={account.id}>
+                            <td>{account.name}</td>
+                            <td>{account.type}</td>
+                            <td>{account.balance}</td>
+                            <td>{account.date}</td>
                         </tr>
                     )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td><td> </td></tr>}
+                    <tr><td colSpan={labels.accountsHeaders.length} onClick={handleAddAccount}>{labels.addAccountButtonLabel}</td></tr>
                 </tbody>
             </table>
-            <button onClick={handleAddAccount}>{labels.addAccountButtonLabel}</button>
             {isDisplayModal && <ModalWrapper>
                 <div className='modal-background'></div>
                 <div className='modal'>
@@ -109,7 +104,7 @@ const Accounts = () => {
                             <form className='transaction-input-form' onSubmit={submitForm} onFocus={() => { setError() }}>
                                 <label>
                                     <p>{labels.type}</p>
-                                    <select id='type' ref={transType} defaultValue={0} onChange={checkType}>
+                                    <select id='type' ref={transType} defaultValue={0}>
                                         {accountTypes.map((category, index) => {
                                             return <option key={category.id} value={index}>{category.type}</option>
                                         })
@@ -246,6 +241,100 @@ const ModalWrapper = styled.div`
     }
 
     @media (prefers-color-scheme: light) {
+    }
+
+    /* mobile */
+    .transaction-input-form {
+        margin: 10px 10px 40px 10px;
+        padding: 20px;
+        width: 90%;
+    }
+
+    .transaction-input-form label {
+        padding: 10px;
+        display: block;
+        height: 60px;
+    }
+
+    .transaction-input-form p {
+        margin: 10px 0px;
+        padding: 0px 10px;
+        float: left;
+        font-weight: 600;
+    }
+
+    .transaction-input-form label select,
+    .transaction-input-form label input {
+        margin: 10px;
+    }
+
+    .transaction-input-form select, input {
+        cursor: pointer;
+        border: none;
+        border-radius: 50px;
+        margin: 10px 0px;
+        padding: 0px 10px;
+        font: inherit;
+        font-size: .75em;
+        outline: none;
+    }
+
+    .transaction-input-form button {
+        float: right;
+        cursor: pointer;
+        border: none;
+        border-radius: 50px;
+        margin: 10px 0px;
+        padding: 10px 20px;
+        font: inherit;
+    }
+
+    #name {
+        width: 42%;
+    }
+
+    /* tablets */
+    @media only screen and (min-width: 600px) {
+        .transaction-input-form {
+            width: 60%;
+        }
+    }
+
+    /* desktop */
+    @media only screen and (min-width: 900px) {
+        .transaction-input-form {
+            width: 40%;
+        }
+
+        #name {
+            width: 50%;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .transaction-input-form select, input {
+            border: 1px solid var(--pink);
+            background-color: var(--teal);
+            color: var(--pink);
+        }
+
+        .transaction-input-form button {
+            background-color: var(--pink);
+            color: var(--teal);
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        .transaction-input-form select, input {
+            border: 1px solid var(--teal);
+            background-color: var(--pink);
+            color: var(--teal);
+        }
+
+        .transaction-input-form button {
+            background-color: var(--teal);
+            color: var(--pink);
+        }
     }
 `;
 

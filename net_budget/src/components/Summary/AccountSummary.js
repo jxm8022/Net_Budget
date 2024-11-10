@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -5,7 +6,15 @@ import styled from "styled-components";
 const AccountSummary = () => {
     const navigate = useNavigate();
     const { accounts } = useSelector((state) => state.accounts);
-    const accountsWithPlaceholder = [...accounts, {key: 'placeholder-account'}];
+    const [gridCount, setGridCount] = useState(1);
+    const [accountList, setAccountList] = useState([]);
+
+    useEffect(() => {
+        if (accounts.length > 1) {
+            setGridCount(accounts.length)
+            setAccountList([...accounts, {id: 'placeholder-account'}]);
+        }
+    }, [accounts]);
 
     const handleAddAccount = () => {
         // this should eventually open modal
@@ -15,23 +24,23 @@ const AccountSummary = () => {
     }
 
     const AccountWrapper = (account) => {
-        if (account.key === 'placeholder-account') {
-            return <div key={account.key} className="placeholder">
+        if (account.id === 'placeholder-account') {
+            return <div key={account.id} className="placeholder">
                 <button onClick={handleAddAccount}>Add account</button>
             </div>;
         }
-        return <div key={account.key} className="accountWrapper">
-            <p className="accountHeader">{account.key}</p>
+        return <div key={account.id} className="accountWrapper">
+            <p className="accountHeader">{account.name}</p>
             <hr className="accountSeparator" />
-            <p className="accountBody">${account.value.balance}</p>
+            <p className="accountBody">${account.displayBalance.toFixed(2)}</p>
         </div>;
     }
 
     return (
         <AccountSummaryWrapper>
             <h2>Summary</h2>
-            <AccountsWrapper>
-                {accountsWithPlaceholder.map(account => AccountWrapper(account))}
+            <AccountsWrapper $columns={gridCount === 1 ? 1 : 2}>
+                {accountList.map(account => AccountWrapper(account))}
             </AccountsWrapper>
         </AccountSummaryWrapper>
     );
@@ -48,14 +57,23 @@ const AccountSummaryWrapper = styled.div`
 const AccountsWrapper = styled.div`
     /* mobile */
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: ${({ $columns }) => `repeat(${$columns}, 1fr)`};
     grid-gap: 25px;
     margin: 0px;
 
     .accountWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    
         .accountHeader {
-            margin: 0px;
+            height: 3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            margin: 0px;
         }
 
         .accountSeparator {
@@ -63,6 +81,10 @@ const AccountsWrapper = styled.div`
         }
 
         .accountBody {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
         }
     }

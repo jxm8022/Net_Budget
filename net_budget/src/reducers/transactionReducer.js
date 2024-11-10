@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import { getOverview, sortRecurringTransactionsByDayAsc, sortTransactionsByDate } from '../utilities/ReducerHelper';
+import { getTransactionsOverview, sortRecurringTransactionsByDayAsc, sortTransactionsByDate } from '../utilities/ReducerHelper';
 
 const initialState = {
     currentMonth: new Date().getMonth(),
@@ -78,7 +78,7 @@ const transactionReducer = (state = initialState, action) => {
                         amount: data[month][transactionId].amount,
                     });
                 }
-                let monthOverview = getOverview(monthTransactions);
+                let monthOverview = getTransactionsOverview(monthTransactions);
                 let monthIndex = parseInt(month)-1;
 
                 /***********    GET LINE GRAPH DATA     *************/
@@ -90,8 +90,8 @@ const transactionReducer = (state = initialState, action) => {
                 loadedTransactions[monthIndex] = {
                     ...loadedTransactions[monthIndex],
                     net: monthOverview.net,
-                    potNet: monthOverview.potNet,
-                    projNet: monthOverview.projNet,
+                    // potNet: monthOverview.potNet,
+                    // projNet: monthOverview.projNet,
                     transactions: monthTransactions.sort(sortTransactionsByDate)
                 };
             }
