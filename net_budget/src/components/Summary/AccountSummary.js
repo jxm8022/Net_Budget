@@ -10,10 +10,9 @@ const AccountSummary = () => {
     const [accountList, setAccountList] = useState([]);
 
     useEffect(() => {
-        if (accounts.length > 1) {
-            setGridCount(accounts.length)
-            setAccountList([...accounts, {id: 'placeholder-account'}]);
-        }
+        const updatedAccountList = [...accounts, {id: 'placeholder-account'}];
+        setGridCount(updatedAccountList.length);
+        setAccountList(updatedAccountList);
     }, [accounts]);
 
     const handleAddAccount = () => {
@@ -37,22 +36,13 @@ const AccountSummary = () => {
     }
 
     return (
-        <AccountSummaryWrapper>
-            <h2>Summary</h2>
-            <AccountsWrapper $columns={gridCount === 1 ? 1 : 2}>
-                {accountList.map(account => AccountWrapper(account))}
-            </AccountsWrapper>
-        </AccountSummaryWrapper>
+        <AccountsWrapper $columns={gridCount === 1 ? 1 : 2}>
+            {accountList.map(account => AccountWrapper(account))}
+        </AccountsWrapper>
     );
 }
 
 export default AccountSummary;
-
-const AccountSummaryWrapper = styled.div`
-    h2 {
-        text-align: center;
-    }
-`;
 
 const AccountsWrapper = styled.div`
     /* mobile */

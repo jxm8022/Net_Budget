@@ -50,10 +50,6 @@ function App() {
         component: <Statistics />
       },
       {
-        path: '/debt',
-        component: <Debt />
-      },
-      {
         path: '/account',
         component: <Account />
       }

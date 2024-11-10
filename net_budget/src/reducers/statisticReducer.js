@@ -73,13 +73,13 @@ const statisticReducer = (state = initialState, action) => {
                         }
                     }
                 }
-                updatedActiveYears = Object.keys(existingTransactions);
+                updatedActiveYears = [Object.keys(existingTransactions)];
             }
 
             return {
                 ...state,
                 lifetimeTransactions: existingTransactions,
-                activeYears: updatedActiveYears,
+                activeYears: updatedActiveYears.sort(),
             };
         case types.UPDATE_TRANSACTION:
             let updatedTransactions = { ...state.lifetimeTransactions };
@@ -205,6 +205,7 @@ const statisticReducer = (state = initialState, action) => {
             {
                 let activeYears = [currentYear];
                 localStorage.setItem('startYear', JSON.stringify(currentYear));
+                localStorage.setItem('currentDisplayYear', currentYear);
                 return {
                     ...state,
                     activeYears: activeYears,
@@ -214,7 +215,7 @@ const statisticReducer = (state = initialState, action) => {
             let combinedTransactions = {};
             for (let accountId in action.payload)
             {
-                const accountTransactions = {...action.payload[accountId].transactions};
+                const accountTransactions = structuredClone(action.payload[accountId].transactions);
                 if (accountTransactions)
                 {
                     for (let y in accountTransactions)
@@ -231,16 +232,10 @@ const statisticReducer = (state = initialState, action) => {
                                 combinedTransactions[y][m] = {}
                             }
 
-                            let updatedTransactionsWithAccountIds = {};
                             for (let transactionId in accountTransactions[y][m])
                             {
-                                updatedTransactionsWithAccountIds = {
-                                    ...updatedTransactionsWithAccountIds,
-                                    [transactionId]: {
-                                        ...accountTransactions[y][m][transactionId],
-                                        accountId: accountId,
-                                    }
-                                }
+                                accountTransactions[y][m][transactionId].accountId = accountId;
+                                accountTransactions[y][m][transactionId].accountTypeId = action.payload[accountId].type;
                             }
                             
                             combinedTransactions[y][m] = {
@@ -257,6 +252,7 @@ const statisticReducer = (state = initialState, action) => {
                 activeYears.push(currentYear);
             }
             localStorage.setItem('startYear', JSON.stringify(activeYears[0]));
+            localStorage.setItem('currentDisplayYear', currentYear);
 
             return {
                 ...state,

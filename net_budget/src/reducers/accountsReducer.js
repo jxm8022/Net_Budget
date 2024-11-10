@@ -64,6 +64,7 @@ const accountsReducer = (state = initialState, action) => {
             let addAccountState = structuredClone(state);
             const newAccount = {
                 ...action.payload,
+                displayBalance: action.payload.balance,
                 type: getAccountType(action.payload.type)
             }
             addAccountState.accounts.push(newAccount);

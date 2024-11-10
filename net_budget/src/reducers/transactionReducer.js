@@ -120,6 +120,7 @@ const transactionReducer = (state = initialState, action) => {
                     ...state,
                     currentYear: year
                 }
+                localStorage.setItem('currentDisplayYear', year);
             }
             return newDate;
         case types.DELETE_ALL_TRANSACTIONS:

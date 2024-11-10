@@ -73,11 +73,6 @@ const NavBar = () => {
                 name: labels.statistics
             },
             {
-                id: 4,
-                where: `../debt`,
-                name: labels.debt
-            },
-            {
                 id: 5,
                 where: `../about`,
                 name: labels.about

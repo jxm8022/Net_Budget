@@ -5,6 +5,7 @@ import userReducer from '../reducers/userReducer';
 import statisticReducer from '../reducers/statisticReducer';
 import debtReducer from '../reducers/debtReducer';
 import accountsReducer from '../reducers/accountsReducer';
+import graphReducer from '../reducers/graphReducer';
 
 const store = configureStore(
     {
@@ -15,6 +16,7 @@ const store = configureStore(
             transaction: transactionReducer,
             user: userReducer,
             accounts: accountsReducer,
+            graph: graphReducer,
         }
     }
 );
