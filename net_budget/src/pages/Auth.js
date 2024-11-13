@@ -1,4 +1,4 @@
-import AuthForm from "../components/Auth/LoginSignUp/AuthForm";
+import AuthForm from "../components/Auth/AuthForm";
 import Template from "../components/UI/Template/Template";
 
 const Auth = () => {
