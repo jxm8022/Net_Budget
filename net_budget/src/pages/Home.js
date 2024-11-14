@@ -1,24 +1,24 @@
 import Template from "../components/UI/Template/Template";
-import Graph from "../components/DisplayYear/Graph/Graph";
 import AccountSummary from "../components/Summary/AccountSummary";
 import Selector from "../components/UI/Selector/Selector";
 import { labels } from "../resources/labels";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setDate } from "../actions/transactionActions";
 import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
 import { SELECTORTYPES } from "../resources/constants";
 import YearOverview from "../components/DisplayYear/YearOverview/YearOverview";
+import useLoadAccounts from "../utilities/customHooks/useLoadAccounts";
+import useYearParam from "../utilities/customHooks/useYearParam";
+import useLoadYearStatistics from "../utilities/customHooks/useLoadYearStatistics";
+import NetSummary from "../components/Summary/NetSummary";
 
 const Home = () => {
     const dispatch = useDispatch();
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const [, setSearchParams] = useSearchParams();
-    const { currentYear } = useSelector((state) => state.transaction);
-
-    useEffect(() => {
-        setSearchParams(`year=${currentYear}`)
-    }, [currentYear, setSearchParams]);
+    useYearParam();
+    const accounts = useLoadAccounts();
+    const statistics = useLoadYearStatistics();
 
     const onYearChange = (event) => {
         dispatch(setDate({ year: parseInt(event.target.value) }));
@@ -30,9 +30,9 @@ const Home = () => {
             <h1>{labels.home}</h1>
             <h2>Summary</h2>
             <Selector type={SELECTORTYPES.YEAR} onYearChange={onYearChange} />
-            <AccountSummary />
+            <AccountSummary accounts={accounts} />
             <YearOverview />
-            <Graph />
+            <NetSummary statistics={statistics} />
         </Template>
     );
 }

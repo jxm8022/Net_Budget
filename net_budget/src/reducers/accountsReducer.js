@@ -2,8 +2,8 @@ import * as types from '../actions/actionTypes';
 import { accountTypes, transactionCategories } from '../resources/labels';
 
 const initialState = {
-    accounts: [],
-    accountLabels: [],
+    accounts: {},
+    accountDictionary: {}, 
 }
 
 const getAccountType = (typeId) => accountTypes[typeId].type;
@@ -71,23 +71,18 @@ const accountsReducer = (state = initialState, action) => {
             addAccountState.accountLabels.push({id: newAccount.id, label: newAccount.name});
             return addAccountState;
         case types.LOAD_ACCOUNTS:
+            let loadAccountsState = structuredClone(state);
             if (!action.payload) {
-                return state;
+                return loadAccountsState;
             }
 
-            const mappedAccounts = Object.keys(action.payload).map(key => {
-                return {
-                    ...action.payload[key],
-                    id: key,
-                    displayBalance: action.payload[key].balance + getTransactionTotal(action.payload[key].type, action.payload[key].transactions),
-                    type: getAccountType(action.payload[key].type),
-                }
-            });
-            return {
-                ...state,
-                accounts: mappedAccounts,
-                accountLabels: mappedAccounts.map(account => {return {id: account.id, label: account.name}}),
-            };
+            loadAccountsState.accounts = action.payload;
+            loadAccountsState.accountDictionary = Object.keys(action.payload).reduce((acc, key) => {
+                acc[key] = action.payload[key].name;
+                return acc;
+            }, {});
+
+            return loadAccountsState;
         case types.ADD_TRANSACTION:
             const newTransaction = {
                 ...action.payload,

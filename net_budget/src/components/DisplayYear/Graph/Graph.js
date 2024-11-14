@@ -1,14 +1,11 @@
 import ReactApexChart from "react-apexcharts";
-import { useSelector } from "react-redux";
 import { labels, months } from "../../../resources/labels";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const Graph = () => {
-    const { graphData } = useSelector((state) => state.graph);
-    const { accountLabels } = useSelector((state) => state.accounts);
-    const [ width, setWidth ] = useState(window.innerWidth);
+const Graph = (props) => {
     const [ isDarkMode ] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const [ width, setWidth ] = useState(window.innerWidth);
 
     useEffect(() => {
         const updateWidth = () => {
@@ -19,9 +16,7 @@ const Graph = () => {
     },[]);
 
     const data = {
-        series: Object.keys(graphData).map(account => {
-            return { name: accountLabels.find(accountLabel => accountLabel.id === account)?.label ?? account, data: graphData[account]}
-        }),
+        series: props.series,
         options: {
             noData: {
                 text: labels.noDataText,
@@ -88,7 +83,7 @@ const Graph = () => {
             },
             tooltip: {
                 theme: true,
-                y: Object.keys(graphData).map(account => {
+                y: props.series.map(item => {
                     return {
                         title: {
                             formatter: function (val) {

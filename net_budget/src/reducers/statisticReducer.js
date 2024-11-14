@@ -3,17 +3,21 @@ import { categories } from '../resources/labels';
 import { getOverview, sortByAmount, sortByTimes } from '../utilities/ReducerHelper';
 
 const initialState = {
+    statistics: {},
     lifetimeNet: 0,
     lifetimeTransactions: {},
     transactionDictionary: [],
     topVisited_amount: [],
     topVisited_times: [],
     activeYears: [],
-    initialLoadComplete: false,
 }
 
 const statisticReducer = (state = initialState, action) => {
     switch (action.type) {
+        case types.LOAD_STATISTICS:
+            let loadStatisticsState = structuredClone(state);
+            loadStatisticsState.statistics = action.payload;
+            return loadStatisticsState;
         case types.ADD_TRANSACTION:
             let transactionToAdd = action.payload;
             let year = parseInt(action.payload.date.split('-')[0]);
@@ -258,7 +262,6 @@ const statisticReducer = (state = initialState, action) => {
                 ...state,
                 lifetimeTransactions: combinedTransactions,
                 activeYears: activeYears,
-                initialLoadComplete: true,
             };
         case types.CALCULATE_STATISTICS:
             let data = state.lifetimeTransactions;

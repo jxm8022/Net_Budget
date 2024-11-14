@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { setMessage } from '../../actions/pageActions';
 import { login } from '../../actions/userActions';
 import { signIn, resetPassword } from '../../api/userAPI';
@@ -33,6 +33,9 @@ const AuthForm = () => {
                     dispatch(login(res));
                     navigate({
                         pathname: '/yearOverview',
+                        search: createSearchParams({
+                            type: 1,
+                        }).toString()
                     });
                 }
             })
@@ -42,6 +45,9 @@ const AuthForm = () => {
                     dispatch(login(res));
                     navigate({
                         pathname: '/yearOverview',
+                        search: createSearchParams({
+                            type: 1,
+                        }).toString()
                     });
                 }
             })

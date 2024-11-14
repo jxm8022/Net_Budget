@@ -1,10 +1,10 @@
-export const addAccountAPI = (userId, accountPayload, token) => {
-    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/accounts.json?auth=${token}`;
+export const postAccountMonthStatistics = (userId, accountId, year, month, payload, token) => {
+    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/statistics/${year}/${month}/${accountId}.json?auth=${token}`;
     return fetch(
         addURL,
         {
             method: 'POST',
-            body: JSON.stringify(accountPayload),
+            body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -20,11 +20,11 @@ export const addAccountAPI = (userId, accountPayload, token) => {
         })
         .catch((err) => {
             alert(err.message);
-        })
+        });
 }
 
-export const fetchAccount = (userId, accountId, token) => {
-    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/accounts/${accountId}.json?auth=${token}`;
+export const fetchAccountMonthStatistics = (userId, accountId, year, month, token) => {
+    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/statistics/${year}/${month}/${accountId}.json?auth=${token}`;
     return fetch(loadURL)
         .then((res) => {
             if (res.ok) {
@@ -40,8 +40,8 @@ export const fetchAccount = (userId, accountId, token) => {
         });
 }
 
-export const fetchAccounts = (userId, token) => {
-    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/accounts.json?auth=${token}`;
+export const fetchMonthStatistics = (userId, year, month, token) => {
+    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/statistics/${year}/${month}.json?auth=${token}`;
     return fetch(loadURL)
         .then((res) => {
             if (res.ok) {
@@ -57,26 +57,19 @@ export const fetchAccounts = (userId, token) => {
         });
 }
 
-export const deleteAccountAPI = (userId, transactionId, token) => {
-    const deleteURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/debts/${transactionId}.json?auth=${token}`;
-    return fetch(
-        deleteURL,
-        {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+export const fetchYearStatistics = (userId, year, token) => {
+    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/statistics/${year}.json?auth=${token}`;
+    return fetch(loadURL)
         .then((res) => {
             if (res.ok) {
                 return res.json();
             } else {
                 return res.json().then((data) => {
-                    throw new Error(data.error.message);
-                })
+                    throw new Error(data.error);
+                });
             }
         })
         .catch((err) => {
             alert(err.message);
-        })
-    }
+        });
+}

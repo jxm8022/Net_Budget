@@ -1,19 +1,10 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const AccountSummary = () => {
+const AccountSummary = (props) => {
     const navigate = useNavigate();
-    const { accounts } = useSelector((state) => state.accounts);
-    const [gridCount, setGridCount] = useState(1);
-    const [accountList, setAccountList] = useState([]);
 
-    useEffect(() => {
-        const updatedAccountList = [...accounts, {id: 'placeholder-account'}];
-        setGridCount(updatedAccountList.length);
-        setAccountList(updatedAccountList);
-    }, [accounts]);
+    const accountArray = [...Object.entries(props.accounts), ['placeholder', {isPlaceHolder: true}]];
 
     const handleAddAccount = () => {
         // this should eventually open modal
@@ -22,22 +13,25 @@ const AccountSummary = () => {
         });
     }
 
-    const AccountWrapper = (account) => {
-        if (account.id === 'placeholder-account') {
-            return <div key={account.id} className="placeholder">
+    const AccountWrapper = (accountPayload) => {
+        const accountId = accountPayload[0];
+        const account = accountPayload[1];
+
+        if (account.isPlaceHolder) {
+            return <div key={accountId} className="placeholder">
                 <button onClick={handleAddAccount}>Add account</button>
             </div>;
         }
-        return <div key={account.id} className="accountWrapper">
+        return <div key={accountId} className="accountWrapper">
             <p className="accountHeader">{account.name}</p>
             <hr className="accountSeparator" />
-            <p className="accountBody">${account.displayBalance.toFixed(2)}</p>
+            <p className="accountBody">${account.currentBalance.toFixed(2)}</p>
         </div>;
     }
 
     return (
-        <AccountsWrapper $columns={gridCount === 1 ? 1 : 2}>
-            {accountList.map(account => AccountWrapper(account))}
+        <AccountsWrapper $columns={accountArray.length === 1 ? 1 : 2}>
+            {accountArray.map(account => AccountWrapper(account))}
         </AccountsWrapper>
     );
 }
