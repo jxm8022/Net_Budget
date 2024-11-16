@@ -30,7 +30,7 @@ const AccountSummary = (props) => {
     }
 
     return (
-        <AccountsWrapper $columns={accountArray.length === 1 ? 1 : 2}>
+        <AccountsWrapper $numColumns={accountArray.length}>
             {accountArray.map(account => AccountWrapper(account))}
         </AccountsWrapper>
     );
@@ -41,7 +41,7 @@ export default AccountSummary;
 const AccountsWrapper = styled.div`
     /* mobile */
     display: grid;
-    grid-template-columns: ${({ $columns }) => `repeat(${$columns}, 1fr)`};
+    grid-template-columns: ${({ $numColumns }) => `repeat(${$numColumns > 1 ? 2 : 1}, 1fr)`};
     grid-gap: 25px;
     margin: 0px;
 
@@ -74,7 +74,9 @@ const AccountsWrapper = styled.div`
     }
 
     .placeholder {
+        grid-column: span ${({ $numColumns }) => `${($numColumns % 2) === 0 ? 1 : 2}`};
         margin: auto;
+        ${({ $numColumns }) => `${($numColumns % 2) === 0 ? '' : 'padding-bottom: 25px;'}`}
     }
 
     /* tablets */

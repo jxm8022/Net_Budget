@@ -8,6 +8,7 @@ import useLoadAccounts from "../utilities/customHooks/useLoadAccounts";
 import useYearParam from "../utilities/customHooks/useYearParam";
 import useLoadYearStatistics from "../utilities/customHooks/useLoadYearStatistics";
 import NetSummary from "../components/Summary/NetSummary";
+import Selector from "../components/UI/Selector/Selector";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -26,13 +27,7 @@ const Home = () => {
         <Template>
             <h1>{labels.home}</h1>
             <h2>Summary</h2>
-            <form className='year-input-form'>
-                <label>{labels.year}
-                    <select id='type' value={1} onChange={onYearChange}>
-                        {[1, 2].map((year, index) => <option key={index} value={year}>{year}</option>)}
-                    </select>
-                </label>
-            </form>
+            <Selector year />
             <AccountSummary accounts={accounts} />
             <NetSummary statistics={statistics} />
         </Template>

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { setMessage } from '../../actions/pageActions';
 import { login } from '../../actions/userActions';
 import { signIn, resetPassword } from '../../api/userAPI';
