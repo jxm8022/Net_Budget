@@ -4,7 +4,6 @@ import styled from "styled-components";
 const AccountSummary = (props) => {
     const navigate = useNavigate();
 
-    console.log(props.accounts)
     const accountArray = [...Object.entries(props.accounts), ['placeholder', { isPlaceHolder: true }]];
 
     const handleAddAccount = () => {
