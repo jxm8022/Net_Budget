@@ -1,39 +1,51 @@
 import { useEffect, useState } from "react";
-import Graph from "../DisplayYear/Graph/Graph";
-import styled from "styled-components";
 import { useSelector } from "react-redux";
+import Graph from "../DisplayYear/Graph/Graph";
+import YearSummary from "./YearSummary";
+import styled from "styled-components";
 
 const NetSummary = (props) => {
     const { accountDictionary } = useSelector((state) => state.accounts);
+    const [netGraphData, setNetGraphData] = useState({});
     const [graphData, setGraphData] = useState([]);
 
     useEffect(() => {
         let updatedGraphData = [];
-        for (const month in props.statistics)
-        {
+        for (const month in props.statistics) {
             const monthIndex = month - 1;
-            for (const accountId in props.statistics[month])
-            {
+            for (const accountId in props.statistics[month]) {
                 const accountName = accountDictionary[accountId];
-                let accountSeries = updatedGraphData.find(d => d.name == accountName);
-                if (!accountSeries)
-                {
+                let accountSeries = updatedGraphData.find(d => d.name === accountName);
+                if (!accountSeries) {
                     let accountData = new Array(12).fill(0);
                     accountData[monthIndex] = props.statistics[month][accountId].net;
-                    updatedGraphData.push({name: accountName, data: accountData});
+                    updatedGraphData.push({ name: accountName, data: accountData });
                 }
-                else
-                {
+                else {
                     accountSeries.data[monthIndex] = props.statistics[month][accountId].net;
                 }
             }
         }
 
+        let updatedNetGraphData = structuredClone(updatedGraphData[0]);
+        if (updatedGraphData.length > 1) {
+            updatedNetGraphData.name = 'Net';
+            updatedNetGraphData.data = updatedGraphData.reduce((acc, val) => {
+                for (const monthIndex in val.data) {
+                    acc[monthIndex] += val.data[monthIndex];
+                }
+                return acc;
+            }, new Array(12).fill(0));
+            updatedGraphData.push(updatedNetGraphData);
+        }
+
+        setNetGraphData(updatedNetGraphData);
         setGraphData(updatedGraphData);
-    },[props.statistics]);
+    }, [props.statistics, accountDictionary]);
 
     return (
         <NetSummaryWrapper>
+            <YearSummary netGraphData={netGraphData?.data} />
             <Graph series={graphData} />
         </NetSummaryWrapper>
     );

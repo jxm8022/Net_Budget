@@ -1,37 +1,45 @@
-import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
-import { labels } from '../../../resources/labels';
+import { useEffect, useState } from "react";
+import { labels } from "../../resources/labels";
 import styled from "styled-components";
 
-const MonthOverview = () => {
-    const [searchParams] = useSearchParams();
-    const { potNet, projNet, net } = useSelector((state) => state.transaction.monthOverview[searchParams.get('month')]);
+const YearSummary = (props) => {
+    const [bestNet, setBestNet] = useState(0);
+    const [worstNet, setWorstNet] = useState(0);
+    const [net, setNet] = useState(0);
+
+    useEffect(() => {
+        if (props.netGraphData) {
+            setBestNet(props.netGraphData.reduce((res, val) => { return val > res ? val : res }, props.netGraphData[0]));
+            setWorstNet(props.netGraphData.reduce((res, val) => { return val < res ? val : res }, props.netGraphData[0]));
+            setNet(props.netGraphData.reduce((res, val) => { return res + val }, props.netGraphData[0]));
+        }
+    }, [props.netGraphData]);
 
     const textClass = (amount) => amount < 0 ? 'negative' : '';
 
     return (
-        <MonthOverviewWrapper>
+        <YearSummaryWrapper>
             <ul className='overview'>
                 <li>
-                    <h4>{labels.potentialNet}</h4>
-                    <p className={textClass(potNet)}>{'$' + potNet.toFixed(2)}</p>
+                    <h4>{labels.bestNet}</h4>
+                    <p className={textClass(bestNet)}>{`$${bestNet.toFixed(2)}`}</p>
                 </li>
                 <li className='middle'>
                     <h4>{labels.net}</h4>
-                    <p className={textClass(net)}>{'$' + net.toFixed(2)}</p>
+                    <p className={textClass(net)}>{`$${net.toFixed(2)}`}</p>
                 </li>
                 <li>
-                    <h4>{labels.projectedNet}</h4>
-                    <p className={textClass(projNet)}>{'$' + projNet.toFixed(2)}</p>
+                    <h4>{labels.worstNet}</h4>
+                    <p className={textClass(worstNet)}>{`$${worstNet.toFixed(2)}`}</p>
                 </li>
             </ul >
-        </MonthOverviewWrapper>
+        </YearSummaryWrapper>
     );
 }
 
-export default MonthOverview;
+export default YearSummary;
 
-const MonthOverviewWrapper = styled.div`
+const YearSummaryWrapper = styled.div`
     /* mobile */
     .overview {
         margin: 10px 0px;

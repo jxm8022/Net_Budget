@@ -4,7 +4,8 @@ import styled from "styled-components";
 const AccountSummary = (props) => {
     const navigate = useNavigate();
 
-    const accountArray = [...Object.entries(props.accounts), ['placeholder', {isPlaceHolder: true}]];
+    console.log(props.accounts)
+    const accountArray = [...Object.entries(props.accounts), ['placeholder', { isPlaceHolder: true }]];
 
     const handleAddAccount = () => {
         // this should eventually open modal

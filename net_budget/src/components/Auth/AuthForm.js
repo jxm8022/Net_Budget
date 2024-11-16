@@ -33,9 +33,6 @@ const AuthForm = () => {
                     dispatch(login(res));
                     navigate({
                         pathname: '/yearOverview',
-                        search: createSearchParams({
-                            type: 1,
-                        }).toString()
                     });
                 }
             })
@@ -45,9 +42,6 @@ const AuthForm = () => {
                     dispatch(login(res));
                     navigate({
                         pathname: '/yearOverview',
-                        search: createSearchParams({
-                            type: 1,
-                        }).toString()
                     });
                 }
             })
