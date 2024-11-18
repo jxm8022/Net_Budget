@@ -27,7 +27,7 @@ const Home = () => {
         <Template>
             <h1>{labels.home}</h1>
             <h2>Summary</h2>
-            <Selector year />
+            <Selector label={labels.year} value={2} options={[1,2,3]} onChange={onYearChange} />
             <AccountSummary accounts={accounts} />
             <NetSummary statistics={statistics} />
         </Template>
