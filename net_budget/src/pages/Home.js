@@ -12,7 +12,7 @@ import Selector from "../components/UI/Selector/Selector";
 
 const Home = () => {
     const dispatch = useDispatch();
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useYearParam();
     const accounts = useLoadAccounts();
@@ -27,7 +27,7 @@ const Home = () => {
         <Template>
             <h1>{labels.home}</h1>
             <h2>Summary</h2>
-            <Selector label={labels.year} value={2} options={[1,2,3]} onChange={onYearChange} />
+            <Selector label={labels.year} value={searchParams.get('year')} onChange={onYearChange} />
             <AccountSummary accounts={accounts} />
             <NetSummary statistics={statistics} />
         </Template>

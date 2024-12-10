@@ -2,7 +2,7 @@ import styled from "styled-components";
 import moment from 'moment/moment';
 import { DATEFORMAT } from "../../resources/constants";
 import { labels, accountTypes } from "../../resources/labels";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addAccountAPI } from "../../api/accountAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { GetStringLength } from "../../utilities/FormatData";
@@ -13,8 +13,20 @@ const Accounts = () => {
     const { userId, token } = useSelector((state) => state.user);
     const { accounts } = useSelector((state) => state.accounts);
 
+    const [mappedAccounts, setMappedAccounts] = useState([]);
     const [isDisplayModal, setIsDisplayModal] = useState(false);
     const [error, setError] = useState(false);
+
+    /* Build account array */
+    useEffect(() => {
+        setMappedAccounts(
+            Object.keys(accounts).map((id) => {
+                var account = {id, ...accounts[id]};
+                account.type = accountTypes.find(at => at.id === account.typeId)?.type ?? 'Missing Type';
+                return account;
+            })
+        )
+    }, [accounts]);
 
     const transType = useRef();
     const transDate = useRef();
@@ -54,9 +66,10 @@ const Accounts = () => {
 
         const payload = {
             name: transName.current.value,
-            type: parseInt(transType.current.value),
+            typeId: parseInt(transType.current.value),
             date: transDate.current.value,
-            balance: parseFloat(transAmount.current.value),
+            initialBalance: parseFloat(transAmount.current.value),
+            currentBalance: 0,
         }
 
         if (!validForm()) {
@@ -69,6 +82,7 @@ const Accounts = () => {
             setIsDisplayModal(false);
         });
     }
+
     return (
         <AccountsWrapper>
             <table>
@@ -81,11 +95,11 @@ const Accounts = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {accounts.length > 0 ? accounts.map((account) => (
+                    {mappedAccounts.length > 0 ? mappedAccounts.map((account) => (
                         <tr key={account.id}>
                             <td>{account.name}</td>
                             <td>{account.type}</td>
-                            <td>{account.balance}</td>
+                            <td>{account.initialBalance}</td>
                             <td>{account.date}</td>
                         </tr>
                     )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td><td> </td></tr>}

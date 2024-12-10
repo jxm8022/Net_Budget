@@ -107,12 +107,15 @@ const SelectorV1 = React.forwardRef((props, ref) => {
 })
 
 const Selector = (props) => {
+    const { currentYear } = useSelector((state) => state.user);
+    var years = props.options ?? Array.from({ length: 11 }, (_, i) => currentYear - 10 + i + 1);
+    var value = props.value ?? currentYear;
     return (
         <SelectorWrapper>
             <form>
                 <label>{props.label}
-                    <select value={props.value} onChange={props.onChange}>
-                        {props.options.map((year, index) => <option key={index} value={year}>{year}</option>)}
+                    <select value={value} onChange={props.onChange}>
+                        {years.map((year, index) => <option key={index} value={year}>{year}</option>)}
                     </select>
                 </label>
             </form>
