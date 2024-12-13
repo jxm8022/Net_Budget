@@ -1,9 +1,9 @@
-export const postAccountMonthStatistics = (userId, accountId, year, month, payload, token) => {
-    const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/statistics/${year}/${month}/${accountId}.json?auth=${token}`;
+export const patchAccountMonthStatistics = async (userId, accountId, year, month, payload, token) => {
+    const updateURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/statistics/${year}/${month}/${accountId}.json?auth=${token}`;
     return fetch(
-        addURL,
+        updateURL,
         {
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json'

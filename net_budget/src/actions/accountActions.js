@@ -8,6 +8,14 @@ export const addAccount = (payload) => {
     }
 }
 
+export const updateAccount = (payload) => {
+    return {
+        type: types.UPDATE_ACCOUNT,
+        info: 'Updating account.',
+        payload
+    }
+}
+
 export const loadAccounts = (payload) => {
     return {
         type: types.LOAD_ACCOUNTS,

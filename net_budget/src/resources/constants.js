@@ -12,6 +12,14 @@ export const TYPES = {
     DEBT: 8,
 };
 
+export const EXPENSETYPES = [
+    0, // Want
+    1, // Need
+    2, // Savings
+    3, // Debt Payment
+    5, // Interest
+];
+
 export const SUBMITTYPES = {
     ADD: 'Add'
 };

@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import moment from 'moment/moment';
 import styled from "styled-components";
-import { DATEFORMAT } from '../../resources/constants';
+import { DATEFORMAT, EXPENSETYPES } from '../../resources/constants';
 import { labels, transactionCategories } from '../../resources/labels';
 import { FormatString, GetStringLength } from '../../utilities/FormatData';
 import Template from '../UI/Template/Template';
 import { addTransactionAPI } from '../../api/TransactionAPI';
-import { addTransaction } from '../../actions/transactionActions';
+import useLoadAccounts from '../../utilities/customHooks/useLoadAccounts';
+import { updateAccountAPI } from '../../api/accountAPI';
+import { fetchAccountMonthStatistics, patchAccountMonthStatistics } from '../../api/statisticsAPI';
+import { updateAccount } from '../../actions/accountActions';
 
 const AddTransaction = () => {
     const dispatch = useDispatch();
@@ -16,9 +19,11 @@ const AddTransaction = () => {
 
     const { userId, token } = useSelector((state) => state.user);
     const { transactionDictionary } = useSelector((state) => state.statistics);
-    const { accountLabels } = useSelector((state) => state.accounts);
+    const { accountDictionary } = useSelector((state) => state.accounts);
 
     const [isError, setIsError] = useState(false);
+
+    const accounts = useLoadAccounts();
 
     const accountRef = useRef();
     const categoryRef = useRef();
@@ -59,37 +64,56 @@ const AddTransaction = () => {
 
         return true;
     }
-
-    const submitForm = (event) => {
+    
+    const submitForm = async (event) => {
         event.preventDefault();
         setIsError(false);
-
+        
         if (!validForm()) {
             setIsError(true);
             return;
         }
-
-        const accountId = accountRef.current.value;
+        
         const payload = {
-            type: parseInt(categoryRef.current.value),
+            accountId: accountRef.current.value,
+            typeId: parseInt(categoryRef.current.value),
             date: moment(dateRef.current.value).format(DATEFORMAT).toString(),
             name: FormatString(nameRef.current.value),
             amount: parseFloat(amountRef.current.value),
         };
-    
-        const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${transactionCategories[payload.type].type}\nTransaction Date: ${payload.date}\nTransaction Name: ${payload.name}\nTransaction Amount: $${payload.amount}`);
+        
+        const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${transactionCategories[payload.typeId].type}\nTransaction Date: ${payload.date}\nTransaction Name: ${payload.name}\nTransaction Amount: $${payload.amount}`);
         if (response) {
-            addTransactionAPI(userId, accountId, payload, token).then((res) => {
-                if (res) {
-                    clearValues();
-                    dispatch(addTransaction({
-                        ...payload,
-                        id: res.name,
-                        accountId: accountId,
-                    }));
-                }
-            });
+            await addTransaction(payload);
+            clearValues();
         }
+    }
+
+    const isExpense = (typeId) => EXPENSETYPES.includes(typeId);
+
+    const addTransaction = async (payload) => {
+        const year = payload.date.substring(0, 4);
+        const month = payload.date.substring(5, 7);
+
+        /* Add transaction */
+        addTransactionAPI(userId, payload, token);
+
+        /* Update account current balance */
+        let updatedAmount = isExpense(payload.typeId) ? -payload.amount : payload.amount;
+        let updatePayload = {currentBalance: accounts[payload.accountId].currentBalance + updatedAmount};
+        updateAccountAPI(userId, payload.accountId, updatePayload, token);
+        dispatch(updateAccount({accountId: payload.accountId, currentBalance: updatePayload.currentBalance}));
+
+        /* Update account statistics */
+        const patchPayload = await fetchAccountMonthStatistics(userId, payload.accountId, year, month, token) ?? {income: 0, expenses: 0};
+
+        if (isExpense(payload.typeId)) {
+            patchPayload.expenses += payload.amount;
+        } else {
+            patchPayload.income += payload.amount;
+        }
+
+        patchAccountMonthStatistics(userId, payload.accountId, year, month, patchPayload, token);
     }
 
     return (
@@ -100,8 +124,8 @@ const AddTransaction = () => {
                     <label>
                         <p>{labels.account}</p>
                         <select id='account' ref={accountRef}>
-                            {accountLabels.map((account) => {
-                                return <option key={account.id} value={account.id}>{account.label}</option>
+                            {Object.keys(accountDictionary).map((id) => {
+                                return <option key={id} value={id}>{accountDictionary[id]}</option>
                             })
                             }
                         </select>

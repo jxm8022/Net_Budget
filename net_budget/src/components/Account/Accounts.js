@@ -69,7 +69,7 @@ const Accounts = () => {
             typeId: parseInt(transType.current.value),
             date: transDate.current.value,
             initialBalance: parseFloat(transAmount.current.value),
-            currentBalance: 0,
+            currentBalance: parseFloat(transAmount.current.value),
         }
 
         if (!validForm()) {

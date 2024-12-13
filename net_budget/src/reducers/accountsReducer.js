@@ -65,6 +65,10 @@ const accountsReducer = (state = initialState, action) => {
             addAccountState.accounts[action.payload.id] = action.payload;
             addAccountState.accountDictionary[action.payload.id] = action.payload.name;
             return addAccountState;
+        case types.UPDATE_ACCOUNT:
+            let updateAccountState = structuredClone(state);
+            updateAccountState.accounts[action.payload.accountId].currentBalance = action.payload.currentBalance;
+            return updateAccountState;
         case types.LOAD_ACCOUNTS:
             let loadAccountsState = structuredClone(state);
             if (!action.payload) {

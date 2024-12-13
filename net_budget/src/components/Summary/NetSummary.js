@@ -18,11 +18,11 @@ const NetSummary = (props) => {
                 let accountSeries = updatedGraphData.find(d => d.name === accountName);
                 if (!accountSeries) {
                     let accountData = new Array(12).fill(0);
-                    accountData[monthIndex] = props.statistics[month][accountId].net;
+                    accountData[monthIndex] = props.statistics[month][accountId].income - props.statistics[month][accountId].expenses;
                     updatedGraphData.push({ name: accountName, data: accountData });
                 }
                 else {
-                    accountSeries.data[monthIndex] = props.statistics[month][accountId].net;
+                    accountSeries.data[monthIndex] = props.statistics[month][accountId].income - props.statistics[month][accountId].expenses;
                 }
             }
         }
