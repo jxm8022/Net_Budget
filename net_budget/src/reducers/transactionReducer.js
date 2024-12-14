@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import { getTransactionsOverview, sortRecurringTransactionsByDayAsc, sortTransactionsByDate } from '../utilities/ReducerHelper';
+import { sortRecurringTransactionsByDayAsc } from '../utilities/ReducerHelper';
 
 const initialState = {
     transactions: {},
