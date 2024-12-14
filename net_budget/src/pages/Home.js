@@ -15,7 +15,7 @@ const Home = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useYearParam();
-    const accounts = useLoadAccounts();
+    const [accounts] = useLoadAccounts();
     const statistics = useLoadYearStatistics();
 
     const onYearChange = (event) => {

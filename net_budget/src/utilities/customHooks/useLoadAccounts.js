@@ -5,7 +5,7 @@ import { loadAccounts } from "../../actions/accountActions";
 
 function useLoadAccounts() {
     const { userId, token } = useSelector((state) => state.user);
-    const { accounts } = useSelector((state) => state.accounts);
+    const { accounts, accountDictionary } = useSelector((state) => state.accounts);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,7 +14,7 @@ function useLoadAccounts() {
         });
     },[dispatch, userId, token]);
 
-    return accounts;
+    return [accounts, accountDictionary];
 }
 
 export default useLoadAccounts;

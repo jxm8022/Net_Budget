@@ -108,10 +108,11 @@ export const labels = {
         'Remaining'
     ],
     transactionHeaders: [
+        'Account',
         'Type',
-        'Date',
         'Name',
-        'Amount'
+        'Amount',
+        'Date',
     ],
 
     // Statistics

@@ -25,6 +25,23 @@ export const addTransactionAPI = async (userId, payload, token) => { // date for
         })
 }
 
+export const fetchTransactions = async (userId, year, month, token) => {
+    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${year}/${month}.json?auth=${token}`;
+    return fetch(loadURL)
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.json().then((data) => {
+                    throw new Error(data.error);
+                });
+            }
+        })
+        .catch((err) => {
+            alert(err.message);
+        });
+}
+
 export const loadTransactionsAPI = (userId, token) => {
     const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}.json?auth=${token}`;
     return fetch(loadURL)
