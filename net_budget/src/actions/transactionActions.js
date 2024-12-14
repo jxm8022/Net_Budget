@@ -56,6 +56,22 @@ export const loadTransactions = (payload) => {
     }
 }
 
+export const addDictionaryItem = (payload) => {
+    return {
+        type: types.ADD_DICTIONARY_ITEM,
+        info: 'Adding dictionary item.',
+        payload
+    }
+}
+
+export const loadDictionary = (payload) => {
+    return {
+        type: types.LOAD_DICTIONARY,
+        info: 'Loading dictionary.',
+        payload
+    }
+}
+
 export const setDate = (payload) => {
     return {
         type: types.SET_DATE,

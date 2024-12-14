@@ -3,6 +3,7 @@ import { sortRecurringTransactionsByDayAsc } from '../utilities/ReducerHelper';
 
 const initialState = {
     transactions: {},
+    dictionary: {},
     currentMonth: new Date().getMonth(),
     currentYear: new Date().getFullYear(),
     monthOverview: [
@@ -88,6 +89,14 @@ const transactionReducer = (state = initialState, action) => {
                 recurringTransactions: initialState.recurringTransactions,
                 graphData: initialState.graphData,
             }
+        case types.ADD_DICTIONARY_ITEM:
+            let addDictionaryItemState = structuredClone(state);
+            addDictionaryItemState.dictionary = {...addDictionaryItemState.dictionary, ...action.payload};
+            return addDictionaryItemState;
+        case types.LOAD_DICTIONARY:
+            let loadDictionaryState = structuredClone(state);
+            loadDictionaryState.dictionary = action.payload ?? {};
+            return loadDictionaryState;
         case types.LOGOUT:
             return initialState;
         default:

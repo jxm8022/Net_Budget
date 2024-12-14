@@ -7,23 +7,24 @@ import { DATEFORMAT, EXPENSETYPES } from '../../resources/constants';
 import { labels, transactionCategories } from '../../resources/labels';
 import { FormatString, GetStringLength } from '../../utilities/FormatData';
 import Template from '../UI/Template/Template';
-import { addTransactionAPI } from '../../api/TransactionAPI';
+import { addTransactionAPI, patchTransactionDictionary } from '../../api/TransactionAPI';
 import useLoadAccounts from '../../utilities/customHooks/useLoadAccounts';
 import { updateAccountAPI } from '../../api/accountAPI';
 import { fetchAccountMonthStatistics, patchAccountMonthStatistics } from '../../api/statisticsAPI';
 import { updateAccount } from '../../actions/accountActions';
+import useLoadDictionary from '../../utilities/customHooks/useLoadDictionary';
+import { addDictionaryItem } from '../../actions/transactionActions';
 
 const AddTransaction = () => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
 
     const { userId, token } = useSelector((state) => state.user);
-    const { transactionDictionary } = useSelector((state) => state.statistics);
-    const { accountDictionary } = useSelector((state) => state.accounts);
 
     const [isError, setIsError] = useState(false);
 
-    const accounts = useLoadAccounts();
+    const [accounts, accountDictionary] = useLoadAccounts();
+    const dictionary = useLoadDictionary();
 
     const accountRef = useRef();
     const categoryRef = useRef();
@@ -114,6 +115,13 @@ const AddTransaction = () => {
         }
 
         patchAccountMonthStatistics(userId, payload.accountId, year, month, patchPayload, token);
+
+        /* Update dictionary */
+        if (Object.keys(dictionary).findIndex(d => d === payload.name) === -1) {
+            let dictionaryPayload = {[payload.name]: payload.name};
+            patchTransactionDictionary(userId, dictionaryPayload, token);
+            dispatch(addDictionaryItem(dictionaryPayload));
+        }
     }
 
     return (
@@ -159,7 +167,7 @@ const AddTransaction = () => {
                             autoComplete='on'
                         ></input>
                         <datalist id='transactions'>
-                            {transactionDictionary.map((trans, index) => <option key={index} value={trans} />)}
+                            {Object.keys(dictionary).map((key) => <option key={key} value={dictionary[key]} />)}
                         </datalist>
                     </label>
                     <label>

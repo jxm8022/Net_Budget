@@ -12,7 +12,7 @@ function useLoadTransactions() {
 
     useEffect(() => {
         const year = searchParams.get('year');
-        const month = parseInt(searchParams.get('month')) + 1;
+        const month = (parseInt(searchParams.get('month')) + 1).toString().padStart(2, '0');
         fetchTransactions(userId, year, month, token).then((res) => {
             dispatch(loadTransactions(res));
         });
