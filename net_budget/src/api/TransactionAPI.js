@@ -1,12 +1,12 @@
-export const addTransactionAPI = (userId, transaction, token) => { // date format yyyy-mm-dd
-    const year = transaction.date.substring(0, 4);
-    const month = transaction.date.substring(5, 7);
+export const addTransactionAPI = async (userId, payload, token) => { // date format yyyy-mm-dd
+    const year = payload.date.substring(0, 4);
+    const month = payload.date.substring(5, 7);
     const addURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${year}/${month}.json?auth=${token}`;
     return fetch(
         addURL,
         {
             method: 'POST',
-            body: JSON.stringify(transaction),
+            body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -23,6 +23,23 @@ export const addTransactionAPI = (userId, transaction, token) => { // date forma
         .catch((err) => {
             alert(err.message);
         })
+}
+
+export const fetchTransactions = async (userId, year, month, token) => {
+    const loadURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${year}/${month}.json?auth=${token}`;
+    return fetch(loadURL)
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.json().then((data) => {
+                    throw new Error(data.error);
+                });
+            }
+        })
+        .catch((err) => {
+            alert(err.message);
+        });
 }
 
 export const loadTransactionsAPI = (userId, token) => {

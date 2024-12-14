@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { labels, months } from '../../../resources/labels';
 import { useDispatch, useSelector } from 'react-redux';
 import { categories } from "../../../resources/labels";
 import { setDate } from "../../../actions/transactionActions";
 import { TYPES } from "../../../resources/constants";
-import './Selector.css';
+import styled from "styled-components";
 
 const currentDate = new Date();
 const currentMonth = currentDate.getMonth();
@@ -82,7 +82,7 @@ const YearSelector = (props) => {
 }
 
 // props = { type , currentMonth, currentYear, onMonthChange, onYearChange}
-const Selector = React.forwardRef((props, ref) => {
+const SelectorV1 = React.forwardRef((props, ref) => {
     let selector;
 
     switch (props.type) {
@@ -100,10 +100,43 @@ const Selector = React.forwardRef((props, ref) => {
     }
 
     return (
-        <>
+        <> 
             {selector}
         </>
     );
 })
 
+const Selector = (props) => {
+    const { currentYear } = useSelector((state) => state.user);
+    var years = props.options ?? Array.from({ length: 11 }, (_, i) => currentYear - 10 + i + 1);
+    var value = props.value ?? currentYear;
+    return (
+        <SelectorWrapper>
+            <form>
+                <label>{props.label}
+                    <select value={value} onChange={props.onChange}>
+                        {years.map((year, index) => <option key={index} value={year}>{year}</option>)}
+                    </select>
+                </label>
+            </form>
+        </SelectorWrapper>
+    );
+}
+
 export default Selector;
+
+const SelectorWrapper = styled.div`
+    select {
+        cursor: pointer;
+        border: none;
+        border: 1px solid var(--teal);
+        border-radius: 50px;
+        margin: 10px;
+        padding: 0px 10px;
+        background-color: var(--pink);
+        font: inherit;
+        font-size: .75em;
+        color: var(--teal);
+        outline: none;
+    }
+`;

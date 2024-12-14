@@ -3,6 +3,7 @@ import { categories } from '../resources/labels';
 import { getOverview, sortByAmount, sortByTimes } from '../utilities/ReducerHelper';
 
 const initialState = {
+    statistics: {},
     lifetimeNet: 0,
     lifetimeTransactions: {},
     transactionDictionary: [],
@@ -13,6 +14,10 @@ const initialState = {
 
 const statisticReducer = (state = initialState, action) => {
     switch (action.type) {
+        case types.LOAD_STATISTICS:
+            let loadStatisticsState = structuredClone(state);
+            loadStatisticsState.statistics = action.payload;
+            return loadStatisticsState;
         case types.ADD_TRANSACTION:
             let transactionToAdd = action.payload;
             let year = parseInt(action.payload.date.split('-')[0]);
@@ -30,6 +35,7 @@ const statisticReducer = (state = initialState, action) => {
                             date: transactionToAdd.date,
                             name: transactionToAdd.name,
                             type: transactionToAdd.type,
+                            accountId: transactionToAdd.accountId,
                         }
                     };
 
@@ -51,6 +57,7 @@ const statisticReducer = (state = initialState, action) => {
                                 date: transactionToAdd.date,
                                 name: transactionToAdd.name,
                                 type: transactionToAdd.type,
+                                accountId: transactionToAdd.accountId,
                             }
                         }
                     };
@@ -65,17 +72,18 @@ const statisticReducer = (state = initialState, action) => {
                                 date: transactionToAdd.date,
                                 name: transactionToAdd.name,
                                 type: transactionToAdd.type,
+                                accountId: transactionToAdd.accountId,
                             }
                         }
                     }
                 }
-                updatedActiveYears = Object.keys(existingTransactions);
+                updatedActiveYears = [Object.keys(existingTransactions)];
             }
 
             return {
                 ...state,
                 lifetimeTransactions: existingTransactions,
-                activeYears: updatedActiveYears,
+                activeYears: updatedActiveYears.sort(),
             };
         case types.UPDATE_TRANSACTION:
             let updatedTransactions = { ...state.lifetimeTransactions };
@@ -201,22 +209,58 @@ const statisticReducer = (state = initialState, action) => {
             {
                 let activeYears = [currentYear];
                 localStorage.setItem('startYear', JSON.stringify(currentYear));
+                localStorage.setItem('currentDisplayYear', currentYear);
                 return {
                     ...state,
                     activeYears: activeYears,
                 };
             }
+            
+            let combinedTransactions = {};
+            for (let accountId in action.payload)
+            {
+                const accountTransactions = structuredClone(action.payload[accountId].transactions);
+                if (accountTransactions)
+                {
+                    for (let y in accountTransactions)
+                    {
+                        if (!combinedTransactions[y])
+                        {
+                            combinedTransactions[y] = {}
+                        }
 
-            let activeYears = Object.keys(action.payload);
-            localStorage.setItem('startYear', JSON.stringify(activeYears[0]));
+                        for (let m in accountTransactions[y])
+                        {
+                            if (!combinedTransactions[y][m])
+                            {
+                                combinedTransactions[y][m] = {}
+                            }
 
+                            for (let transactionId in accountTransactions[y][m])
+                            {
+                                accountTransactions[y][m][transactionId].accountId = accountId;
+                                accountTransactions[y][m][transactionId].accountTypeId = action.payload[accountId].type;
+                            }
+                            
+                            combinedTransactions[y][m] = {
+                                ...combinedTransactions[y][m],
+                                ...accountTransactions[y][m]
+                            };
+                        }
+                    }
+                }
+            }
+            
+            let activeYears = Object.keys(combinedTransactions);
             if (!activeYears.includes(currentYear)) {
                 activeYears.push(currentYear);
             }
+            localStorage.setItem('startYear', JSON.stringify(activeYears[0]));
+            localStorage.setItem('currentDisplayYear', currentYear);
 
             return {
                 ...state,
-                lifetimeTransactions: action.payload,
+                lifetimeTransactions: combinedTransactions,
                 activeYears: activeYears,
             };
         case types.CALCULATE_STATISTICS:

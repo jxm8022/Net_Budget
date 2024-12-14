@@ -66,17 +66,12 @@ const NavBar = () => {
                 id: 2,
                 where: `../monthOverview?month=${currentMonth}&year=${currentYear}`,
                 name: labels.monthOverview
-            },
+            },/*
             {
                 id: 3,
                 where: `../statistics`,
                 name: labels.statistics
-            },
-            {
-                id: 4,
-                where: `../debt`,
-                name: labels.debt
-            },
+            },*/
             {
                 id: 5,
                 where: `../about`,

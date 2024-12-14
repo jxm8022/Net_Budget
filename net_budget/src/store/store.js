@@ -4,6 +4,7 @@ import transactionReducer from '../reducers/transactionReducer';
 import userReducer from '../reducers/userReducer';
 import statisticReducer from '../reducers/statisticReducer';
 import debtReducer from '../reducers/debtReducer';
+import accountsReducer from '../reducers/accountsReducer';
 
 const store = configureStore(
     {
@@ -12,7 +13,8 @@ const store = configureStore(
             statistics: statisticReducer,
             debt: debtReducer,
             transaction: transactionReducer,
-            user: userReducer
+            user: userReducer,
+            accounts: accountsReducer,
         }
     }
 );

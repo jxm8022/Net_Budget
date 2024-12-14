@@ -9,7 +9,7 @@ const DisplayMonth = () => {
         <Template>
             <h1>{labels.monthOverview}</h1>
             <MonthSelector />
-            <MonthOverview />
+            {/*<MonthOverview />*/}
             <MonthDetails />
             <a href='#top' className="scroll-top">{labels.top}</a>
         </Template>

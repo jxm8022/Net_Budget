@@ -36,6 +36,33 @@ export const getOverview = (transactions) => {
     };
 }
 
+export const getTransactionsOverview = (transactions) => {
+    let incomeTotal = 0;
+    let transactionsTotal = 0;
+    for (let transaction of transactions) {
+        switch (transaction.type) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 5:
+                transactionsTotal += transaction.amount;
+                break;
+            case 4:
+                incomeTotal += transaction.amount;
+                break;
+            default:
+                break;
+        }
+    }
+    const net = incomeTotal - transactionsTotal;
+    return {
+        net,
+        incomeTotal,
+        transactionsTotal,
+    };
+}
+
 export const sortTransactionsByDate = (a, b) => {
     if (a.date < b.date) {
         return -1;

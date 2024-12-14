@@ -10,6 +10,15 @@ export const categories = [
     { id: 8, type: 'Debt'},
 ];
 
+export const transactionCategories = [
+    { id: 0, type: 'Want' },
+    { id: 1, type: 'Need' },
+    { id: 2, type: 'Savings' },
+    { id: 3, type: 'Debt Payment' },
+    { id: 4, type: 'Income' },
+    { id: 5, type: 'Interest' },
+];
+
 export const months = [
     { id: 0, month: 'January', abb: 'Jan' },
     { id: 1, month: 'February', abb: 'Feb' },
@@ -29,6 +38,12 @@ export const occurrenceTypes = [
     { id: 0, type: 'Day' },
     { id: 1, type: 'End of month' },
 ];
+
+export const accountTypes = [
+    { id: 0, type: 'Checking'},
+    { id: 1, type: 'Savings'},
+    { id: 2, type: 'Credit'},
+]
 
 export const labels = {
     // Application name
@@ -93,10 +108,11 @@ export const labels = {
         'Remaining'
     ],
     transactionHeaders: [
+        'Account',
         'Type',
-        'Date',
         'Name',
-        'Amount'
+        'Amount',
+        'Date',
     ],
 
     // Statistics
@@ -172,6 +188,14 @@ export const labels = {
         'Amount'
     ],
     deleteData: 'Delete data',
+    addAccountButtonLabel: 'Add Account',
+    accountTableHeader: 'Accounts',
+    accountsHeaders: [
+        'Account',
+        'Type',
+        'Initial Balance',
+        'Date',
+    ],
 
     // Not found page
     notLoggedIn: 'Looks like you are not logged in!',

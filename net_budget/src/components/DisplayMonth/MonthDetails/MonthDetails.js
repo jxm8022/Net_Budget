@@ -1,62 +1,33 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
-import { labels } from '../../../resources/labels';
-import { TABLETYPES } from '../../../resources/constants';
-import SortAscending from '../../../utilities/SortAscending';
-import SortDescending from '../../../utilities/SortDescending';
-import Table from '../../UI/Table/Table';
+import { labels, transactionCategories } from '../../../resources/labels';
+import useLoadAccounts from '../../../utilities/customHooks/useLoadAccounts';
+import useLoadTransactions from '../../../utilities/customHooks/useLoadTransactions';
 
 const MonthDetails = () => {
-    const [searchParams] = useSearchParams();
-    const { transactions } = useSelector((state) => state.transaction.monthOverview[searchParams.get('month')]);
-    const [isSortAsc, setIsSortAsc] = useState(true);
-    const [sortColumn, setSortColumn] = useState('Date');
-    const [sortedTransactions, setSortedTransactions] = useState(transactions);
+    const [, accountDictionary] = useLoadAccounts();
+    const transactions = useLoadTransactions();
 
-    useEffect(() => {
-        setSortedTransactions(transactions);
-        setSortColumn('Date');
-        setIsSortAsc(true);
-    }, [transactions]);
-
-    const sortTransactions = (header) => {
-        if (header === sortColumn) {
-            setIsSortAsc((prev) => !prev);
-            if (isSortAsc) {
-                setSortedTransactions((prev) => SortDescending({
-                    type: header,
-                    headers: labels.transactionHeaders,
-                    transactions: [...prev]
-                }));
-            } else {
-                setSortedTransactions((prev) => SortAscending({
-                    type: sortColumn,
-                    headers: labels.transactionHeaders,
-                    transactions: [...prev]
-                }));
-            }
-        } else {
-            setSortColumn(header);
-            setIsSortAsc(true);
-            setSortedTransactions((prev) => SortAscending({
-                type: header,
-                headers: labels.transactionHeaders,
-                transactions: [...prev]
-            }));
-        }
-    }
+    const getTypeLabel = (typeId) => transactionCategories.find(c => c.id === typeId)?.type ?? 'No type found';
 
     return (
         <>
-            <Table
-                headers={labels.transactionHeaders}
-                dataType={TABLETYPES.TRANSACTIONS}
-                data={sortedTransactions}
-                isSortAsc={isSortAsc}
-                sortColumn={sortColumn}
-                sortTable={sortTransactions}
-            />
+            <table className="table">
+                <thead>
+                    <tr>
+                        {labels.transactionHeaders.map((header) => <th key={header}>{header}</th>)}
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.keys(transactions).length > 0 ? Object.keys(transactions).map((id) => (
+                        <tr key={id}>
+                            <td>{accountDictionary[transactions[id].accountId]}</td>
+                            <td>{getTypeLabel(transactions[id].typeId)}</td>
+                            <td>{transactions[id].name}</td>
+                            <td>${transactions[id].amount.toFixed(2)}</td>
+                            <td>{transactions[id].date}</td>
+                        </tr>
+                    )) : <tr style={{ height: '48px' }}><td> </td><td> </td><td> </td><td> </td></tr>}
+                </tbody>
+            </table>
         </>
     );
 }
