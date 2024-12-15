@@ -20,6 +20,17 @@ export const EXPENSETYPES = [
     5, // Interest
 ];
 
+export const CREDITEXPENSETYPES = [
+    0, // Want
+    1, // Need
+    2, // Savings
+    5, // Interest
+];
+
+export const CREDITACCOUNTTYPES = [
+    2, // Credit
+];
+
 export const SUBMITTYPES = {
     ADD: 'Add'
 };

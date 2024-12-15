@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import moment from 'moment/moment';
 import styled from "styled-components";
-import { DATEFORMAT, EXPENSETYPES } from '../../resources/constants';
+import { CREDITACCOUNTTYPES, CREDITEXPENSETYPES, DATEFORMAT, EXPENSETYPES } from '../../resources/constants';
 import { labels, transactionCategories } from '../../resources/labels';
 import { FormatString, GetStringLength } from '../../utilities/FormatData';
 import Template from '../UI/Template/Template';
@@ -22,6 +22,7 @@ const AddTransaction = () => {
     const { userId, token } = useSelector((state) => state.user);
 
     const [isError, setIsError] = useState(false);
+    const [categories, setCategories] = useState([]);
 
     const [accounts, accountDictionary] = useLoadAccounts();
     const dictionary = useLoadDictionary();
@@ -31,6 +32,16 @@ const AddTransaction = () => {
     const dateRef = useRef();
     const nameRef = useRef();
     const amountRef = useRef();
+
+    useEffect(() => {
+        var isCreditAccountType = isCreditAccount(accountRef.current.value) ?? isCreditAccount(Object.keys(accounts)[0]);
+        setCategories(isCreditAccountType ? transactionCategories.filter(c => c.id !== 4) : transactionCategories);
+    },[accounts]);
+    
+    const handleCategories = () => {
+        var isCreditAccountType = isCreditAccount(accountRef.current.value);
+        setCategories(isCreditAccountType ? transactionCategories.filter(c => c.id !== 4) : transactionCategories);
+    }
 
     const defaultDate = moment().month(searchParams.get('month'))
                                 .startOf('month')
@@ -90,35 +101,49 @@ const AddTransaction = () => {
         }
     }
 
-    const isExpense = (typeId) => EXPENSETYPES.includes(typeId);
+    const isExpense = (isCreditAccountType, typeId) => isCreditAccountType ? CREDITEXPENSETYPES.includes(typeId) : EXPENSETYPES.includes(typeId);
+    const isCreditAccount = (accountId) => CREDITACCOUNTTYPES.includes(accounts[accountId]?.typeId);
 
     const addTransaction = async (payload) => {
-        const year = payload.date.substring(0, 4);
-        const month = payload.date.substring(5, 7);
-
-        /* Add transaction */
         addTransactionAPI(userId, payload, token);
 
-        /* Update account current balance */
-        let updatedAmount = isExpense(payload.typeId) ? -payload.amount : payload.amount;
-        let updatePayload = {currentBalance: accounts[payload.accountId].currentBalance + updatedAmount};
-        updateAccountAPI(userId, payload.accountId, updatePayload, token);
-        dispatch(updateAccount({accountId: payload.accountId, currentBalance: updatePayload.currentBalance}));
+        updateAccountBalance(payload.accountId, payload.amount, payload.typeId);
 
-        /* Update account statistics */
-        const patchPayload = await fetchAccountMonthStatistics(userId, payload.accountId, year, month, token) ?? {income: 0, expenses: 0};
+        updateStatistics(payload.accountId, payload.date, payload.typeId, payload.amount);
 
-        if (isExpense(payload.typeId)) {
-            patchPayload.expenses += payload.amount;
+        addDictionary(payload.name);
+    }
+
+    const updateAccountBalance = (accountId, transactionAmount, transactionTypeId) => {
+        const isCreditAccountType = isCreditAccount(accountId);
+        const isExpenseTransaction = isExpense(isCreditAccountType, transactionTypeId);
+        let updatedAmount = isExpenseTransaction ? -transactionAmount : transactionAmount;
+        updatedAmount = isCreditAccountType ? -updatedAmount : updatedAmount;
+        let updatePayload = {currentBalance: accounts[accountId].currentBalance + updatedAmount};
+        updateAccountAPI(userId, accountId, updatePayload, token); 
+        dispatch(updateAccount({accountId: accountId, currentBalance: updatePayload.currentBalance}));
+    }
+
+    const updateStatistics = async (accountId, transactionDate, transactionTypeId, transactionAmount) => {
+        const year = transactionDate.substring(0, 4);
+        const month = transactionDate.substring(5, 7);
+
+        const patchPayload = await fetchAccountMonthStatistics(userId, accountId, year, month, token) ?? {income: 0, expenses: 0};
+
+        const isCreditAccountType = isCreditAccount(accountId);
+        if (isExpense(isCreditAccountType, transactionTypeId)) {
+            patchPayload.expenses += transactionAmount;
         } else {
-            patchPayload.income += payload.amount;
+            patchPayload.income += transactionAmount;
         }
 
-        patchAccountMonthStatistics(userId, payload.accountId, year, month, patchPayload, token);
+        patchAccountMonthStatistics(userId, accountId, year, month, patchPayload, token);
+    }
 
-        /* Update dictionary */
-        if (Object.keys(dictionary).findIndex(d => d === payload.name) === -1) {
-            let dictionaryPayload = {[payload.name]: payload.name};
+    const addDictionary = (transactionName) => {
+        const dictionaryIndex = Object.keys(dictionary).findIndex(d => d.toLowerCase() === transactionName.toLowerCase());
+        if (dictionaryIndex === -1) {
+            let dictionaryPayload = {[transactionName]: transactionName};
             patchTransactionDictionary(userId, dictionaryPayload, token);
             dispatch(addDictionaryItem(dictionaryPayload));
         }
@@ -131,7 +156,7 @@ const AddTransaction = () => {
                 <form className='transaction-input-form' onSubmit={submitForm} onFocus={() => { setIsError(false) }}>
                     <label>
                         <p>{labels.account}</p>
-                        <select id='account' ref={accountRef}>
+                        <select id='account' ref={accountRef} onChange={handleCategories}>
                             {Object.keys(accountDictionary).map((id) => {
                                 return <option key={id} value={id}>{accountDictionary[id]}</option>
                             })
@@ -141,8 +166,8 @@ const AddTransaction = () => {
                     <label>
                         <p>{labels.type}</p>
                         <select id='type' ref={categoryRef}>
-                            {transactionCategories.map((category, index) => {
-                                return <option key={category.id} value={index}>{category.type}</option>
+                            {categories?.length > 0 && categories.map((category) => {
+                                return <option key={category.id} value={category.id}>{category.type}</option>
                             })}
                         </select>
                     </label>
