@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import moment from 'moment/moment';
@@ -33,13 +33,17 @@ const AddTransaction = () => {
     const nameRef = useRef();
     const amountRef = useRef();
 
+    const memoizedIsCreditAccount = useCallback((accountId) => {
+        return CREDITACCOUNTTYPES.includes(accounts[accountId]?.typeId);
+    }, [accounts]);
+
     useEffect(() => {
-        var isCreditAccountType = isCreditAccount(accountRef.current.value) ?? isCreditAccount(Object.keys(accounts)[0]);
+        var isCreditAccountType = memoizedIsCreditAccount(accountRef.current.value) ?? memoizedIsCreditAccount(Object.keys(accounts)[0]);
         setCategories(isCreditAccountType ? transactionCategories.filter(c => c.id !== 4) : transactionCategories);
-    },[accounts]);
+    },[accounts, memoizedIsCreditAccount]);
     
     const handleCategories = () => {
-        var isCreditAccountType = isCreditAccount(accountRef.current.value);
+        var isCreditAccountType = memoizedIsCreditAccount(accountRef.current.value);
         setCategories(isCreditAccountType ? transactionCategories.filter(c => c.id !== 4) : transactionCategories);
     }
 
@@ -102,7 +106,6 @@ const AddTransaction = () => {
     }
 
     const isExpense = (isCreditAccountType, typeId) => isCreditAccountType ? CREDITEXPENSETYPES.includes(typeId) : EXPENSETYPES.includes(typeId);
-    const isCreditAccount = (accountId) => CREDITACCOUNTTYPES.includes(accounts[accountId]?.typeId);
 
     const addTransaction = async (payload) => {
         addTransactionAPI(userId, payload, token);
@@ -115,7 +118,7 @@ const AddTransaction = () => {
     }
 
     const updateAccountBalance = (accountId, transactionAmount, transactionTypeId) => {
-        const isCreditAccountType = isCreditAccount(accountId);
+        const isCreditAccountType = memoizedIsCreditAccount(accountId);
         const isExpenseTransaction = isExpense(isCreditAccountType, transactionTypeId);
         let updatedAmount = isExpenseTransaction ? -transactionAmount : transactionAmount;
         updatedAmount = isCreditAccountType ? -updatedAmount : updatedAmount;
@@ -130,7 +133,7 @@ const AddTransaction = () => {
 
         const patchPayload = await fetchAccountMonthStatistics(userId, accountId, year, month, token) ?? {income: 0, expenses: 0};
 
-        const isCreditAccountType = isCreditAccount(accountId);
+        const isCreditAccountType = memoizedIsCreditAccount(accountId);
         if (isExpense(isCreditAccountType, transactionTypeId)) {
             patchPayload.expenses += transactionAmount;
         } else {
