@@ -42,13 +42,13 @@ const MonthDetails = () => {
     const handleDeleteTransaction = (transaction) => {
         const response = window.confirm(`Are you sure you want to delete?\nAccount: ${accountDictionary[transaction.accountId]}\nTransaction Type: ${transactionCategories[transaction.typeId].type}\nTransaction Date: ${transaction.date}\nTransaction Name: ${transaction.name}\nTransaction Amount: $${transaction.amount}`);
         if (response) {
-            //handleDelete(transaction);
-            dispatch(deleteTransaction(transaction));
+            handleDelete(transaction);
         }
     }
 
     const handleDelete = async (transaction) => {
         deleteTransactionAPI(userId, transaction, token);
+        dispatch(deleteTransaction(transaction));
 
         updateAccountBalance(transaction.accountId, transaction.amount, transaction.typeId);
 
@@ -56,24 +56,19 @@ const MonthDetails = () => {
     }
 
     const updateAccountBalance = (accountId, transactionAmount, transactionTypeId) => {
-        console.log('Updating account balance');
         const isCreditAccountType = memoizedIsCreditAccount(accountId);
         const isExpenseTransaction = isExpense(isCreditAccountType, transactionTypeId);
         let updatedAmount = isExpenseTransaction ? -transactionAmount : transactionAmount;
         updatedAmount = isCreditAccountType ? -updatedAmount : updatedAmount;
         let updatePayload = {currentBalance: accounts[accountId].currentBalance - updatedAmount};
-        console.log('Starting balance: ', accounts[accountId].currentBalance);
-        console.log('Ending balance: ', updatePayload.currentBalance)
         updateAccountAPI(userId, accountId, updatePayload, token);
     }
 
     const updateStatistics = async (accountId, transactionDate, transactionTypeId, transactionAmount) => {
-        console.log('Updating statistics');
         const year = transactionDate.substring(0, 4);
         const month = transactionDate.substring(5, 7);
 
         const patchPayload = await fetchAccountMonthStatistics(userId, accountId, year, month, token) ?? {income: 0, expenses: 0};
-        console.log('Starting statistics: ', {...patchPayload})
 
         const isCreditAccountType = memoizedIsCreditAccount(accountId);
         if (isExpense(isCreditAccountType, transactionTypeId)) {
