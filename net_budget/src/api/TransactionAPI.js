@@ -101,7 +101,7 @@ export const loadTransactionsAPI = (userId, token) => {
         });
 }
 
-export const deleteTransactionAPI = (userId, transaction, token) => {
+export const deleteTransactionAPI = async (userId, transaction, token) => {
     const transactionDate = transaction.date.split('-');
     const deleteURL = `${process.env.REACT_APP_FIREBASE_DATABASE_URL}/${userId}/transactions/${transactionDate[0]}/${transactionDate[1]}/${transaction.id}.json?auth=${token}`;
     return fetch(

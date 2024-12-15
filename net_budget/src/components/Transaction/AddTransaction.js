@@ -123,7 +123,7 @@ const AddTransaction = () => {
         let updatedAmount = isExpenseTransaction ? -transactionAmount : transactionAmount;
         updatedAmount = isCreditAccountType ? -updatedAmount : updatedAmount;
         let updatePayload = {currentBalance: accounts[accountId].currentBalance + updatedAmount};
-        updateAccountAPI(userId, accountId, updatePayload, token); 
+        updateAccountAPI(userId, accountId, updatePayload, token);
         dispatch(updateAccount({accountId: accountId, currentBalance: updatePayload.currentBalance}));
     }
 

@@ -174,35 +174,6 @@ const statisticReducer = (state = initialState, action) => {
                 lifetimeTransactions: updatedTransactions,
                 activeYears: new_updatedActiveYears,
             };
-        case types.DELETE_TRANSACTION:
-            let delete_updatedTransactions = { ...state.lifetimeTransactions };
-            let transactionToDelete = action.payload.prev;
-            let delete_Year = transactionToDelete.date.split('-')[0];
-            let delete_Month = transactionToDelete.date.split('-')[1];
-            let delete_updatedYearTransactions = { ...delete_updatedTransactions[delete_Year] };
-            let delete_newMonthTransactions;
-            for (let transaction in delete_updatedTransactions[delete_Year][delete_Month]) {
-                if (transaction !== transactionToDelete.id) {
-                    delete_newMonthTransactions = {
-                        ...delete_newMonthTransactions,
-                        [transaction]: delete_updatedTransactions[delete_Year][delete_Month][transaction],
-                    }
-                }
-            }
-
-            delete_updatedYearTransactions = {
-                ...delete_updatedYearTransactions,
-                [delete_Month]: delete_newMonthTransactions
-            };
-
-            delete_updatedTransactions = {
-                ...delete_updatedTransactions,
-                [delete_Year]: delete_updatedYearTransactions
-            };
-            return {
-                ...state,
-                lifetimeTransactions: delete_updatedTransactions,
-            };
         case types.SAVE_ALL_TRANSACTIONS:
             const currentYear = new Date().getFullYear().toString();
             if (!action.payload)
