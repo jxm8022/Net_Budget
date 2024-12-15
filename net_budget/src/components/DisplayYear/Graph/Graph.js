@@ -6,6 +6,7 @@ import styled from "styled-components";
 const Graph = (props) => {
     const [ isDarkMode ] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
     const [ width, setWidth ] = useState(window.innerWidth);
+    const [ dashArray, setDashArray ] = useState([]);
 
     useEffect(() => {
         const updateWidth = () => {
@@ -14,6 +15,12 @@ const Graph = (props) => {
         window.addEventListener("resize", updateWidth);
         return () => window.removeEventListener("resize", updateWidth);
     },[]);
+
+    useEffect(() => {
+        const seriesCount = props.series.length > 0 ? props.series.length - 1 : props.series.length;
+        let accountsDashArray = Array(seriesCount).fill(0);
+        setDashArray([...accountsDashArray, 5]);
+    }, [props]);
 
     const data = {
         series: props.series,
@@ -37,7 +44,7 @@ const Graph = (props) => {
             stroke: {
                 width: 5,
                 curve: 'straight',
-                dashArray: [0,0,5]
+                dashArray: dashArray
             },
             legend: {
                 labels: {
