@@ -1,10 +1,29 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { CREDITACCOUNTTYPES } from "../../resources/constants";
 
 const AccountSummary = (props) => {
     const navigate = useNavigate();
 
-    const accountArray = [...Object.entries(props.accounts), ['placeholder', { isPlaceHolder: true }]];
+    const [accounts, setAccounts] = useState([]);
+
+    useEffect(() => {
+        let accountArray = [...Object.entries(props.accounts)];
+
+        accountArray.push([
+            'Total',
+            {name: 'Total', currentBalance: accountArray.reduce((p,c) => {
+                let account = c[1];
+                let isCreditAccount = CREDITACCOUNTTYPES.includes(account.typeId);
+                return isCreditAccount ? p - account.currentBalance : p + account.currentBalance;
+            }, 0)}
+        ]);
+
+        accountArray.push(['placeholder', { isPlaceHolder: true }]);
+
+        setAccounts(accountArray);
+    },[props]);
 
     const handleAddAccount = () => {
         // this should eventually open modal
@@ -22,6 +41,7 @@ const AccountSummary = (props) => {
                 <button onClick={handleAddAccount}>Add account</button>
             </div>;
         }
+
         return <div key={accountId} className="accountWrapper">
             <p className="accountHeader">{account.name}</p>
             <hr className="accountSeparator" />
@@ -30,8 +50,8 @@ const AccountSummary = (props) => {
     }
 
     return (
-        <AccountsWrapper $numColumns={accountArray.length}>
-            {accountArray.map(account => AccountWrapper(account))}
+        <AccountsWrapper $numColumns={accounts.length}>
+            {accounts.map(account => AccountWrapper(account))}
         </AccountsWrapper>
     );
 }
