@@ -24,7 +24,7 @@ const Home = () => {
     }
 
     return (
-        <Template>
+        <Template paddingBottom={25}>
             <h1>{labels.home}</h1>
             <h2>Summary</h2>
             <Selector label={labels.year} value={searchParams.get('year')} onChange={onYearChange} />

@@ -7,23 +7,28 @@ const AccountSummary = (props) => {
     const navigate = useNavigate();
 
     const [accounts, setAccounts] = useState([]);
+    const [columnCount,] = useState(2);
+    const [placeholderSpan, setPlaceholderSpan] = useState(1);
 
     useEffect(() => {
         let accountArray = [...Object.entries(props.accounts)];
 
         accountArray.push([
             'Total',
-            {name: 'Total', currentBalance: accountArray.reduce((p,c) => {
-                let account = c[1];
-                let isCreditAccount = CREDITACCOUNTTYPES.includes(account.typeId);
-                return isCreditAccount ? p - account.currentBalance : p + account.currentBalance;
-            }, 0)}
+            {
+                name: 'Total', currentBalance: accountArray.reduce((p, c) => {
+                    let account = c[1];
+                    let isCreditAccount = CREDITACCOUNTTYPES.includes(account.typeId);
+                    return isCreditAccount ? p - account.currentBalance : p + account.currentBalance;
+                }, 0)
+            }
         ]);
 
         accountArray.push(['placeholder', { isPlaceHolder: true }]);
 
         setAccounts(accountArray);
-    },[props]);
+        setPlaceholderSpan(accountArray.length % columnCount === 1 ? columnCount : 1)
+    }, [props, columnCount, setPlaceholderSpan]);
 
     const handleAddAccount = () => {
         // this should eventually open modal
@@ -50,7 +55,7 @@ const AccountSummary = (props) => {
     }
 
     return (
-        <AccountsWrapper $numColumns={accounts.length}>
+        <AccountsWrapper $numColumns={columnCount} $placeholderSpan={placeholderSpan}>
             {accounts.map(account => AccountWrapper(account))}
         </AccountsWrapper>
     );
@@ -61,7 +66,7 @@ export default AccountSummary;
 const AccountsWrapper = styled.div`
     /* mobile */
     display: grid;
-    grid-template-columns: ${({ $numColumns }) => `repeat(${$numColumns > 1 ? 2 : 1}, 1fr)`};
+    grid-template-columns: ${({ $numColumns }) => `repeat(${$numColumns}, 1fr)`};
     grid-gap: 25px;
     margin: 0px;
 
@@ -94,17 +99,19 @@ const AccountsWrapper = styled.div`
     }
 
     .placeholder {
-        grid-column: span ${({ $numColumns }) => `${($numColumns % 2) === 0 ? 1 : 2}`};
+        grid-column: span ${({ $placeholderSpan }) => `${$placeholderSpan}`};
         margin: auto;
         ${({ $numColumns }) => `${($numColumns % 2) === 0 ? '' : 'padding-bottom: 25px;'}`}
     }
 
     /* tablets */
     @media only screen and (min-width: 600px) {
+        grid-template-columns: ${({ $numColumns }) => `repeat(${$numColumns * 1.5}, 1fr)`};
     }
 
     /* desktop */
     @media only screen and (min-width: 900px) {
+        grid-template-columns: ${({ $numColumns }) => `repeat(${$numColumns * 2}, 1fr)`};
     }
 
     @media (prefers-color-scheme: dark) {

@@ -10,7 +10,7 @@ const Template = (props) => {
         <TemplateWrapper>
             <NavBar />
             <Notification />
-            <div className='children'>
+            <div className='children' style={{ paddingBottom: props.paddingBottom }}>
                 {props.children}
                 <a href='version' className='version'>v{latestVersion}</a>
             </div>

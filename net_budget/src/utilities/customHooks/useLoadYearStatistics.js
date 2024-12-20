@@ -16,7 +16,7 @@ function useLoadYearStatistics() {
         fetchYearStatistics(userId, year, token).then((res) => {
             dispatch(loadStatistics(res));
         });
-    },[dispatch, userId, token, searchParams, currentYear]);
+    }, [dispatch, userId, token, searchParams, currentYear]);
 
     return statistics;
 }

@@ -27,9 +27,8 @@ const NetSummary = (props) => {
             }
         }
 
-        let updatedNetGraphData = structuredClone(updatedGraphData[0]);
+        let updatedNetGraphData = { name: 'Net', data: new Array(12).fill(0) };
         if (updatedGraphData.length > 1) {
-            updatedNetGraphData.name = 'Net';
             updatedNetGraphData.data = updatedGraphData.reduce((acc, val) => {
                 for (const monthIndex in val.data) {
                     acc[monthIndex] += val.data[monthIndex];

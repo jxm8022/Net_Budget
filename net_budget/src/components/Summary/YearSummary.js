@@ -11,7 +11,7 @@ const YearSummary = (props) => {
         if (props.netGraphData) {
             setBestNet(props.netGraphData.reduce((res, val) => { return val > res ? val : res }, props.netGraphData[0]));
             setWorstNet(props.netGraphData.reduce((res, val) => { return val < res ? val : res }, props.netGraphData[0]));
-            setNet(props.netGraphData.reduce((res, val) => { return res + val }, props.netGraphData[0]));
+            setNet(props.netGraphData.reduce((res, val) => { return res + val }, 0));
         }
     }, [props.netGraphData]);
 

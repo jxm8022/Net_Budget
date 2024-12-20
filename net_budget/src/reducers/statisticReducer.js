@@ -16,7 +16,7 @@ const statisticReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.LOAD_STATISTICS:
             let loadStatisticsState = structuredClone(state);
-            loadStatisticsState.statistics = action.payload;
+            loadStatisticsState.statistics = action.payload ?? {};
             return loadStatisticsState;
         case types.ADD_TRANSACTION:
             let transactionToAdd = action.payload;
@@ -176,8 +176,7 @@ const statisticReducer = (state = initialState, action) => {
             };
         case types.SAVE_ALL_TRANSACTIONS:
             const currentYear = new Date().getFullYear().toString();
-            if (!action.payload)
-            {
+            if (!action.payload) {
                 let activeYears = [currentYear];
                 localStorage.setItem('startYear', JSON.stringify(currentYear));
                 localStorage.setItem('currentDisplayYear', currentYear);
@@ -186,33 +185,26 @@ const statisticReducer = (state = initialState, action) => {
                     activeYears: activeYears,
                 };
             }
-            
+
             let combinedTransactions = {};
-            for (let accountId in action.payload)
-            {
+            for (let accountId in action.payload) {
                 const accountTransactions = structuredClone(action.payload[accountId].transactions);
-                if (accountTransactions)
-                {
-                    for (let y in accountTransactions)
-                    {
-                        if (!combinedTransactions[y])
-                        {
+                if (accountTransactions) {
+                    for (let y in accountTransactions) {
+                        if (!combinedTransactions[y]) {
                             combinedTransactions[y] = {}
                         }
 
-                        for (let m in accountTransactions[y])
-                        {
-                            if (!combinedTransactions[y][m])
-                            {
+                        for (let m in accountTransactions[y]) {
+                            if (!combinedTransactions[y][m]) {
                                 combinedTransactions[y][m] = {}
                             }
 
-                            for (let transactionId in accountTransactions[y][m])
-                            {
+                            for (let transactionId in accountTransactions[y][m]) {
                                 accountTransactions[y][m][transactionId].accountId = accountId;
                                 accountTransactions[y][m][transactionId].accountTypeId = action.payload[accountId].type;
                             }
-                            
+
                             combinedTransactions[y][m] = {
                                 ...combinedTransactions[y][m],
                                 ...accountTransactions[y][m]
@@ -221,7 +213,7 @@ const statisticReducer = (state = initialState, action) => {
                     }
                 }
             }
-            
+
             let activeYears = Object.keys(combinedTransactions);
             if (!activeYears.includes(currentYear)) {
                 activeYears.push(currentYear);
