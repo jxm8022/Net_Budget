@@ -38,7 +38,7 @@ const NetSummary = (props) => {
             updatedGraphData.push(updatedNetGraphData);
         }
 
-        setNetGraphData(updatedNetGraphData);
+        setNetGraphData(updatedGraphData.length === 1 ? updatedGraphData[0] : updatedNetGraphData);
         setGraphData(updatedGraphData);
     }, [props.statistics, accountDictionary]);
 
