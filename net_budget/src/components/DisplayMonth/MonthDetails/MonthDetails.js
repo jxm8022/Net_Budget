@@ -20,10 +20,10 @@ const MonthDetails = () => {
     useEffect(() => {
         let res = [];
         for (let id of Object.keys(transactions)) {
-            res.push({id, ...transactions[id]});
+            res.push({ id, ...transactions[id] });
         }
 
-        res.sort((a,b) => {
+        res.sort((a, b) => {
             const dateCompare = a.date.localeCompare(b.date);
             return dateCompare !== 0 ? dateCompare : a.name.localeCompare(b.name);
         });
@@ -60,7 +60,7 @@ const MonthDetails = () => {
         const isExpenseTransaction = isExpense(isCreditAccountType, transactionTypeId);
         let updatedAmount = isExpenseTransaction ? -transactionAmount : transactionAmount;
         updatedAmount = isCreditAccountType ? -updatedAmount : updatedAmount;
-        let updatePayload = {currentBalance: accounts[accountId].currentBalance - updatedAmount};
+        let updatePayload = { currentBalance: accounts[accountId].currentBalance - updatedAmount };
         updateAccountAPI(userId, accountId, updatePayload, token);
     }
 
@@ -68,7 +68,7 @@ const MonthDetails = () => {
         const year = transactionDate.substring(0, 4);
         const month = transactionDate.substring(5, 7);
 
-        const patchPayload = await fetchAccountMonthStatistics(userId, accountId, year, month, token) ?? {income: 0, expenses: 0};
+        const patchPayload = await fetchAccountMonthStatistics(userId, accountId, year, month, token) ?? { income: 0, expenses: 0 };
 
         const isCreditAccountType = memoizedIsCreditAccount(accountId);
         if (isExpense(isCreditAccountType, transactionTypeId)) {
@@ -90,7 +90,7 @@ const MonthDetails = () => {
                 </thead>
                 <tbody>
                     {sortedTransactions.length > 0 ? sortedTransactions.map((t) => (
-                        <tr key={t.id} onClick={() => {handleDeleteTransaction(t)}}>
+                        <tr key={t.id} onClick={() => { handleDeleteTransaction(t) }}>
                             <td>{accountDictionary[t.accountId]}</td>
                             <td>{getTypeLabel(t.typeId)}</td>
                             <td>{t.name}</td>
