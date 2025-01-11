@@ -23,9 +23,6 @@
 
 /* tablets */
 @media only screen and (min-width: 600px) {
-    .table {
-        width: 80%;
-    }
 
     .table th,
     .table tr,
@@ -41,9 +38,6 @@
 
 /* desktop */
 @media only screen and (min-width: 900px) {
-    .table {
-        width: 70%;
-    }
 
     .table th,
     .table tr,
@@ -74,19 +68,19 @@
     }
 
     .alpha-asc {
-        content:url("../../../assets/images/sorting/sortAscendingAlpha_light.png");
+        content: url("../../../assets/images/sorting/sortAscendingAlpha_light.png");
     }
-    
+
     .numeric-asc {
-        content:url("../../../assets/images/sorting/sortAscendingNumeric_light.png");
+        content: url("../../../assets/images/sorting/sortAscendingNumeric_light.png");
     }
-    
+
     .alpha-desc {
-        content:url("../../../assets/images/sorting/sortDescendingAlpha_light.png");
+        content: url("../../../assets/images/sorting/sortDescendingAlpha_light.png");
     }
-    
+
     .numeric-desc {
-        content:url("../../../assets/images/sorting/sortDescendingNumeric_light.png");
+        content: url("../../../assets/images/sorting/sortDescendingNumeric_light.png");
     }
 }
 
@@ -107,18 +101,18 @@
     }
 
     .alpha-asc {
-        content:url("../../../assets/images/sorting/sortAscendingAlpha_dark.png");
+        content: url("../../../assets/images/sorting/sortAscendingAlpha_dark.png");
     }
 
     .numeric-asc {
-        content:url("../../../assets/images/sorting/sortAscendingNumeric_dark.png");
+        content: url("../../../assets/images/sorting/sortAscendingNumeric_dark.png");
     }
 
     .alpha-desc {
-        content:url("../../../assets/images/sorting/sortDescendingAlpha_dark.png");
+        content: url("../../../assets/images/sorting/sortDescendingAlpha_dark.png");
     }
 
     .numeric-desc {
-        content:url("../../../assets/images/sorting/sortDescendingNumeric_dark.png");
+        content: url("../../../assets/images/sorting/sortDescendingNumeric_dark.png");
     }
 }
