@@ -21,7 +21,7 @@ const Accounts = () => {
     useEffect(() => {
         setMappedAccounts(
             Object.keys(accounts).map((id) => {
-                var account = {id, ...accounts[id]};
+                var account = { id, ...accounts[id] };
                 account.type = accountTypes.find(at => at.id === account.typeId)?.type ?? 'Missing Type';
                 return account;
             })
@@ -77,8 +77,8 @@ const Accounts = () => {
             return;
         }
 
-        addAccountAPI(userId, payload, token).then(res =>{
-            dispatch(addAccount({...payload, id: res.name}));
+        addAccountAPI(userId, payload, token).then(res => {
+            dispatch(addAccount({ ...payload, id: res.name }));
             setIsDisplayModal(false);
         });
     }
@@ -112,12 +112,12 @@ const Accounts = () => {
                     <div className='modal-container'>
                         <span className='close' onClick={handleCloseModal}>&times;</span>
                         <div className='modal-header'>
-                            <h2>{labels.addAccountButtonLabel}</h2>
+                            <h2>{labels.addAccountTitle}</h2>
                         </div>
                         <div className='modal-body'>
                             <form className='transaction-input-form' onSubmit={submitForm} onFocus={() => { setError() }}>
                                 <label>
-                                    <p>{labels.type}</p>
+                                    <p>{labels.accountType}</p>
                                     <select id='type' ref={transType} defaultValue={0}>
                                         {accountTypes.map((category, index) => {
                                             return <option key={category.id} value={index}>{category.type}</option>
@@ -126,19 +126,19 @@ const Accounts = () => {
                                     </select>
                                 </label>
                                 <label>
-                                    <p>{labels.transaction}</p>
+                                    <p>{labels.accountAccount}</p>
                                     <input
                                         id='name'
                                         ref={transName}
                                         type='text'
-                                        placeholder='Transaction Name'
+                                        placeholder='Account Name'
                                         list='transactions'
                                         name='transaction'
                                         autoComplete='on'
                                     ></input>
                                 </label>
                                 <label>
-                                    <p>{labels.amount}</p>
+                                    <p>{labels.accountAmount}</p>
                                     <input
                                         id='amount'
                                         ref={transAmount}
@@ -149,7 +149,7 @@ const Accounts = () => {
                                     ></input>
                                 </label>
                                 <label>
-                                    <p>{labels.date}</p>
+                                    <p>{labels.accountDate}</p>
                                     <input
                                         id='date'
                                         ref={transDate}
@@ -317,7 +317,7 @@ const ModalWrapper = styled.div`
     /* desktop */
     @media only screen and (min-width: 900px) {
         .transaction-input-form {
-            width: 40%;
+            width: 75%;
         }
 
         #name {

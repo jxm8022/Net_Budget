@@ -40,17 +40,17 @@ const AddTransaction = () => {
     useEffect(() => {
         var isCreditAccountType = memoizedIsCreditAccount(accountRef.current.value) ?? memoizedIsCreditAccount(Object.keys(accounts)[0]);
         setCategories(isCreditAccountType ? transactionCategories.filter(c => c.id !== 4) : transactionCategories);
-    },[accounts, memoizedIsCreditAccount]);
-    
+    }, [accounts, memoizedIsCreditAccount]);
+
     const handleCategories = () => {
         var isCreditAccountType = memoizedIsCreditAccount(accountRef.current.value);
         setCategories(isCreditAccountType ? transactionCategories.filter(c => c.id !== 4) : transactionCategories);
     }
 
     const defaultDate = moment().month(searchParams.get('month'))
-                                .startOf('month')
-                                .year(searchParams.get('year'))
-                                .format(DATEFORMAT).toString();
+        .startOf('month')
+        .year(searchParams.get('year'))
+        .format(DATEFORMAT).toString();
 
     const clearValues = () => {
         nameRef.current.value = '';
@@ -80,16 +80,16 @@ const AddTransaction = () => {
 
         return true;
     }
-    
+
     const submitForm = async (event) => {
         event.preventDefault();
         setIsError(false);
-        
+
         if (!validForm()) {
             setIsError(true);
             return;
         }
-        
+
         const payload = {
             accountId: accountRef.current.value,
             typeId: parseInt(categoryRef.current.value),
@@ -97,7 +97,7 @@ const AddTransaction = () => {
             name: FormatString(nameRef.current.value),
             amount: parseFloat(amountRef.current.value),
         };
-        
+
         const response = window.confirm(`Does the following information look correct?\nTransaction Type: ${transactionCategories[payload.typeId].type}\nTransaction Date: ${payload.date}\nTransaction Name: ${payload.name}\nTransaction Amount: $${payload.amount}`);
         if (response) {
             await addTransaction(payload);
@@ -122,16 +122,16 @@ const AddTransaction = () => {
         const isExpenseTransaction = isExpense(isCreditAccountType, transactionTypeId);
         let updatedAmount = isExpenseTransaction ? -transactionAmount : transactionAmount;
         updatedAmount = isCreditAccountType ? -updatedAmount : updatedAmount;
-        let updatePayload = {currentBalance: accounts[accountId].currentBalance + updatedAmount};
+        let updatePayload = { currentBalance: accounts[accountId].currentBalance + updatedAmount };
         updateAccountAPI(userId, accountId, updatePayload, token);
-        dispatch(updateAccount({accountId: accountId, currentBalance: updatePayload.currentBalance}));
+        dispatch(updateAccount({ accountId: accountId, currentBalance: updatePayload.currentBalance }));
     }
 
     const updateStatistics = async (accountId, transactionDate, transactionTypeId, transactionAmount) => {
         const year = transactionDate.substring(0, 4);
         const month = transactionDate.substring(5, 7);
 
-        const patchPayload = await fetchAccountMonthStatistics(userId, accountId, year, month, token) ?? {income: 0, expenses: 0};
+        const patchPayload = await fetchAccountMonthStatistics(userId, accountId, year, month, token) ?? { income: 0, expenses: 0 };
 
         const isCreditAccountType = memoizedIsCreditAccount(accountId);
         if (isExpense(isCreditAccountType, transactionTypeId)) {
@@ -146,7 +146,7 @@ const AddTransaction = () => {
     const addDictionary = (transactionName) => {
         const dictionaryIndex = Object.keys(dictionary).findIndex(d => d.toLowerCase() === transactionName.toLowerCase());
         if (dictionaryIndex === -1) {
-            let dictionaryPayload = {[transactionName]: transactionName};
+            let dictionaryPayload = { [transactionName]: transactionName };
             patchTransactionDictionary(userId, dictionaryPayload, token);
             dispatch(addDictionaryItem(dictionaryPayload));
         }
@@ -158,7 +158,7 @@ const AddTransaction = () => {
                 <h1>{labels.addTransactionTitle}</h1>
                 <form className='transaction-input-form' onSubmit={submitForm} onFocus={() => { setIsError(false) }}>
                     <label>
-                        <p>{labels.account}</p>
+                        <p>{labels.transactionAccount}</p>
                         <select id='account' ref={accountRef} onChange={handleCategories}>
                             {Object.keys(accountDictionary).map((id) => {
                                 return <option key={id} value={id}>{accountDictionary[id]}</option>
@@ -167,7 +167,7 @@ const AddTransaction = () => {
                         </select>
                     </label>
                     <label>
-                        <p>{labels.type}</p>
+                        <p>{labels.transactionType}</p>
                         <select id='type' ref={categoryRef}>
                             {categories?.length > 0 && categories.map((category) => {
                                 return <option key={category.id} value={category.id}>{category.type}</option>
@@ -175,7 +175,7 @@ const AddTransaction = () => {
                         </select>
                     </label>
                     <label>
-                        <p>{labels.date}</p>
+                        <p>{labels.transactionDate}</p>
                         <input
                             id='date'
                             ref={dateRef}
@@ -184,7 +184,7 @@ const AddTransaction = () => {
                         ></input>
                     </label>
                     <label>
-                        <p>{labels.name}</p>
+                        <p>{labels.transactionTransaction}</p>
                         <input
                             id='name'
                             ref={nameRef}
@@ -199,7 +199,7 @@ const AddTransaction = () => {
                         </datalist>
                     </label>
                     <label>
-                        <p>{labels.amount}</p>
+                        <p>{labels.transactionAmount}</p>
                         <input
                             id='amount'
                             ref={amountRef}
@@ -268,25 +268,17 @@ const TransactionWrapper = styled.div`
         font: inherit;
     }
 
-    #name {
-        width: 42%;
-    }
-
     /* tablets */
     @media only screen and (min-width: 600px) {
         .transaction-input-form {
-            width: 60%;
+            width: 85%;
         }
     }
 
     /* desktop */
     @media only screen and (min-width: 900px) {
         .transaction-input-form {
-            width: 40%;
-        }
-
-        #name {
-            width: 50%;
+            width: 100%;
         }
     }
 

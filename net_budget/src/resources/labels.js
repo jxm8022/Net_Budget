@@ -6,8 +6,8 @@ export const categories = [
     { id: 4, type: 'Income' },
     { id: 5, type: 'pTransaction' },
     { id: 6, type: 'pIncome' },
-    { id: 7, type: 'Recurring'},
-    { id: 8, type: 'Debt'},
+    { id: 7, type: 'Recurring' },
+    { id: 8, type: 'Debt' },
 ];
 
 export const transactionCategories = [
@@ -40,9 +40,9 @@ export const occurrenceTypes = [
 ];
 
 export const accountTypes = [
-    { id: 0, type: 'Checking'},
-    { id: 1, type: 'Savings'},
-    { id: 2, type: 'Credit'},
+    { id: 0, type: 'Checking' },
+    { id: 1, type: 'Savings' },
+    { id: 2, type: 'Credit' },
 ]
 
 export const labels = {
@@ -78,12 +78,13 @@ export const labels = {
     noDataText: 'No data to display.',
 
     // Add Transaction page
-    type: 'TYPE :',
-    subtype: 'SUBTYPE :',
-    occurrence: 'OCCURRENCE :',
-    date: 'DATE :',
-    transaction: 'TRANSACTION :',
-    amount: 'AMOUNT :',
+    transactionAccount: 'Account : ',
+    transactionType: 'Type :',
+    transactionSubtype: 'Subtype :',
+    transactionOccurrence: 'Occurence :',
+    transactionDate: 'Date :',
+    transactionTransaction: 'Transaction :',
+    transactionAmount: 'Amount :',
 
     // Add Debt page
     debt: 'Debt',
@@ -177,6 +178,10 @@ export const labels = {
     bio: 'I graduated from the University of Texas at Arlington in 2021 with a bachelor\'s degree in software engineering. Since then, I\'ve been trying to get experience by creating my own little projects, like this one. I\'m interested in creating things, whether that\'s by coding, 3D printing, or tinkering with tools. Besides coding, my hobbies include gaming, stargazing, and fishing.',
 
     // Account
+    accountAccount: 'Account : ',
+    accountType: 'Type :',
+    accountDate: 'Date :',
+    accountAmount: 'Amount :',
     changePassword: 'Change Password',
     recurringTransactionsTitle: 'Recurring transactions',
     addRecurringTransactionBtnLabel: 'Add recurring transaction',
@@ -188,7 +193,8 @@ export const labels = {
         'Amount'
     ],
     deleteData: 'Delete data',
-    addAccountButtonLabel: 'Add Account',
+    addAccountTitle: 'Add Account',
+    addAccountButtonLabel: 'Add account',
     accountTableHeader: 'Accounts',
     accountsHeaders: [
         'Account',
